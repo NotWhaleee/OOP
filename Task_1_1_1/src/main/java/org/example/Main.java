@@ -1,14 +1,37 @@
 package org.example;
 
-import static org.example.Heapsort.print_arr;
+
+import java.io.Console;
+import java.util.Arrays;
 
 
 public class Main {
     public static void main(String[] args) {
-        int[] arr = {12, 11, 13, 5, 6, 7};
-        Heapsort sort = new Heapsort();
-        sort.sort(arr);
-        System.out.println();
-        print_arr(arr);
+        System.out.print("Input: ");
+        Console consul = System.console();
+
+        String[] consoleInput;
+
+        if (consul == null) {
+            consoleInput = new String[]{"0"};
+        } else {
+            consoleInput = System.console().readLine().split(" ");
+        }
+
+        int[] arr = new int[consoleInput.length];
+
+        for (int i = 0; i < consoleInput.length; i++) {
+            arr[i] = Integer.parseInt(consoleInput[i]);
+        }
+
+        int[] res = Heapsort.sort(arr);
+
+        System.out.print("Output: ");
+        System.out.println(Arrays.toString(res));
+
+//        Heapsort Heapsort = new Heapsort();
+//        Heapsort.sort(arr);
+//        System.out.println();
+//        Heapsort.print_arr(arr);
     }
 }
