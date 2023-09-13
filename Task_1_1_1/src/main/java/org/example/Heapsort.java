@@ -1,6 +1,13 @@
 package org.example;
 
+
 public class Heapsort {
+    /**
+     *
+     * @param arr input array
+     *
+     * @return sorted array
+     */
     public static int[] sort(int[] arr) {
         int n = arr.length;
 
@@ -20,6 +27,13 @@ public class Heapsort {
         return arr;
     }
 
+    /**
+     * To heapify a subtree rooted with node i which is
+     * an index in arr[]. n is size of heap
+     * @param arr input array
+     * @param n array size
+     * @param i node
+     */
     // To heapify a subtree rooted with node i which is
     // an index in arr[]. n is size of heap
     static void heapify(int[] arr, int n, int i) {

@@ -6,6 +6,10 @@ import java.util.Arrays;
 
 
 public class Main {
+    /**
+     *
+     * @param args default arguments
+     */
     public static void main(String[] args) {
         System.out.print("Input: ");
         Console consul = System.console();
