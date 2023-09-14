@@ -49,4 +49,13 @@ public class HeapsortTest {
         Heapsort.sort(arr);
         assertArrayEquals(arr, correct);
     }
+
+    @Test
+    void checkNegativeArr() {
+        int[] arr = {-2, 11, 0, 4, 4, -8};
+        int[] correct = {-8, -2, 0, 4, 4, 11};
+
+        Heapsort.sort(arr);
+        assertArrayEquals(arr, correct);
+    }
 }
