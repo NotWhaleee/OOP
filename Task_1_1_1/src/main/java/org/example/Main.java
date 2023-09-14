@@ -7,7 +7,6 @@ import java.util.Arrays;
 
 public class Main {
     /**
-     *
      * @param args default arguments
      */
     public static void main(String[] args) {
