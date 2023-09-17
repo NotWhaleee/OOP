@@ -1,6 +1,8 @@
 package org.example;
 
-
+/**
+ * Sorts array using heapsort algorithm
+ */
 public class Heapsort {
     /**
      * @param arr input array
@@ -28,14 +30,10 @@ public class Heapsort {
     }
 
     /**
-     *
-     *
      * @param arr input array
      * @param n   array size
      * @param i   To heapify a subtree rooted with node i which is an index in arr[]. n is size of heap
      */
-    // To heapify a subtree rooted with node i which is
-    // an index in arr[]. n is size of heap
     static void heapify(int[] arr, int n, int i) {
         int largest = i; // Initialize largest as root
         int l = 2 * i + 1; // left = 2*i + 1
@@ -61,11 +59,4 @@ public class Heapsort {
             heapify(arr, n, largest);
         }
     }
-
-    // print array
-//    public static void print_arr(int[] arr){
-//        for (int j : arr) {
-//            System.out.print(j + " ");
-//        }
-//    }
 }

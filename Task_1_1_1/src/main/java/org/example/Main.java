@@ -4,7 +4,9 @@ package org.example;
 import java.io.Console;
 import java.util.Arrays;
 
-
+/**
+ * Starts the program
+ */
 public class Main {
     /**
      * @param args default arguments
@@ -31,10 +33,5 @@ public class Main {
 
         System.out.print("Output: ");
         System.out.println(Arrays.toString(res));
-
-//        Heapsort Heapsort = new Heapsort();
-//        Heapsort.sort(arr);
-//        System.out.println();
-//        Heapsort.print_arr(arr);
     }
 }

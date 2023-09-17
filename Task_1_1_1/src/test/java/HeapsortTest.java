@@ -1,10 +1,14 @@
 //package org.example;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.example.Heapsort;
 import org.example.Main;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+
+
+
 
 public class HeapsortTest {
     @Test
@@ -39,12 +43,12 @@ public class HeapsortTest {
 
     @Test
     void checkLargeArr() {
-        int N = 99999;
-        int[] arr = new int[N];
-        int[] correct = new int[N];
+        int n = 99999;
+        int[] arr = new int[n];
+        int[] correct = new int[n];
 
-        for (int i = 0; i < N; ++i) {
-            arr[i] = N - i - 1;
+        for (int i = 0; i < n; ++i) {
+            arr[i] = n - i - 1;
             correct[i] = i;
         }
         Heapsort.sort(arr);
