@@ -4,6 +4,7 @@ package org.example;
 import java.io.Console;
 import java.util.Arrays;
 
+
 /**
  * Starts the program
  */
@@ -15,18 +16,22 @@ public class Main {
         System.out.print("Input: ");
         Console consul = System.console();
 
-        String[] consoleInput;
+        String[] input;
 
         if (consul == null) {
-            consoleInput = new String[]{"0"};
+            input = new String[]{"0"};
         } else {
-            consoleInput = System.console().readLine().split(" ");
+            input = System.console().readLine().split(" ");
+            if (input[0].isEmpty()) {
+                System.out.println("Output: ");
+                System.exit(0);
+            }
         }
 
-        int[] arr = new int[consoleInput.length];
+        int[] arr = new int[input.length];
 
-        for (int i = 0; i < consoleInput.length; i++) {
-            arr[i] = Integer.parseInt(consoleInput[i]);
+        for (int i = 0; i < input.length; i++) {
+            arr[i] = Integer.parseInt(input[i]);
         }
 
         int[] res = Heapsort.sort(arr);

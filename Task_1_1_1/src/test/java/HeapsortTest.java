@@ -1,13 +1,11 @@
 //package org.example;
+
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.example.Heapsort;
 import org.example.Main;
 import org.junit.jupiter.api.Test;
-
-
-
 
 
 public class HeapsortTest {
@@ -63,6 +61,7 @@ public class HeapsortTest {
         Heapsort.sort(arr);
         assertArrayEquals(arr, correct);
     }
+
     @Test
     void checkSortedArr() {
         int n = 10;
