@@ -43,7 +43,7 @@ public class HeapsortTest {
 
     @Test
     void checkLargeArr() {
-        int n = 99999;
+        int n = 999999;
         int[] arr = new int[n];
         int[] correct = new int[n];
 
@@ -60,6 +60,19 @@ public class HeapsortTest {
         int[] arr = {-2, 11, 0, 4, 4, -8};
         int[] correct = {-8, -2, 0, 4, 4, 11};
 
+        Heapsort.sort(arr);
+        assertArrayEquals(arr, correct);
+    }
+    @Test
+    void checkSortedArr() {
+        int n = 10;
+        int[] arr = new int[n];
+        int[] correct = new int[n];
+
+        for (int i = 0; i < n; ++i) {
+            arr[i] = i;
+            correct[i] = i;
+        }
         Heapsort.sort(arr);
         assertArrayEquals(arr, correct);
     }
