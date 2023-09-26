@@ -51,10 +51,11 @@ public class Polynomial {
         return result;
     }
 
-    public int evaluate(int x) {
+
+    public int evaluate(int x){
         int result = 0;
-        for (int i = 0; i < this.coeffs.length; i++) {
-            result += (int) (this.coeffs[i] * Math.pow(x, i));
+        for(int i = 0; i < this.coeffs.length; i++){
+            result += (int) (this.coeffs[i]*Math.pow(x,i));
         }
         return result;
     }
