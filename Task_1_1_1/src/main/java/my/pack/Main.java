@@ -6,10 +6,11 @@ import java.util.Arrays;
 
 
 /**
- * Starts the program
+ * Starts the program.
  */
 public class Main {
     /**
+     * {@summary  starts the program}
      * @param args default arguments
      */
     public static void main(String[] args) {
