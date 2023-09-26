@@ -1,0 +1,1 @@
+memberSearchIndex = [{"p":"org.example","c":"Polynomial","l":"Polynomial(int[])","url":"%3Cinit%3E(int[])"},{"p":"org.example","c":"Polynomial","l":"toString(int[])"}]
