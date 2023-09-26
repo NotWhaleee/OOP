@@ -4,13 +4,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import my.pack.Heapsort;
 import my.pack.Main;
-import org.junit.jupiter.api.Test;
-
 import java.util.Arrays;
 import java.util.Random;
+import org.junit.jupiter.api.Test;
+
 
 /**
- * Tests for Heapsort and Main
+ * Tests for Heapsort and Main.
  */
 public class HeapsortTest {
     @Test
