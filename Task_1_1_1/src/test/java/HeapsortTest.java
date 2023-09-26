@@ -1,13 +1,17 @@
-//package org.example;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.example.Heapsort;
-import org.example.Main;
+import my.pack.Heapsort;
+import my.pack.Main;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+import java.util.Random;
 
+/**
+ * Tests for Heapsort and Main
+ */
 public class HeapsortTest {
     @Test
     void checkMain() {
@@ -44,12 +48,14 @@ public class HeapsortTest {
         int n = 999999;
         int[] arr = new int[n];
         int[] correct = new int[n];
+        Random rand = new Random();
 
         for (int i = 0; i < n; ++i) {
-            arr[i] = n - i - 1;
-            correct[i] = i;
+            arr[i] = rand.nextInt(10000);
+            correct[i] = arr[i];
         }
         Heapsort.sort(arr);
+        Arrays.sort(correct);
         assertArrayEquals(arr, correct);
     }
 

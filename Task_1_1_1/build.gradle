@@ -3,7 +3,7 @@ plugins {
     id 'jacoco'
 }
 
-group = 'org.example'
+group = 'my.pack'
 version = '1.0-SNAPSHOT'
 
 repositories {
