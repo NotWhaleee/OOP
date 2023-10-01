@@ -7,8 +7,8 @@ public class Polynomial {
     int[] coeffs;
 
     /**
-     * initialises a polynomial
-     * the leading coefficients are not equal to 0 by the rules
+     * initialises a polynomial.
+     * the leading coefficients are not equal to 0 by the rules.
      *
      * @param ints an array of ints as coefficients of the polynomial. from the smallest power of to the largest.
      */
@@ -39,7 +39,7 @@ public class Polynomial {
     }
 
     /**
-     * subtracts one polynomial from another
+     * subtracts one polynomial from another.
      *
      * @param that subtrahend
      * @return subtraction of 2 polynomials
@@ -61,7 +61,7 @@ public class Polynomial {
     }
 
     /**
-     * multiplies polynomials
+     * multiplies polynomials.
      *
      * @param that second polynomial
      * @return the product
@@ -80,7 +80,7 @@ public class Polynomial {
 
 
     /**
-     * calculates the value of a polynomial at a point
+     * calculates the value of a polynomial at a point.
      *
      * @param x the point
      * @return result (int)
@@ -94,11 +94,11 @@ public class Polynomial {
     }
 
     /**
-     * takes a derivative
+     * takes a derivative.
      *
      * @param order order of the derivative
      * @return result (polynomial)
-     * @throws Exception order must be > 0
+     * @throws Exception order must be greater then 0
      */
 
     public Polynomial differentiate(int order) throws Exception { //order > 0
@@ -122,7 +122,7 @@ public class Polynomial {
     }
 
     /**
-     * checks if the polynomials are equal. the leading coefficients are not equal to 0 by the rules
+     * checks if the polynomials are equal. the leading coefficients are not equal to 0 by the rules.
      *
      * @param that second polynomial
      * @return result(true or false)

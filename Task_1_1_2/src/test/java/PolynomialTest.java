@@ -17,11 +17,6 @@ public class PolynomialTest {
         assertTrue(true);
     }
 
-//    @Test
-//    void checkPolynomialCreation(){
-//        Polynomial p1 = new Polynomial(new int[]{4, 3, 6, 7});
-//    }
-
     @Test
     void checksSum() {
         Polynomial p1 = new Polynomial(new int[]{4, 3, 6, 7});
