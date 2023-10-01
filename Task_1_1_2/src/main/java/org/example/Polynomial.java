@@ -1,12 +1,27 @@
 package org.example;
 
+/**
+ * Class for simple operations with polynomials.
+ */
 public class Polynomial {
     int[] coeffs;
 
+    /**
+     * initialises a polynomial
+     * the leading coefficients are not equal to 0 by the rules
+     *
+     * @param ints an array of ints as coefficients of the polynomial. from the smallest power of to the largest.
+     */
     public Polynomial(int[] ints) {
         this.coeffs = ints.clone();
     }
 
+    /**
+     * summarises 2 polynomials.
+     *
+     * @param that second polynomial
+     * @return sum of 2 polynomials
+     */
     public Polynomial plus(Polynomial that) {
         int[] newCoeffs = new int[Math.max(this.coeffs.length, that.coeffs.length)];
         Polynomial result = new Polynomial(newCoeffs);
@@ -23,6 +38,12 @@ public class Polynomial {
         return result;
     }
 
+    /**
+     * subtracts one polynomial from another
+     *
+     * @param that subtrahend
+     * @return subtraction of 2 polynomials
+     */
     public Polynomial minus(Polynomial that) {
         int[] newCoeffs = new int[Math.max(this.coeffs.length, that.coeffs.length)];
         Polynomial result = new Polynomial(newCoeffs);
@@ -39,6 +60,12 @@ public class Polynomial {
         return result;
     }
 
+    /**
+     * multiplies polynomials
+     *
+     * @param that second polynomial
+     * @return the product
+     */
     public Polynomial times(Polynomial that) {
         int[] newCoeffs = new int[this.coeffs.length + that.coeffs.length - 1];
         Polynomial result = new Polynomial(newCoeffs);
@@ -52,15 +79,32 @@ public class Polynomial {
     }
 
 
-    public int evaluate(int x){
+    /**
+     * calculates the value of a polynomial at a point
+     *
+     * @param x the point
+     * @return result (int)
+     */
+    public int evaluate(int x) {
         int result = 0;
-        for(int i = 0; i < this.coeffs.length; i++){
-            result += (int) (this.coeffs[i]*Math.pow(x,i));
+        for (int i = 0; i < this.coeffs.length; i++) {
+            result += (int) (this.coeffs[i] * Math.pow(x, i));
         }
         return result;
     }
 
-    public Polynomial differentiate(int order) { //order > 0
+    /**
+     * takes a derivative
+     *
+     * @param order order of the derivative
+     * @return result (polynomial)
+     * @throws Exception order must be > 0
+     */
+
+    public Polynomial differentiate(int order) throws Exception { //order > 0
+        if (order < 1) {
+            throw new Exception("Order must be > 0");
+        }
 
         Polynomial result;
         if (this.coeffs.length > 1) {
@@ -77,6 +121,12 @@ public class Polynomial {
         return result;
     }
 
+    /**
+     * checks if the polynomials are equal. the leading coefficients are not equal to 0 by the rules
+     *
+     * @param that second polynomial
+     * @return result(true or false)
+     */
     public boolean equals(Polynomial that) {
         if (this.coeffs.length != that.coeffs.length) {
             return false;
@@ -89,7 +139,12 @@ public class Polynomial {
         return true;
     }
 
-
+    /**
+     * represents polynomials as a string value.
+     *
+     * @return polynomial
+     */
+    @Override
     public String toString() {
         String res = "";
 
