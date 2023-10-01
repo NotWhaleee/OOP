@@ -1,16 +1,16 @@
-import org.example.Polynomial;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import org.example.Main;
+import org.example.Polynomial;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-//import java.util.Random;
 
+/**
+ * Tests for operations with polynomials and Main.
+ */
 public class PolynomialTest {
 
-
-    /**
-     * Tests for operations with polynomials and Main.
-     */
     @Test
     void checkMain() throws Exception {
         Main.main(new String[]{});
@@ -81,7 +81,7 @@ public class PolynomialTest {
     }
 
     @Test
-    void checkToString(){
+    void checkToString() {
         Polynomial p1 = new Polynomial(new int[]{4, 3, 6, 7});
         String answer = "7x^3 + 6x^2 + 3x + 4";
         assert (answer.equals(p1.toString()));
