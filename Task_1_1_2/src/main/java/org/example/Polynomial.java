@@ -103,7 +103,7 @@ public class Polynomial {
 
     public Polynomial differentiate(int order) throws Exception { //order > 0
         if (order < 1) {
-            throw new Exception("Order must be > 0");
+            throw new Exception("Order must be greater then 0");
         }
 
         Polynomial result;

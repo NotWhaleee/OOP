@@ -36,7 +36,7 @@ public class Main {
         try {
             System.out.println(p1.differentiate(0));
         } catch (Exception e) {
-            System.err.println("Order must be > 0!!");
+            System.err.println("Order must be greater then 0!!");
         }
 
 
