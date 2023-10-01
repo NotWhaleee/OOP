@@ -32,12 +32,11 @@ public class Main {
 
         System.out.println(p1.differentiate(2));
 
-
-        try {
-            System.out.println(p1.differentiate(0));
-        } catch (Exception e) {
-            System.err.println("Order must be greater then 0!!");
-        }
+//        try {
+//            System.out.println(p1.differentiate(0));
+//        } catch (Exception e) {
+//            System.err.println("Order must be greater then 0!!");
+//        }
 
 
     }
