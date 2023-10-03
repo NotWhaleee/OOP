@@ -3,7 +3,7 @@ plugins {
     id 'jacoco'
 }
 
-group = 'my.pack'
+group = 'ru.nsu.kozorez'
 version = '1.0-SNAPSHOT'
 
 repositories {

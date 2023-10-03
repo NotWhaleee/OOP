@@ -1,4 +1,4 @@
-package my.pack;
+package ru.nsu.kozorez;
 
 
 import java.io.Console;
@@ -10,8 +10,9 @@ import java.util.Arrays;
  */
 public class Main {
     /**
-     * {@summary  starts the program}
-     * @param args default arguments
+     * {@summary starts the program.}
+     *
+     * @param args default arguments.
      */
     public static void main(String[] args) {
         System.out.print("Input: ");

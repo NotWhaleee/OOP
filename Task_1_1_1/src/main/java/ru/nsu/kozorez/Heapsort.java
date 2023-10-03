@@ -1,11 +1,12 @@
-package my.pack;
+package ru.nsu.kozorez;
 
 /**
  * Sorts array using heapsort algorithm.
  */
 public class Heapsort {
     /**
-     * {@summary  sorts an array}
+     * {@summary sorts an array.}
+     *
      * @param arr input array
      * @return sorted array
      */
@@ -31,10 +32,10 @@ public class Heapsort {
     }
 
     /**
-     * @summary {heapify a subtree rooted with node i which is an index in arr[]. n is size of heap}
      * @param arr input array
      * @param n   array size
      * @param i   node
+     * @summary {heapify a subtree rooted with node i which is an index in arr[]. n is size of heap}
      */
     static void heapify(int[] arr, int n, int i) {
         int largest = i; // Initialize largest as root

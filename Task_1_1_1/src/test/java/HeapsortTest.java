@@ -4,8 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import java.util.Random;
-import my.pack.Heapsort;
-import my.pack.Main;
+import ru.nsu.kozorez.Heapsort;
+import ru.nsu.kozorez.Main;
 import org.junit.jupiter.api.Test;
 
 
