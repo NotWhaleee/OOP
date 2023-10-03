@@ -164,8 +164,12 @@ public class Polynomial {
      */
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Polynomial that = (Polynomial) o;
         if (this.coeffs.length != that.coeffs.length) {
             return false;
