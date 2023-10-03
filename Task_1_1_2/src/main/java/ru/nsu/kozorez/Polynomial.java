@@ -1,4 +1,4 @@
-package org.example;
+package ru.nsu.kozorez;
 
 import java.util.Arrays;
 
