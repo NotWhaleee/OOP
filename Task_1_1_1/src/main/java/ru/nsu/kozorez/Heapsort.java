@@ -32,10 +32,11 @@ public class Heapsort {
     }
 
     /**
+     * @summary  {heapify a subtree rooted with node i which is an index in arr[]. n is size of heap.}
+     *
      * @param arr input array
      * @param n   array size
      * @param i   node
-     * @summary {heapify a subtree rooted with node i which is an index in arr[]. n is size of heap}
      */
     static void heapify(int[] arr, int n, int i) {
         int largest = i; // Initialize largest as root
