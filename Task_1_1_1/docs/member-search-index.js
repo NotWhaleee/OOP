@@ -1,1 +1,0 @@
-memberSearchIndex = [{"p":"my.pack","c":"Heapsort","l":"Heapsort()","url":"%3Cinit%3E()"},{"p":"my.pack","c":"Heapsort","l":"sort(int[])"}]
