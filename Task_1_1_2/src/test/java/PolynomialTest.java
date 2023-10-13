@@ -3,9 +3,9 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.junit.jupiter.api.Test;
 import ru.nsu.kozorez.Main;
 import ru.nsu.kozorez.Polynomial;
-import org.junit.jupiter.api.Test;
 
 
 /**
