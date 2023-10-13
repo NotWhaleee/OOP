@@ -30,7 +30,7 @@ public class Polynomial {
      * initialises a polynomial.
      * the leading coefficients are not equal to 0 by the rules.
      *
-     * @param ints an array of ints as coefficients of the polynomial. from the smallest power of to the largest.
+     * @param ints an array of ints as coeffs of the polynomial. from the smallest power to the largest.
      */
     public Polynomial(int[] ints) {
         this.coeffs = ints.clone();
@@ -157,7 +157,7 @@ public class Polynomial {
     }
 
     /**
-     * checks if the polynomials are equal. the leading coefficients are not equal to 0 by the rules.
+     * checks if the polynomials are equal. the leading coeffs are not equal to 0 by the rules.
      *
      * @param o second polynomial
      * @return result(true or false)
