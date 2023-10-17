@@ -1,16 +1,18 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
-
 import org.junit.jupiter.api.Test;
+
 import ru.nsu.kozorez.Tree;
 
-
+/**
+ * Tests tree class.
+ */
 public class TreeTest {
     @Test
     public void testAddNodeString() {
@@ -113,8 +115,39 @@ public class TreeTest {
 
         assertEquals(expectedTree, tree);
         assertEquals(tree, expectedTree);
-
     }
+    @Test
+    void checkNotEquals() {
+        var tree1 = new Tree<>("R");
+        tree1.addChild("A");
+        var tree2 = new Tree<>("R");
+        tree2.addChild("B");
+
+        assertNotEquals(tree1, tree2);
+    }
+    @Test
+    void checkNotEqualsComplex() {
+        var tree1 = new Tree<>("R");
+        tree1.addChild("A");
+        var subtree1 = new Tree<>("R1");
+        subtree1.addChild("B");
+        subtree1.addChild("C");
+        tree1.addChild("D");
+        tree1.addChild(subtree1);
+        //System.out.println(tree1);
+
+        var tree2 = new Tree<>("R");
+        tree2.addChild("A");
+        tree2.addChild("D");
+        var subtree2 = new Tree<>("R1");
+        subtree2.addChild("C");
+        subtree2.addChild("B");
+        tree2.addChild(subtree2);
+
+        assertEquals(tree1, tree2);
+    }
+
+
 
     @Test
     public void testToString() {

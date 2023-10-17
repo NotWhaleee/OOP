@@ -1,6 +1,13 @@
 package ru.nsu.kozorez;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Objects;
+import java.util.Queue;
+
 
 
 /**
@@ -103,7 +110,7 @@ public class Tree<T> {
     }
 
     /**
-     * iterator for trees
+     * iterator for trees.
      *
      * @param <E> nodes
      */
@@ -159,20 +166,46 @@ public class Tree<T> {
     /**
      * checks if the trees are equal.
      *
-     * @param o tree
+     * @param obj tree
      * @return true or false
      */
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Tree<T> other = (Tree<T>) obj;
+        if (!data.equals(other.data)) return false;
+        if (children.size() != other.children.size()) return false;
+        List<Tree<T>> otherChildren = new ArrayList<>(other.children);
+        for (Tree<T> child : children) {
+            boolean found = false;
+            for (Iterator<Tree<T>> it = otherChildren.iterator(); it.hasNext(); ) {
+                Tree<T> otherChild = it.next();
+                if (child.equals(otherChild)) {
+                    it.remove();
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) return false;
         }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Tree<?> tree = (Tree<?>) o;
-        return Objects.equals(data, tree.data) && Objects.equals(children, tree.children);
+        return true;
     }
+
+
+//    @Override
+//    public boolean equals(Object obj) {
+//        if (this == obj) return true;
+//        if (obj == null || getClass() != obj.getClass()) return false;
+//        Tree<?> other = (Tree<?>) obj;
+//        if (!data.equals(other.data)) return false;
+//        if (children.size() != other.children.size()) return false;
+//        for (int i = 0; i < children.size(); i++) {
+//            if (!children.get(i).equals(other.children.get(i))) return false;
+//        }
+//        return true;
+//    }
+//
 
     /**
      * hashcode.

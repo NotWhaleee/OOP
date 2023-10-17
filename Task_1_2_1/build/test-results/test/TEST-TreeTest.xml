@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="TreeTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2023-10-17T09:42:23" hostname="hrundel-HYM-WXX" time="0.04">
+<testsuite name="TreeTest" tests="12" skipped="0" failures="0" errors="0" timestamp="2023-10-17T10:12:48" hostname="hrundel-HYM-WXX" time="0.046">
   <properties/>
-  <testcase name="testAddTree()" classname="TreeTest" time="0.021"/>
+  <testcase name="checkNotEquals()" classname="TreeTest" time="0.02"/>
+  <testcase name="testAddTree()" classname="TreeTest" time="0.002"/>
   <testcase name="testAddNodeString()" classname="TreeTest" time="0.001"/>
   <testcase name="testForEach()" classname="TreeTest" time="0.001"/>
-  <testcase name="testToString()" classname="TreeTest" time="0.0"/>
+  <testcase name="testToString()" classname="TreeTest" time="0.001"/>
   <testcase name="testAddNodeInt()" classname="TreeTest" time="0.001"/>
+  <testcase name="checkNotEqualsComplex()" classname="TreeTest" time="0.001"/>
   <testcase name="testRemoveNode()" classname="TreeTest" time="0.001"/>
   <testcase name="testConcurrentModification()" classname="TreeTest" time="0.003"/>
-  <testcase name="testEquals()" classname="TreeTest" time="0.0"/>
-  <testcase name="testIterator()" classname="TreeTest" time="0.001"/>
+  <testcase name="testEquals()" classname="TreeTest" time="0.001"/>
+  <testcase name="testIterator()" classname="TreeTest" time="0.003"/>
   <testcase name="testRemoveConnectedNode()" classname="TreeTest" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
