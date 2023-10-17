@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="TreeTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2023-10-17T04:12:13" hostname="hrundel-HYM-WXX" time="0.044">
+<testsuite name="TreeTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-10-17T05:13:46" hostname="hrundel-HYM-WXX" time="0.023">
   <properties/>
-  <testcase name="testAddNode()" classname="TreeTest" time="0.023"/>
-  <testcase name="testAddTree()" classname="TreeTest" time="0.001"/>
-  <testcase name="testToString()" classname="TreeTest" time="0.001"/>
-  <testcase name="checkMain()" classname="TreeTest" time="0.006"/>
-  <testcase name="testEquals()" classname="TreeTest" time="0.001"/>
-  <testcase name="testRemove()" classname="TreeTest" time="0.001"/>
-  <testcase name="testIterator()" classname="TreeTest" time="0.003"/>
-  <system-out><![CDATA[R1 [A, R2 [C, D]]
-]]></system-out>
+  <testcase name="testRemoveConnectedNode()" classname="TreeTest" time="0.023"/>
+  <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

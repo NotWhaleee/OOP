@@ -16,25 +16,29 @@ public class TreeTest {
     }
 
     @Test
-    public void testAddNode() {
-        Tree<String> tree = new Tree<>("R");
-        Tree<String> child = tree.addChild("A");
+    public void testAddNodeString() {
+        var tree = new Tree<>("R");
+        var child = tree.addChild("A");
         assertEquals("A", child.getData());
+        assertEquals(1, tree.getChildren().size());
+    }
+    @Test
+    public void testAddNodeInt() {
+        Tree<Integer> tree = new Tree<>(0);
+        Tree<Integer> child = tree.addChild(10);
+        assertEquals(10, child.getData());
         assertEquals(1, tree.getChildren().size());
     }
 
     @Test
     public void testAddTree() {
-        Tree<String> tree = new Tree<>("R1");
-        var a = tree.addChild("A");
-        var b = a.addChild("B");
-        Tree<String> subtree = new Tree<>("R2");
+        var tree = new Tree<>("R1");
+        var subtree = new Tree<>("R2");
         subtree.addChild("C");
         subtree.addChild("D");
         tree.addChild(subtree);
-        b.remove();
 
-        Tree<String> expectedTree = new Tree<>("R1");
+        var expectedTree = new Tree<>("R1");
         expectedTree.addChild("A");
         expectedTree.addChild("R2");
 
@@ -43,17 +47,27 @@ public class TreeTest {
         assertEquals(expectedTree.toString(), tree.toString());
     }
 
+
     @Test
-    public void testRemove() {
-        Tree<String> tree = new Tree<>("R");
-        Tree<String> child = tree.addChild("A");
+    public void testRemoveNode() {
+        var tree = new Tree<>("R");
+        var child = tree.addChild("A");
         child.remove();
         assertEquals(0, tree.getChildren().size());
+    }
+    @Test
+    public void testRemoveConnectedNode() {
+        var tree = new Tree<>("R");
+        var child = tree.addChild("A");
+        child.addChild("B");
+        child.remove();
+        assertEquals("B", tree.getChildren().get(0).getData());
+        assertEquals(1, tree.getChildren().size());
     }
 
     @Test
     public void testIterator() {
-        Tree<String> tree = new Tree<>("R");
+        var tree = new Tree<>("R");
         tree.addChild("A");
         tree.addChild("B");
         Iterator<Tree<String>> iterator = tree.iterator();
@@ -66,20 +80,22 @@ public class TreeTest {
 
     @Test
     public void testEquals() {
-        Tree<String> tree = new Tree<>("R");
+        var tree = new Tree<>("R");
         tree.addChild("A");
 
-        Tree<String> expectedTree = new Tree<>("R");
+        var expectedTree = new Tree<>("R");
         expectedTree.addChild("A");
 
         assertEquals(expectedTree, tree);
+        assertEquals(tree, expectedTree);
+
     }
 
     @Test
     public void testToString() {
-        Tree<String> tree = new Tree<>("R1");
+        var tree = new Tree<>("R1");
         tree.addChild("A");
-        Tree<String> subtree = new Tree<>("R2");
+        var subtree = new Tree<>("R2");
         subtree.addChild("C");
         subtree.addChild("D");
         tree.addChild(subtree);

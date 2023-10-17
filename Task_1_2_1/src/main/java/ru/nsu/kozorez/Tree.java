@@ -48,6 +48,7 @@ public class Tree<T> {
 
     /**
      * set tree.
+     *
      * @param data data
      */
     public Tree(T data) {
@@ -122,7 +123,6 @@ public class Tree<T> {
         public TreeIterator(Tree<E> root) {
             queue = new LinkedList<>();
             queue.add(root);
-
         }
 
         /**
@@ -132,10 +132,7 @@ public class Tree<T> {
          */
         @Override
         public boolean hasNext() {
-
             return !queue.isEmpty();
-
-
         }
 
         /**

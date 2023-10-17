@@ -25,6 +25,5 @@ public class Main {
         tree.addChild(subtree);
         b.remove();
         System.out.println(tree);
-
     }
 }
