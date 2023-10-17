@@ -129,9 +129,14 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="description">
 <ul class="blockList">
 <li class="blockList">
+<dl>
+<dt><span class="paramLabel">Type Parameters:</span></dt>
+<dd><code>T</code> - string or subtree</dd>
+</dl>
 <hr>
 <pre>public class <span class="typeNameLabel">Tree&lt;T&gt;</span>
 extends java.lang.Object</pre>
+<div class="block">Class for operations with trees.</div>
 </li>
 </ul>
 </div>
@@ -153,7 +158,9 @@ extends java.lang.Object</pre>
 </tr>
 <tr class="altColor">
 <th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(T)">Tree</a></span>&#8203;(<a href="Tree.html" title="type parameter in Tree">T</a>&nbsp;data)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">set tree.</div>
+</td>
 </tr>
 </table>
 </li>
@@ -176,52 +183,72 @@ extends java.lang.Object</pre>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addChild(ru.nsu.kozorez.Tree)">addChild</a></span>&#8203;(<a href="Tree.html" title="class in ru.nsu.kozorez">Tree</a>&lt;<a href="Tree.html" title="type parameter in Tree">T</a>&gt;&nbsp;subtree)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">adds subtree to the tree.</div>
+</td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code><a href="Tree.html" title="class in ru.nsu.kozorez">Tree</a>&lt;<a href="Tree.html" title="type parameter in Tree">T</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addChild(T)">addChild</a></span>&#8203;(<a href="Tree.html" title="type parameter in Tree">T</a>&nbsp;child)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">adds node to the tree.</div>
+</td>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#equals(java.lang.Object)">equals</a></span>&#8203;(java.lang.Object&nbsp;o)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">checks if the trees are equal.</div>
+</td>
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>java.util.List&lt;<a href="Tree.html" title="class in ru.nsu.kozorez">Tree</a>&lt;<a href="Tree.html" title="type parameter in Tree">T</a>&gt;&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getChildren()">getChildren</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">get children.</div>
+</td>
 </tr>
 <tr id="i4" class="altColor">
 <td class="colFirst"><code><a href="Tree.html" title="type parameter in Tree">T</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getData()">getData</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">get data.</div>
+</td>
 </tr>
 <tr id="i5" class="rowColor">
 <td class="colFirst"><code><a href="Tree.html" title="class in ru.nsu.kozorez">Tree</a>&lt;<a href="Tree.html" title="type parameter in Tree">T</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getParent()">getParent</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">get parent.</div>
+</td>
 </tr>
 <tr id="i6" class="altColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#hashCode()">hashCode</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">hashcode.</div>
+</td>
 </tr>
 <tr id="i7" class="rowColor">
 <td class="colFirst"><code>java.util.Iterator&lt;<a href="Tree.html" title="class in ru.nsu.kozorez">Tree</a>&lt;<a href="Tree.html" title="type parameter in Tree">T</a>&gt;&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#iterator()">iterator</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">creates iterator.</div>
+</td>
 </tr>
 <tr id="i8" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#remove()">remove</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">removes node from the tree.</div>
+</td>
 </tr>
 <tr id="i9" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#toString()">toString</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">represents the tree to string.</div>
+</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -256,6 +283,11 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>Tree</h4>
 <pre>public&nbsp;Tree&#8203;(<a href="Tree.html" title="type parameter in Tree">T</a>&nbsp;data)</pre>
+<div class="block">set tree.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>data</code> - data</dd>
+</dl>
 </li>
 </ul>
 </li>
@@ -275,6 +307,11 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>getData</h4>
 <pre class="methodSignature">public&nbsp;<a href="Tree.html" title="type parameter in Tree">T</a>&nbsp;getData()</pre>
+<div class="block">get data.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>data</dd>
+</dl>
 </li>
 </ul>
 <a id="getChildren()">
@@ -284,6 +321,11 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>getChildren</h4>
 <pre class="methodSignature">public&nbsp;java.util.List&lt;<a href="Tree.html" title="class in ru.nsu.kozorez">Tree</a>&lt;<a href="Tree.html" title="type parameter in Tree">T</a>&gt;&gt;&nbsp;getChildren()</pre>
+<div class="block">get children.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>children</dd>
+</dl>
 </li>
 </ul>
 <a id="getParent()">
@@ -293,6 +335,11 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>getParent</h4>
 <pre class="methodSignature">public&nbsp;<a href="Tree.html" title="class in ru.nsu.kozorez">Tree</a>&lt;<a href="Tree.html" title="type parameter in Tree">T</a>&gt;&nbsp;getParent()</pre>
+<div class="block">get parent.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>return parent</dd>
+</dl>
 </li>
 </ul>
 <a id="addChild(java.lang.Object)">
@@ -304,6 +351,13 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>addChild</h4>
 <pre class="methodSignature">public&nbsp;<a href="Tree.html" title="class in ru.nsu.kozorez">Tree</a>&lt;<a href="Tree.html" title="type parameter in Tree">T</a>&gt;&nbsp;addChild&#8203;(<a href="Tree.html" title="type parameter in Tree">T</a>&nbsp;child)</pre>
+<div class="block">adds node to the tree.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>child</code> - node</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>node</dd>
+</dl>
 </li>
 </ul>
 <a id="addChild(ru.nsu.kozorez.Tree)">
@@ -313,6 +367,11 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>addChild</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;addChild&#8203;(<a href="Tree.html" title="class in ru.nsu.kozorez">Tree</a>&lt;<a href="Tree.html" title="type parameter in Tree">T</a>&gt;&nbsp;subtree)</pre>
+<div class="block">adds subtree to the tree.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>subtree</code> - subtree</dd>
+</dl>
 </li>
 </ul>
 <a id="remove()">
@@ -322,6 +381,7 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>remove</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;remove()</pre>
+<div class="block">removes node from the tree.</div>
 </li>
 </ul>
 <a id="iterator()">
@@ -331,6 +391,11 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>iterator</h4>
 <pre class="methodSignature">public&nbsp;java.util.Iterator&lt;<a href="Tree.html" title="class in ru.nsu.kozorez">Tree</a>&lt;<a href="Tree.html" title="type parameter in Tree">T</a>&gt;&gt;&nbsp;iterator()</pre>
+<div class="block">creates iterator.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>iterator</dd>
+</dl>
 </li>
 </ul>
 <a id="equals(java.lang.Object)">
@@ -340,9 +405,14 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>equals</h4>
 <pre class="methodSignature">public&nbsp;boolean&nbsp;equals&#8203;(java.lang.Object&nbsp;o)</pre>
+<div class="block">checks if the trees are equal.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
 <dd><code>equals</code>&nbsp;in class&nbsp;<code>java.lang.Object</code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>o</code> - tree</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>true or false</dd>
 </dl>
 </li>
 </ul>
@@ -353,9 +423,12 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>hashCode</h4>
 <pre class="methodSignature">public&nbsp;int&nbsp;hashCode()</pre>
+<div class="block">hashcode.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
 <dd><code>hashCode</code>&nbsp;in class&nbsp;<code>java.lang.Object</code></dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>int</dd>
 </dl>
 </li>
 </ul>
@@ -366,9 +439,12 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>toString</h4>
 <pre class="methodSignature">public&nbsp;java.lang.String&nbsp;toString()</pre>
+<div class="block">represents the tree to string.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
 <dd><code>toString</code>&nbsp;in class&nbsp;<code>java.lang.Object</code></dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>sting</dd>
 </dl>
 </li>
 </ul>
