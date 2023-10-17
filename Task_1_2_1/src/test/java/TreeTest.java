@@ -1,8 +1,9 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+
 
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
@@ -66,6 +67,7 @@ public class TreeTest {
         assertEquals(1, tree.getChildren().size());
     }
 
+
     @Test
     public void testIterator() {
         var tree = new Tree<>("R");
@@ -78,6 +80,7 @@ public class TreeTest {
         assertEquals("B", iterator.next().getData());
         assertFalse(iterator.hasNext());
     }
+
 
     @Test
     public void testForEach() {
@@ -115,6 +118,7 @@ public class TreeTest {
         assertEquals(expectedTree, tree);
         assertEquals(tree, expectedTree);
     }
+
     @Test
     void checkNotEquals() {
         var tree1 = new Tree<>("R");
@@ -124,6 +128,7 @@ public class TreeTest {
 
         assertNotEquals(tree1, tree2);
     }
+
     @Test
     void checkNotEqualsComplex() {
         var tree1 = new Tree<>("R");
@@ -145,8 +150,6 @@ public class TreeTest {
 
         assertEquals(tree1, tree2);
     }
-
-
 
     @Test
     public void testToString() {
