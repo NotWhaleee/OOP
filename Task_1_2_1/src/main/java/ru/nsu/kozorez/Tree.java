@@ -9,7 +9,6 @@ import java.util.Objects;
 import java.util.Queue;
 
 
-
 /**
  * Class for operations with trees.
  *
@@ -171,11 +170,19 @@ public class Tree<T> {
      */
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
         Tree<T> other = (Tree<T>) obj;
-        if (!data.equals(other.data)) return false;
-        if (children.size() != other.children.size()) return false;
+        if (!data.equals(other.data)) {
+            return false;
+        }
+        if (children.size() != other.children.size()) {
+            return false;
+        }
         List<Tree<T>> otherChildren = new ArrayList<>(other.children);
         for (Tree<T> child : children) {
             boolean found = false;
@@ -187,25 +194,12 @@ public class Tree<T> {
                     break;
                 }
             }
-            if (!found) return false;
+            if (!found) {
+                return false;
+            }
         }
         return true;
     }
-
-
-//    @Override
-//    public boolean equals(Object obj) {
-//        if (this == obj) return true;
-//        if (obj == null || getClass() != obj.getClass()) return false;
-//        Tree<?> other = (Tree<?>) obj;
-//        if (!data.equals(other.data)) return false;
-//        if (children.size() != other.children.size()) return false;
-//        for (int i = 0; i < children.size(); i++) {
-//            if (!children.get(i).equals(other.children.get(i))) return false;
-//        }
-//        return true;
-//    }
-//
 
     /**
      * hashcode.
