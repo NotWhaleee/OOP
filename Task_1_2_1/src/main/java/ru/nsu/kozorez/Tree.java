@@ -1,11 +1,6 @@
 package ru.nsu.kozorez;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Iterator;
-import java.util.Queue;
-import java.util.LinkedList;
+import java.util.*;
 
 
 /**
@@ -17,6 +12,17 @@ public class Tree<T> {
     private T data;
     private List<Tree<T>> children;
     private Tree<T> parent;
+    private int modCount = 0;
+
+    /**
+     * set tree.
+     *
+     * @param data data
+     */
+    public Tree(T data) {
+        this.data = data;
+        this.children = new ArrayList<>();
+    }
 
     /**
      * get data.
@@ -47,22 +53,13 @@ public class Tree<T> {
 
 
     /**
-     * set tree.
-     *
-     * @param data data
-     */
-    public Tree(T data) {
-        this.data = data;
-        this.children = new ArrayList<>();
-    }
-
-    /**
      * adds node to the tree.
      *
      * @param child node
      * @return node
      */
     public Tree<T> addChild(T child) {
+        modCount++;
         Tree<T> childNode = new Tree<>(child);
         childNode.parent = this;
         this.children.add(childNode);
@@ -75,6 +72,7 @@ public class Tree<T> {
      * @param subtree subtree
      */
     public void addChild(Tree<T> subtree) {
+        modCount++;
         subtree.parent = this;
         this.children.add(subtree);
     }
@@ -83,18 +81,16 @@ public class Tree<T> {
      * removes node from the tree.
      */
     public void remove() {
-
-        if (this.parent != null) {
-            int index = this.parent.children.indexOf(this);
-            this.parent.children.remove(this);
-            for (Tree<T> each : children) {
-                each.parent = this.parent;
-            }
-            this.parent.children.addAll(index, this.children);
-        } else {
+        modCount++;
+        if (this.parent == null) {
             throw new IllegalArgumentException("Cannot remove root node");
         }
-
+        int index = this.parent.children.indexOf(this);
+        this.parent.children.remove(this);
+        for (Tree<T> each : children) {
+            each.parent = this.parent;
+        }
+        this.parent.children.addAll(index, this.children);
     }
 
     /**
@@ -112,7 +108,7 @@ public class Tree<T> {
      * @param <E> nodes
      */
     private class TreeIterator<E> implements Iterator<Tree<E>> {
-
+        private final int expectedModCount = modCount;
         private Queue<Tree<E>> queue;
 
         /**
@@ -123,6 +119,15 @@ public class Tree<T> {
         public TreeIterator(Tree<E> root) {
             queue = new LinkedList<>();
             queue.add(root);
+        }
+
+        /**
+         * ConcurrentModificationException handle.
+         */
+        private void checkConcurrentModification() {
+            if (modCount != expectedModCount) {
+                throw new ConcurrentModificationException();
+            }
         }
 
         /**
@@ -142,6 +147,7 @@ public class Tree<T> {
          */
         @Override
         public Tree<E> next() {
+            checkConcurrentModification();
             Tree<E> nextNode = queue.poll();
             assert nextNode != null;
             queue.addAll(nextNode.children);

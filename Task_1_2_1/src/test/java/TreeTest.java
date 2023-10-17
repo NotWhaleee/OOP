@@ -1,20 +1,17 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
+
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
+
 import org.junit.jupiter.api.Test;
-import ru.nsu.kozorez.Main;
 import ru.nsu.kozorez.Tree;
 
 
 public class TreeTest {
-    @Test
-    void checkMain() {
-        Main.main(new String[]{});
-        assertTrue(true);
-    }
-
     @Test
     public void testAddNodeString() {
         var tree = new Tree<>("R");
@@ -22,6 +19,7 @@ public class TreeTest {
         assertEquals("A", child.getData());
         assertEquals(1, tree.getChildren().size());
     }
+
     @Test
     public void testAddNodeInt() {
         Tree<Integer> tree = new Tree<>(0);
@@ -33,6 +31,7 @@ public class TreeTest {
     @Test
     public void testAddTree() {
         var tree = new Tree<>("R1");
+        tree.addChild("A");
         var subtree = new Tree<>("R2");
         subtree.addChild("C");
         subtree.addChild("D");
@@ -55,6 +54,7 @@ public class TreeTest {
         child.remove();
         assertEquals(0, tree.getChildren().size());
     }
+
     @Test
     public void testRemoveConnectedNode() {
         var tree = new Tree<>("R");
@@ -76,6 +76,31 @@ public class TreeTest {
         assertEquals("A", iterator.next().getData());
         assertEquals("B", iterator.next().getData());
         assertFalse(iterator.hasNext());
+    }
+
+    @Test
+    public void testForEach() {
+        var tree = new Tree<>("R");
+        tree.addChild("A");
+        tree.addChild("B");
+        tree.addChild("C");
+        String expectedAnswer = "ABC";
+        String result = "";
+        for (Tree<String> each : tree.getChildren()) {
+            result = result.concat(each.getData());
+        }
+        assertEquals(expectedAnswer, result);
+    }
+
+    @Test
+    public void testConcurrentModification() {
+        var tree = new Tree<>("R");
+        tree.addChild("A");
+        tree.addChild("B");
+
+        Iterator<Tree<String>> iterator = tree.iterator();
+        tree.addChild("C");
+        assertThrows(ConcurrentModificationException.class, iterator::next);
     }
 
     @Test
