@@ -149,6 +149,29 @@ public class TreeTest {
 
         assertEquals(tree1, tree2);
     }
+    @Test
+    public void testEquals_differentTrees_differAtThorthLevel() {
+        Tree<String> tree1 = new Tree<>("root");
+        Tree<String> child1 = tree1.addChild("child1");
+        child1.addChild("grandchild1");
+        var grandchild1 = child1.addChild("grandchild2");
+        grandchild1.addChild("supergrandchild1");
+        grandchild1.addChild("supergrandchild2");
+
+        tree1.addChild("child2");
+
+        Tree<String> tree2 = new Tree<>("root");
+        Tree<String> child2 = tree2.addChild("child1");
+        child2.addChild("grandchild1");
+        var grandchild2 = child2.addChild("grandchild2");
+        grandchild2.addChild("supergrandchild1");
+        grandchild2.addChild("supergrandchild3");
+
+
+        tree2.addChild("child2");
+
+        assertNotEquals(tree1, tree2);
+    }
 
     @Test
     public void testToString() {
