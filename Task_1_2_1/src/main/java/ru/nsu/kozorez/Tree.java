@@ -1,12 +1,6 @@
 package ru.nsu.kozorez;
 
-import java.util.ArrayList;
-import java.util.ConcurrentModificationException;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Queue;
+import java.util.*;
 
 
 /**
@@ -176,29 +170,15 @@ public class Tree<T> {
         if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
-        Tree<T> other = (Tree<T>) obj;
+        Tree<?> other = (Tree<?>) obj;
         if (!data.equals(other.data)) {
             return false;
         }
         if (children.size() != other.children.size()) {
             return false;
         }
-        List<Tree<T>> otherChildren = new ArrayList<>(other.children);
-        for (Tree<T> child : children) {
-            boolean found = false;
-            for (Iterator<Tree<T>> it = otherChildren.iterator(); it.hasNext(); ) {
-                Tree<T> otherChild = it.next();
-                if (child.equals(otherChild)) {
-                    it.remove();
-                    found = true;
-                    break;
-                }
-            }
-            if (!found) {
-                return false;
-            }
-        }
-        return true;
+
+        return new HashSet<>(children).equals(new HashSet<>(other.children));
     }
 
     /**
@@ -208,7 +188,7 @@ public class Tree<T> {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(data, children);
+        return Objects.hash(data, new HashSet<>(children));
     }
 
 

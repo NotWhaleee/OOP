@@ -127,6 +127,19 @@ public class TreeTest {
 
         assertNotEquals(tree1, tree2);
     }
+    @Test
+    void simpleTree(){
+        var tree1 = new Tree<>("R");
+        tree1.addChild("A");
+        tree1.addChild("B");
+
+        var tree2 = new Tree<>("R");
+        tree2.addChild("B");
+        tree2.addChild("A");
+
+        assertEquals(tree1, tree2);
+    }
+
 
     @Test
     void checkNotEqualsComplex() {
@@ -139,15 +152,23 @@ public class TreeTest {
         tree1.addChild(subtree1);
         //System.out.println(tree1);
 
-        var tree2 = new Tree<>("R");
-        tree2.addChild("A");
-        tree2.addChild("D");
-        var subtree2 = new Tree<>("R1");
-        subtree2.addChild("C");
-        subtree2.addChild("B");
-        tree2.addChild(subtree2);
+        var tree22 = new Tree<>("R");
+        tree22.addChild("A");
+        var subtree22 = new Tree<>("R1");
+        subtree22.addChild("C");
+        subtree22.addChild("B");
+        tree22.addChild("D");
+        tree22.addChild(subtree22);
 
-        assertEquals(tree1, tree2);
+//        var tree2 = new Tree<>("R");
+//        tree2.addChild("A");
+//        tree2.addChild("D");
+//        var subtree2 = new Tree<>("R1");
+//        subtree2.addChild("C");
+//        subtree2.addChild("B");
+//        tree2.addChild(subtree2);
+
+        assertEquals(tree1, tree22);
     }
     @Test
     public void testEquals_differentTrees_differAtThorthLevel() {
@@ -172,6 +193,29 @@ public class TreeTest {
 
         assertNotEquals(tree1, tree2);
     }
+    @Test
+    public void testEquals_sameTrees_differAtThorthLevel() {
+        Tree<String> tree1 = new Tree<>("root");
+        Tree<String> child1 = tree1.addChild("child1");
+        child1.addChild("grandchild1");
+        var grandchild1 = child1.addChild("grandchild2");
+        grandchild1.addChild("supergrandchild1");
+        grandchild1.addChild("supergrandchild2");
+
+        tree1.addChild("child2");
+
+        Tree<String> tree2 = new Tree<>("root");
+        Tree<String> child2 = tree2.addChild("child1");
+        child2.addChild("grandchild1");
+        var grandchild2 = child2.addChild("grandchild2");
+        grandchild2.addChild("supergrandchild1");
+        grandchild2.addChild("supergrandchild2");
+
+
+        tree2.addChild("child2");
+
+        assertEquals(tree1, tree2);
+    }
 
     @Test
     public void testToString() {
@@ -184,4 +228,5 @@ public class TreeTest {
         String expected = "R1 [A, R2 [C, D]]";
         assertEquals(expected, tree.toString());
     }
+
 }
