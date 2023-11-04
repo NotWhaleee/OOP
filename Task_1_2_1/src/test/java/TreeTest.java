@@ -193,6 +193,7 @@ public class TreeTest {
 
         assertNotEquals(tree1, tree2);
     }
+
     @Test
     public void testEquals_sameTrees_differAtThorthLevel() {
         Tree<String> tree1 = new Tree<>("root");
