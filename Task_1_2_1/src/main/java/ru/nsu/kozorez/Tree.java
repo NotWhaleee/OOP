@@ -10,6 +10,7 @@ import java.util.Objects;
 import java.util.Queue;
 
 
+
 /**
  * Class for operations with trees.
  *
@@ -20,7 +21,6 @@ public class Tree<T> {
     private List<Tree<T>> children;
     private Tree<T> parent;
     private int modCount = 0;
-
 
     /**
      * set tree.
