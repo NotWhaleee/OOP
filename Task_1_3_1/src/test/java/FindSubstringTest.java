@@ -8,7 +8,6 @@ import java.io.PrintWriter;
 import java.lang.String;
 import java.nio.charset.StandardCharsets;
 import java.util.Random;
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import ru.nsu.kozorez.FindSubstring;
@@ -102,8 +101,9 @@ public class FindSubstringTest {
         fis.close();
         String[] valueStr = new String(bytes).trim().split("\\s+");
         int[] tail = new int[valueStr.length];
-        for (int i = 0; i < valueStr.length; i++)
+        for (int i = 0; i < valueStr.length; i++) {
             tail[i] = Integer.parseInt(valueStr[i]);
+        }
         int[] answer = new int[2000];
         for (int i = 0; i < answer.length; i++) {
             answer[i] = i;

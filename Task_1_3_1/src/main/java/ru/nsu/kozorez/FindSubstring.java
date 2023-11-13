@@ -43,8 +43,10 @@ public class FindSubstring {
      * @param substring substring
      * @throws IOException couldn't open the file
      */
-    private static void handleFile(File file, Charset encoding, String substring) throws IOException {
-        try (InputStream in = new FileInputStream(file); Reader reader = new InputStreamReader(in, encoding);
+    private static void handleFile(File file,
+                                   Charset encoding, String substring) throws IOException {
+        try (InputStream in = new FileInputStream(file);
+             Reader reader = new InputStreamReader(in, encoding);
              // buffer for efficiency
              Reader buffer = new BufferedReader(reader)) {
 
@@ -82,7 +84,7 @@ public class FindSubstring {
                                 break;
                             }
                             occurrences[i] = 0; //nulling substring search
-                            i = -1; // starting from 0 iterate through the substring search array again
+                            i = -1; // starting from 0 go through the substring search array again
                             occurrences = Arrays.stream(occurrences).boxed() //sort array in reverse order
                                     .sorted(Collections.reverseOrder())
                                     .mapToInt(Integer::intValue)
@@ -93,13 +95,15 @@ public class FindSubstring {
                             break;
                         }
                     } else {
-                        if (substring.indexOf(cbuf[cRead]) == -1) { //if character is not in substring, null all occurs
+                        if (substring.indexOf(cbuf[cRead]) == -1) { //if char is not in substr, null all occurs
                             Arrays.fill(occurrences, 0);
                             break;
                         } else {
                             for (int j = i; j < occurrences.length - 1; j++) {
                                 occurrences[j] = occurrences[j + 1];
-                                if (occurrences[j + 1] == 0) break;
+                                if (occurrences[j + 1] == 0) {
+                                    break;
+                                }
                             }
                             occurrences[occurrences.length - 1] = 0;
                         }
@@ -107,7 +111,7 @@ public class FindSubstring {
                 }
             }
 
-            for (Integer integer : answer) { //writes answers from the list before reading new buffer
+            for (Integer integer : answer) { //writes ans from the list before reading new buf
                 myWriter.write(integer + " ");
             }
             answer.clear();
