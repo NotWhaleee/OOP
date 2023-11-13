@@ -1,5 +1,3 @@
-import ru.nsu.kozorez.FindSubstring;
-
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -13,6 +11,7 @@ import java.util.Random;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import ru.nsu.kozorez.FindSubstring;
 
 
 /**
@@ -60,9 +59,10 @@ public class FindSubstringTest {
         fis.close();
         String[] valueStr = new String(bytes).trim().split("\\s+");
         int[] tail = new int[valueStr.length];
-        for (int i = 0; i < valueStr.length; i++)
+        for (int i = 0; i < valueStr.length; i++) {
             tail[i] = Integer.parseInt(valueStr[i]);
-        assertEquals(999998,tail[0]);
+        }
+        assertEquals(999998, tail[0]);
     }
 
     @Test
@@ -108,7 +108,7 @@ public class FindSubstringTest {
         for (int i = 0; i < answer.length; i++) {
             answer[i] = i;
         }
-        assertArrayEquals(answer,tail);
+        assertArrayEquals(answer, tail);
     }
 
 
@@ -154,8 +154,9 @@ public class FindSubstringTest {
         fis.close();
         String[] valueStr = new String(bytes).trim().split("\\s+");
         int[] tail = new int[valueStr.length];
-        for (int i = 0; i < valueStr.length; i++)
+        for (int i = 0; i < valueStr.length; i++) {
             tail[i] = Integer.parseInt(valueStr[i]);
+        }
         assertEquals(2000000000, tail[0]);
     }
 }
