@@ -1,0 +1,120 @@
+package ru.nsu.kozorez;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+/**
+ * Class for finding substrings.
+ */
+public class FindSubstring {
+    static int counter = 0;
+
+    /**
+     * findes indexes of substrings.
+     *
+     * @param filename  input file
+     * @param substring substring
+     * @throws IOException couldn't open the file
+     */
+    public void find(String filename, String substring) throws IOException {
+        Charset encoding = StandardCharsets.UTF_8;
+
+        File file = new File(filename);
+        handleFile(file, encoding, substring);
+    }
+
+    /**
+     * opens file.
+     *
+     * @param file      input file
+     * @param encoding  encoding(UTF8)
+     * @param substring substring
+     * @throws IOException couldn't open the file
+     */
+    private static void handleFile(File file, Charset encoding, String substring) throws IOException {
+        try (InputStream in = new FileInputStream(file); Reader reader = new InputStreamReader(in, encoding);
+             // buffer for efficiency
+             Reader buffer = new BufferedReader(reader)) {
+
+            handleCharacters(buffer, substring);
+        }
+    }
+
+    /**
+     * reads characters from the buffer.
+     *
+     * @param reader    reader
+     * @param substring substring
+     * @throws IOException couldn't open the file
+     */
+    private static void handleCharacters(Reader reader, String substring) throws IOException {
+        FileWriter myWriter = new FileWriter("output.txt");
+
+        int[] occurrences = new int[substring.length()];
+        List<Integer> answer = new ArrayList<>();
+
+        int r;
+        char[] cbuf = new char[1000000];
+
+        while ((r = reader.read(cbuf)) != -1) {
+            for (int cRead = 0; cRead < r; cRead++) {
+                counter++;
+                for (int i = 0; i < occurrences.length; i++) {
+                    if (cbuf[cRead] == substring.charAt(occurrences[i])) {
+                        occurrences[i]++;
+                        if (occurrences[i] == substring.length()) {
+                            //System.out.print(counter - substring.length() + " ");
+                            answer.add(counter - substring.length());
+                            if (occurrences[i] == 1) { //if read 1st symbol
+                                occurrences[i] = 0; //nulling substring search
+                                break;
+                            }
+                            occurrences[i] = 0; //nulling substring search
+                            i = -1; // starting from 0 iterate through the substring search array again
+                            occurrences = Arrays.stream(occurrences).boxed() //sort array in reverse order
+                                    .sorted(Collections.reverseOrder())
+                                    .mapToInt(Integer::intValue)
+                                    .toArray();
+                            continue;
+                        }
+                        if (occurrences[i] == 1) { //if read 1st symbol
+                            break;
+                        }
+                    } else {
+                        if (substring.indexOf(cbuf[cRead]) == -1) { //if character is not in substring, null all occurs
+                            Arrays.fill(occurrences, 0);
+                            break;
+                        } else {
+                            for (int j = i; j < occurrences.length - 1; j++) {
+                                occurrences[j] = occurrences[j + 1];
+                                if (occurrences[j + 1] == 0) break;
+                            }
+                            occurrences[occurrences.length - 1] = 0;
+                        }
+                    }
+                }
+            }
+
+            for (Integer integer : answer) { //writes answers from the list before reading new buffer
+                myWriter.write(integer + " ");
+            }
+            answer.clear();
+
+        }
+
+        myWriter.close();
+    }
+}
+
