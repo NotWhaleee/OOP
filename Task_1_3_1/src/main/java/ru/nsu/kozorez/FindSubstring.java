@@ -77,15 +77,16 @@ public class FindSubstring {
                     if (cbuf[cRead] == substring.charAt(occurrences[i])) {
                         occurrences[i]++;
                         if (occurrences[i] == substring.length()) {
-                            //System.out.print(counter - substring.length() + " ");
                             answer.add(counter - substring.length());
                             if (occurrences[i] == 1) { //if read 1st symbol
                                 occurrences[i] = 0; //nulling substring search
                                 break;
                             }
                             occurrences[i] = 0; //nulling substring search
-                            i = -1; // starting from 0 go through the substring search array again
-                            occurrences = Arrays.stream(occurrences).boxed() //sort array in reverse order
+                            i = -1; // start from 0 go through the substring search array again
+
+                            //sort array in reverse order
+                            occurrences = Arrays.stream(occurrences).boxed()
                                     .sorted(Collections.reverseOrder())
                                     .mapToInt(Integer::intValue)
                                     .toArray();
@@ -95,7 +96,8 @@ public class FindSubstring {
                             break;
                         }
                     } else {
-                        if (substring.indexOf(cbuf[cRead]) == -1) { //if char is not in substr, null all occurs
+                        //if char is not in substr, null all occurs
+                        if (substring.indexOf(cbuf[cRead]) == -1) {
                             Arrays.fill(occurrences, 0);
                             break;
                         } else {

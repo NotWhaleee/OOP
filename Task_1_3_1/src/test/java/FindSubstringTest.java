@@ -37,8 +37,8 @@ public class FindSubstringTest {
         long startTime = System.nanoTime();
         final String target = "someline";
 
-        FindSubstring Find = new FindSubstring();
-        Find.find("file.txt", target);
+        FindSubstring find = new FindSubstring();
+        find.find("file.txt", target);
 
         long endTime = System.nanoTime();
         long duration = (endTime - startTime);
@@ -80,8 +80,8 @@ public class FindSubstringTest {
         long startTime = System.nanoTime();
         final String target = "a";
 
-        FindSubstring Find = new FindSubstring();
-        Find.find("file.txt", target);
+        FindSubstring find = new FindSubstring();
+        find.find("file.txt", target);
 
         long endTime = System.nanoTime();
         long duration = (endTime - startTime);
@@ -133,8 +133,8 @@ public class FindSubstringTest {
         long startTime = System.nanoTime();
         final String target = "something";
 
-        FindSubstring Find = new FindSubstring();
-        Find.find("largefile.txt", target);
+        FindSubstring find = new FindSubstring();
+        find.find("largefile.txt", target);
 
         long endTime = System.nanoTime();
         long duration = (endTime - startTime);
