@@ -21,7 +21,10 @@ public class FindSubstringTest {
     @Test
     @DisplayName("String between buffers")
     public void checkStrBetweenBuffs() throws IOException {
-        File file = new File("file.txt");
+        File file = new File("between.txt");
+        String outputName = "outBetween.txt";
+        File output = new File(outputName);
+
         PrintWriter writer = new PrintWriter(file, StandardCharsets.UTF_8);
 
         for (int i = 0; i < 999998; i++) {
@@ -37,8 +40,8 @@ public class FindSubstringTest {
         long startTime = System.nanoTime();
         final String target = "someline";
 
-        FindSubstring find = new FindSubstring();
-        find.find("file.txt", target);
+        FindSubstring findSubstr = new FindSubstring();
+        findSubstr.find("between.txt", target, outputName);
 
         long endTime = System.nanoTime();
         long duration = (endTime - startTime);
@@ -51,7 +54,6 @@ public class FindSubstringTest {
         }
 
 
-        File output = new File("output.txt");
         byte[] bytes = new byte[(int) output.length()];
         FileInputStream fis = new FileInputStream(output);
         fis.read(bytes);
@@ -61,13 +63,21 @@ public class FindSubstringTest {
         for (int i = 0; i < valueStr.length; i++) {
             tail[i] = Integer.parseInt(valueStr[i]);
         }
+        if (output.delete()) {
+            System.out.println("Output file deleted successfully");
+        } else {
+            System.out.println("Failed to delete the file");
+        }
         assertEquals(999998, tail[0]);
     }
 
     @Test
     @DisplayName("Same characters file")
     public void checkSameCharacters() throws IOException {
-        File file = new File("file.txt");
+        File file = new File("sameChar.txt");
+        String outputName = "outSame.txt";
+        File output = new File(outputName);
+
         PrintWriter writer = new PrintWriter(file, StandardCharsets.UTF_8);
 
         for (int i = 0; i < 2000; i++) {
@@ -80,8 +90,8 @@ public class FindSubstringTest {
         long startTime = System.nanoTime();
         final String target = "a";
 
-        FindSubstring find = new FindSubstring();
-        find.find("file.txt", target);
+        FindSubstring findSubstr = new FindSubstring();
+        findSubstr.find("sameChar.txt", target, outputName);
 
         long endTime = System.nanoTime();
         long duration = (endTime - startTime);
@@ -94,7 +104,7 @@ public class FindSubstringTest {
         }
 
 
-        File output = new File("output.txt");
+
         byte[] bytes = new byte[(int) output.length()];
         FileInputStream fis = new FileInputStream(output);
         fis.read(bytes);
@@ -108,6 +118,12 @@ public class FindSubstringTest {
         for (int i = 0; i < answer.length; i++) {
             answer[i] = i;
         }
+        if (output.delete()) {
+            System.out.println("Output file deleted successfully");
+        } else {
+            System.out.println("Failed to delete the file");
+        }
+
         assertArrayEquals(answer, tail);
     }
 
@@ -116,6 +132,10 @@ public class FindSubstringTest {
     @DisplayName("Large file")
     public void checkLargeFile() throws IOException {
         File file = new File("largefile.txt");
+        String outputName = "outLarge.txt";
+        File output = new File(outputName);
+
+
         PrintWriter writer = new PrintWriter(file, StandardCharsets.UTF_8);
 
         Random random = new Random();
@@ -133,8 +153,8 @@ public class FindSubstringTest {
         long startTime = System.nanoTime();
         final String target = "something";
 
-        FindSubstring find = new FindSubstring();
-        find.find("largefile.txt", target);
+        FindSubstring findSubstr = new FindSubstring();
+        findSubstr.find("largefile.txt", target, outputName);
 
         long endTime = System.nanoTime();
         long duration = (endTime - startTime);
@@ -147,7 +167,6 @@ public class FindSubstringTest {
         }
 
 
-        File output = new File("output.txt");
         byte[] bytes = new byte[(int) output.length()];
         FileInputStream fis = new FileInputStream(output);
         fis.read(bytes);
@@ -156,6 +175,11 @@ public class FindSubstringTest {
         int[] tail = new int[valueStr.length];
         for (int i = 0; i < valueStr.length; i++) {
             tail[i] = Integer.parseInt(valueStr[i]);
+        }
+        if (output.delete()) {
+            System.out.println("Output file deleted successfully");
+        } else {
+            System.out.println("Failed to delete the file");
         }
         assertEquals(2000000000, tail[0]);
     }

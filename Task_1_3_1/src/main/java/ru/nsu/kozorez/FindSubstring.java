@@ -24,15 +24,16 @@ public class FindSubstring {
     /**
      * findes indexes of substrings.
      *
-     * @param filename  input file
+     * @param inputFile  input file
+     * @param outputFile output file
      * @param substring substring
      * @throws IOException couldn't open the file
      */
-    public void find(String filename, String substring) throws IOException {
+    public void find(String inputFile, String substring, String outputFile) throws IOException {
         Charset encoding = StandardCharsets.UTF_8;
 
-        File file = new File(filename);
-        handleFile(file, encoding, substring);
+        File file = new File(inputFile);
+        handleFile(file, encoding, substring, outputFile);
     }
 
     /**
@@ -41,16 +42,17 @@ public class FindSubstring {
      * @param file      input file
      * @param encoding  encoding(UTF8)
      * @param substring substring
+     * @param outputFile output file
      * @throws IOException couldn't open the file
      */
     private static void handleFile(File file,
-                                   Charset encoding, String substring) throws IOException {
+                                   Charset encoding, String substring, String outputFile) throws IOException {
         try (InputStream in = new FileInputStream(file);
              Reader reader = new InputStreamReader(in, encoding);
              // buffer for efficiency
              Reader buffer = new BufferedReader(reader)) {
 
-            handleCharacters(buffer, substring);
+            handleCharacters(buffer, substring, outputFile);
         }
     }
 
@@ -59,10 +61,11 @@ public class FindSubstring {
      *
      * @param reader    reader
      * @param substring substring
+     * @param outputFile output file
      * @throws IOException couldn't open the file
      */
-    private static void handleCharacters(Reader reader, String substring) throws IOException {
-        FileWriter myWriter = new FileWriter("output.txt");
+    private static void handleCharacters(Reader reader, String substring, String outputFile) throws IOException {
+        FileWriter myWriter = new FileWriter(outputFile);
 
         int[] occurrences = new int[substring.length()];
         List<Integer> answer = new ArrayList<>();
