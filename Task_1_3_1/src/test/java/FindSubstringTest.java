@@ -8,6 +8,8 @@ import java.io.PrintWriter;
 import java.lang.String;
 import java.nio.charset.StandardCharsets;
 import java.util.Random;
+import java.util.Scanner;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import ru.nsu.kozorez.FindSubstring;
@@ -17,6 +19,62 @@ import ru.nsu.kozorez.FindSubstring;
  * Tester class.
  */
 public class FindSubstringTest {
+
+    @Test
+    @DisplayName("Large file")
+    public void checkLargeFile() throws IOException {
+        File file = new File("largefile.txt");
+        String outputName = "outLarge.txt";
+        File output = new File(outputName);
+
+
+        PrintWriter writer = new PrintWriter(file, StandardCharsets.UTF_8);
+
+        Random random = new Random();
+        for (int i = 0; i < 2000000000; i++) {
+            writer.print((char) ('a' + random.nextInt(26)));
+        }
+        writer.print("something");
+        for (int i = 0; i < 2000000000; i++) {
+            writer.print((char) ('a' + random.nextInt(26)));
+        }
+
+        writer.close();
+        System.out.println(file.length() / (1024 * 1024) + "Mb");
+
+        long startTime = System.nanoTime();
+        final String target = "something";
+
+        FindSubstring findSubstr = new FindSubstring();
+        findSubstr.find("largefile.txt", target, outputName);
+
+        long endTime = System.nanoTime();
+        long duration = (endTime - startTime);
+        System.out.println(duration / 50000 + "s\n");
+
+        if (file.delete()) {
+            System.out.println("File deleted successfully");
+        } else {
+            System.out.println("Failed to delete the file");
+        }
+
+
+        byte[] bytes = new byte[(int) output.length()];
+        FileInputStream fis = new FileInputStream(output);
+        fis.read(bytes);
+        fis.close();
+        String[] valueStr = new String(bytes).trim().split("\\s+");
+        long[] res = new long[valueStr.length];
+        for (int i = 0; i < valueStr.length; i++) {
+            res[i] = Long.parseLong(valueStr[i]);
+        }
+        if (output.delete()) {
+            System.out.println("Output file deleted successfully");
+        } else {
+            System.out.println("Failed to delete the file");
+        }
+        assertEquals(2000000000, res[0]);
+    }
 
     @Test
     @DisplayName("String between buffers")
@@ -59,16 +117,16 @@ public class FindSubstringTest {
         fis.read(bytes);
         fis.close();
         String[] valueStr = new String(bytes).trim().split("\\s+");
-        int[] tail = new int[valueStr.length];
+        long[] res = new long[valueStr.length];
         for (int i = 0; i < valueStr.length; i++) {
-            tail[i] = Integer.parseInt(valueStr[i]);
+            res[i] = Long.parseLong(valueStr[i]);
         }
         if (output.delete()) {
             System.out.println("Output file deleted successfully");
         } else {
             System.out.println("Failed to delete the file");
         }
-        assertEquals(999998, tail[0]);
+        assertEquals(999998, res[0]);
     }
 
     @Test
@@ -110,77 +168,29 @@ public class FindSubstringTest {
         fis.read(bytes);
         fis.close();
         String[] valueStr = new String(bytes).trim().split("\\s+");
-        int[] tail = new int[valueStr.length];
+        long[] res = new long[valueStr.length];
         for (int i = 0; i < valueStr.length; i++) {
-            tail[i] = Integer.parseInt(valueStr[i]);
+            res[i] = Long.parseLong(valueStr[i]);
         }
-        int[] answer = new int[2000];
+        if (output.delete()) {
+            System.out.println("Output file deleted successfully");
+        } else {
+            System.out.println("Failed to delete the file");
+        }
+        if (output.delete()) {
+            System.out.println("Output file deleted successfully");
+        } else {
+            System.out.println("Failed to delete the file");
+        }
+        long[] answer = new long[2000];
         for (int i = 0; i < answer.length; i++) {
             answer[i] = i;
         }
-        if (output.delete()) {
-            System.out.println("Output file deleted successfully");
-        } else {
-            System.out.println("Failed to delete the file");
-        }
 
-        assertArrayEquals(answer, tail);
+
+        assertArrayEquals(answer, res);
     }
 
 
-    @Test
-    @DisplayName("Large file")
-    public void checkLargeFile() throws IOException {
-        File file = new File("largefile.txt");
-        String outputName = "outLarge.txt";
-        File output = new File(outputName);
 
-
-        PrintWriter writer = new PrintWriter(file, StandardCharsets.UTF_8);
-
-        Random random = new Random();
-        for (int i = 0; i < 2000000000; i++) {
-            writer.print((char) ('a' + random.nextInt(26)));
-        }
-        writer.print("something");
-        for (int i = 0; i < 2000000000; i++) {
-            writer.print((char) ('a' + random.nextInt(26)));
-        }
-
-        writer.close();
-        System.out.println(file.length() / (1024 * 1024) + "Mb");
-
-        long startTime = System.nanoTime();
-        final String target = "something";
-
-        FindSubstring findSubstr = new FindSubstring();
-        findSubstr.find("largefile.txt", target, outputName);
-
-        long endTime = System.nanoTime();
-        long duration = (endTime - startTime);
-        System.out.println(duration / 1000000000 + "s\n");
-
-        if (file.delete()) {
-            System.out.println("File deleted successfully");
-        } else {
-            System.out.println("Failed to delete the file");
-        }
-
-
-        byte[] bytes = new byte[(int) output.length()];
-        FileInputStream fis = new FileInputStream(output);
-        fis.read(bytes);
-        fis.close();
-        String[] valueStr = new String(bytes).trim().split("\\s+");
-        int[] tail = new int[valueStr.length];
-        for (int i = 0; i < valueStr.length; i++) {
-            tail[i] = Integer.parseInt(valueStr[i]);
-        }
-        if (output.delete()) {
-            System.out.println("Output file deleted successfully");
-        } else {
-            System.out.println("Failed to delete the file");
-        }
-        assertEquals(2000000000, tail[0]);
-    }
 }

@@ -19,7 +19,6 @@ import java.util.List;
  * Class for finding substrings.
  */
 public class FindSubstring {
-    static int counter = 0;
 
     /**
      * findes indexes of substrings.
@@ -65,10 +64,12 @@ public class FindSubstring {
      * @throws IOException couldn't open the file
      */
     private static void handleCharacters(Reader reader, String substring, String outputFile) throws IOException {
+        long counter = 0;
+
         FileWriter myWriter = new FileWriter(outputFile);
 
         int[] occurrences = new int[substring.length()];
-        List<Integer> answer = new ArrayList<>();
+        List<Long> answer = new ArrayList<>();
 
         int r;
         char[] cbuf = new char[1000000];
@@ -80,7 +81,7 @@ public class FindSubstring {
                     if (cbuf[cRead] == substring.charAt(occurrences[i])) {
                         occurrences[i]++;
                         if (occurrences[i] == substring.length()) {
-                            answer.add(counter - substring.length());
+                            answer.add((long) (counter - substring.length()));
                             if (occurrences[i] == 1) { //if read 1st symbol
                                 occurrences[i] = 0; //nulling substring search
                                 break;
@@ -116,7 +117,7 @@ public class FindSubstring {
                 }
             }
 
-            for (Integer integer : answer) { //writes ans from the list before reading new buf
+            for (Long integer : answer) { //writes ans from the list before reading new buf
                 myWriter.write(integer + " ");
             }
             answer.clear();
