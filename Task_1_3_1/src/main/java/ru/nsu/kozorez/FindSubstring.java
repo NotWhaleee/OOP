@@ -44,8 +44,8 @@ public class FindSubstring {
      * @param outputFile output file
      * @throws IOException couldn't open the file
      */
-    private static void handleFile(File file,
-                                   Charset encoding, String substring, String outputFile) throws IOException {
+    private static void handleFile(File file, Charset encoding,
+                                   String substring, String outputFile) throws IOException {
         try (InputStream in = new FileInputStream(file);
              Reader reader = new InputStreamReader(in, encoding);
              // buffer for efficiency
@@ -63,7 +63,8 @@ public class FindSubstring {
      * @param outputFile output file
      * @throws IOException couldn't open the file
      */
-    private static void handleCharacters(Reader reader, String substring, String outputFile) throws IOException {
+    private static void handleCharacters(Reader reader,
+                                         String substring, String outputFile) throws IOException {
         long counter = 0;
 
         FileWriter myWriter = new FileWriter(outputFile);
@@ -75,10 +76,10 @@ public class FindSubstring {
         char[] cbuf = new char[1000000];
 
         while ((r = reader.read(cbuf)) != -1) {
-            for (int cRead = 0; cRead < r; cRead++) {
+            for (int cread = 0; cread < r; cread++) {
                 counter++;
                 for (int i = 0; i < occurrences.length; i++) {
-                    if (cbuf[cRead] == substring.charAt(occurrences[i])) {
+                    if (cbuf[cread] == substring.charAt(occurrences[i])) {
                         occurrences[i]++;
                         if (occurrences[i] == substring.length()) {
                             answer.add((long) (counter - substring.length()));
@@ -101,7 +102,7 @@ public class FindSubstring {
                         }
                     } else {
                         //if char is not in substr, null all occurs
-                        if (substring.indexOf(cbuf[cRead]) == -1) {
+                        if (substring.indexOf(cbuf[cread]) == -1) {
                             Arrays.fill(occurrences, 0);
                             break;
                         } else {
