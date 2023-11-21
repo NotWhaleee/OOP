@@ -1,9 +1,10 @@
 package ru.nsu.kozorez;
 
-public class Exam {
-    private String subject;
+public class Exam{
+    private final String subject;
     private int mark = 0;
     private String date = null;
+    private String teacher;
 
     public Exam(String subject) {
         this.subject = subject;
@@ -13,10 +14,9 @@ public class Exam {
         return mark;
     }
 
-    public void setMark(int mark) {
+    public void setMark(int mark) throws IllegalArgumentException{
         if (mark < 2 || mark > 5){
-            System.out.println("Incorrect mark. Mark can be only in range from 2 to 5");
-            return;
+            throw new IllegalArgumentException("Incorrect mark. Mark can be only in range from 2 to 5");
         }
         this.mark = mark;
     }
@@ -25,9 +25,6 @@ public class Exam {
         return subject;
     }
 
-    public void setSubject(String subject) {
-        this.subject = subject;
-    }
 
     public String getDate() {
         return date;
@@ -37,8 +34,15 @@ public class Exam {
         this.date = date;
     }
 
+    public void setTeacher(String teacher) {
+        this.teacher = teacher;
+    }
+    public String getTeacher() {
+        return teacher;
+    }
+
     @Override
     public String toString() {
-        return "Subject: " + subject + "\nmark: " + mark + "\ndate: " + date + "\n";
+        return "Subject: " + subject + "\nmark: " + mark + "\ndate: " + date + "\nteacher: " + teacher +"\n\n";
     }
 }

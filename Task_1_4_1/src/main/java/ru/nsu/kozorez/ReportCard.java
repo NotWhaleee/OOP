@@ -1,5 +1,8 @@
 package ru.nsu.kozorez;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+
 public class ReportCard {
     private final int number;
     private String lastName;
@@ -7,21 +10,39 @@ public class ReportCard {
     private String patronymic;
     private final String speciality;
     private final int enrollmentYear;
-    private int course = 1;
-    private Exam[] exams_1st_course = {new Exam("Введение в алгебру и анализ"),
+    private int semester = 1;
+    private boolean megaScholarship = false;
+    private Exam[] exams_1st_sem = {new Exam("Введение в алгебру и анализ"),
+            new Exam("Введение в дискретную математику и математическую логику"),
+            new Exam("Декларативное программирование"),
+            new Exam("Императивное программирование"),
+            new Exam("Основы культуры речи"),
+            new Exam("История")};
+    private Exam[] exams_2nd_sem = {new Exam("Введение в алгебру и анализ"),
             new Exam("Введение в дискретную математику и математическую логику"),
             new Exam("Декларативное программирование"),
             new Exam("Императивное программирование"),
             new Exam("Иностранный язык"),
-            new Exam("Цифровые платформы"),
-            new Exam("История")};
-    private Exam[] exams_2nd_course = {new Exam("Введение в искусственный интеллект"),
+            new Exam("Цифровые платформы")};
+    private Exam[] exams_3rd_sem = {new Exam("Введение в искусственный интеллект"),
             new Exam("Дифференциальные уравнения и теория функций комплексного переменного"),
             new Exam("Иностранный язык"),
             new Exam("Модели вычислений"),
             new Exam("Объектно-ориентированное программирование"),
             new Exam("Операционные системы"),
             new Exam("Разработка программно-аппаратного комплекса для решения научных и прикладных задач (групповой проект)")};
+    private Exam[] exams_4th_sem = {new Exam("Введение в аналоговую электронику и технику измерений"),
+            new Exam("Введение в компьютерные сети"),
+            new Exam("Деловой английский язык"),
+            new Exam("Модели вычислений"),
+            new Exam("Объектно-ориентированное программирование"),
+            new Exam("Встроенные цифровые системы управления"),
+            new Exam("Разработка программно-аппаратного комплекса для решения научных и прикладных задач (групповой проект)"),
+            new Exam("Контейнеры и системы оркестрации"),
+            new Exam("Теория параллелизма"),
+            new Exam("Философия")};
+
+    private Exam[][] exams = {exams_1st_sem, exams_2nd_sem, exams_3rd_sem, exams_4th_sem};
 
     public ReportCard(int number, String lastName, String firstName, String patronymic, String speciality, int enrollmentYear) {
         this.number = number;
@@ -44,55 +65,82 @@ public class ReportCard {
         return enrollmentYear;
     }
 
-
     public String getLastName() {
         return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 
     public String getFirstName() {
         return firstName;
     }
 
+    public String getPatronymic() {
+        return patronymic;
+    }
+
+
+    public int getSemester() {
+        return semester;
+    }
+
+    public boolean isMegaScholarship() {
+        return megaScholarship;
+    }
+    public void getExam(int semester, String subject){
+        if (semester < 1 || semester > exams.length) {
+            throw new ArrayIndexOutOfBoundsException("Incorrect semester number\n");
+        }
+        for (int i = 0; i < exams[semester - 1].length; i++) {
+            if (exams[semester - 1][i].getSubject().equals(subject)) {
+                System.out.println(exams[semester-1][i]);
+                return;
+            }
+        }
+        System.out.println("Couldn't find the subject " + subject + "on " + semester + " semester");
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
 
-    public String getPatronymic() {
-        return patronymic;
-    }
-
     public void setPatronymic(String patronymic) {
         this.patronymic = patronymic;
     }
 
-    public String getMarks(int course) {
+    public void setSemester(int semester) {
+        this.semester = semester;
+    }
+    public void setMegaScholarship(){
+        if(semester == 1){
+            System.out.println("Unable to set increased scholarship in the 1st semester");
+            megaScholarship = false;
+            return;
+        }
+
+        for (Exam exam : exams[semester - 2]) {
+            if(exam.getMark()!= 5){
+                System.out.println("Unable to set increased scholarship in the " + semester +" semester. Not all exams were passed perfectly:\n" + exam);
+                megaScholarship = false;
+                return;
+            }
+        }
+        megaScholarship = true;
+        System.out.println("Increased scholarship has been set successfully");
+    }
+
+    public String getMarks(int semester) {
+        if (semester < 1 || semester > exams.length) {
+            throw new ArrayIndexOutOfBoundsException("Incorrect semester number!\n");
+        }
         String result = "";
-        switch (course) {
-            case 1:
-                result += "1st course exams:\n";
-                for (Exam exam : exams_1st_course) {
-                    result = result.concat(exam.toString());
-                }
-                break;
-            case 2:
-                result += "2nd course exams:" + "\n";
-                for (Exam exam : exams_2nd_course) {
-                    result = result.concat(exam.toString());
-                }
-                break;
-            case 3:
-                //...
-                break;
-            case 4:
-                //...
-                break;
-            default:
-                System.out.println("Entered not valid course number\n");
+        result += semester + " semester exams:\n";
+        for (Exam exam : exams[semester - 1]) {
+            result = result.concat(exam.toString());
         }
         return result;
     }
@@ -100,67 +148,45 @@ public class ReportCard {
     public double getAvg() {
         int counter = 0;
         double avg = 0;
-        if (course > 0) {
-            for (Exam exam : exams_1st_course) {
-                if (exam.getMark() != 0) {
-                    avg += exam.getMark();
-                    counter++;
+        HashSet<String> subjects = new HashSet<String>();
+        for (int i = semester - 1; i >= 0; i--) {
+            for (int j = 0; j < exams[i].length; j++) {
+                if (exams[i][j].getMark() != 0 && !subjects.contains(exams[i][j].getSubject())) {
+                    subjects.add(exams[i][j].getSubject());
+                    avg += exams[i][j].getMark();
                 }
             }
         }
-
-        if (course > 1) {
-            for (Exam exam : exams_2nd_course) {
-                if (exam.getMark() != 0) {
-                    avg += exam.getMark();
-                    counter++;
-                }
-            }
-        }
-
-        if (course > 2) {
-            //...
-        }
-        if (course > 3) {
-            //...
-        }
-        if (counter != 0) {
-            return avg / counter;
-        } else {
+        if (subjects.isEmpty()) {
             return 0;
+        } else {
+            return avg / subjects.size();
         }
     }
 
-    public void setExamMark(int course, String subject, int mark, String date) {
-        switch (course) {
-            case 1:
-                for (Exam exam : exams_1st_course) {
-                    if (exam.getSubject().equals(subject)) {
-                        exam.setMark(mark);
-                        exam.setDate(date);
-                        return;
-                    }
-                }
-                System.out.println("Couldn't find the subject " + subject + "on 1st course");
-                break;
-            case 2:
-                for (Exam exam : exams_2nd_course) {
-                    if (exam.getSubject().equals(subject)) {
-                        exam.setMark(mark);
-                        exam.setDate(date);
-                    }
-                    return;
-                }
-                System.out.println("Couldn't find the subject " + subject + "on 2nd course");
-                break;
-            case 3:
-                //..
-                break;
-            case 4:
-                //..
-                break;
-            default:
-                System.out.println("Incorrect course number");
+    public void setExamMark(int semester, String subject, int mark, String date, String teacher) {
+        if (semester < 1 || semester > exams.length) {
+            throw new ArrayIndexOutOfBoundsException("Incorrect semester number\n");
+        }
+        for (int i = 0; i < exams[semester - 1].length; i++) {
+            if (exams[semester - 1][i].getSubject().equals(subject)) {
+                exams[semester - 1][i].setMark(mark);
+                exams[semester - 1][i].setDate(date);
+                exams[semester - 1][i].setTeacher(teacher);
+                return;
+            }
+        }
+        System.out.println("Couldn't find the subject " + subject + "on " + semester + " semester");
+    }
+
+    public void testFillMarks(int semester){
+        if(semester < 1 || semester > exams.length){
+            throw new ArrayIndexOutOfBoundsException("Incorrect semester number\n");
+        }
+        for (int i = 0; i < exams[semester-1].length; i++) {
+            exams[semester-1][i].setMark(5);
+            exams[semester-1][i].setTeacher("Teacher");
+            exams[semester-1][i].setDate("01.01.2023");
         }
     }
 
@@ -174,6 +200,4 @@ public class ReportCard {
                 "Speciality: " + speciality + "\n";
         return result;
     }
-
-
 }
