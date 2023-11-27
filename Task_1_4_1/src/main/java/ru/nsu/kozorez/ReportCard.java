@@ -1,6 +1,7 @@
 package ru.nsu.kozorez;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 
 public class ReportCard {
@@ -12,38 +13,10 @@ public class ReportCard {
     private final int enrollmentYear;
     private int semester = 1;
     private boolean megaScholarship = false;
-    private Exam[] exams_1st_sem = {new Exam("Введение в алгебру и анализ"),
-            new Exam("Введение в дискретную математику и математическую логику"),
-            new Exam("Декларативное программирование"),
-            new Exam("Императивное программирование"),
-            new Exam("Основы культуры речи"),
-            new Exam("История")};
-    private Exam[] exams_2nd_sem = {new Exam("Введение в алгебру и анализ"),
-            new Exam("Введение в дискретную математику и математическую логику"),
-            new Exam("Декларативное программирование"),
-            new Exam("Императивное программирование"),
-            new Exam("Иностранный язык"),
-            new Exam("Цифровые платформы")};
-    private Exam[] exams_3rd_sem = {new Exam("Введение в искусственный интеллект"),
-            new Exam("Дифференциальные уравнения и теория функций комплексного переменного"),
-            new Exam("Иностранный язык"),
-            new Exam("Модели вычислений"),
-            new Exam("Объектно-ориентированное программирование"),
-            new Exam("Операционные системы"),
-            new Exam("Разработка программно-аппаратного комплекса для решения научных и прикладных задач (групповой проект)")};
-    private Exam[] exams_4th_sem = {new Exam("Введение в аналоговую электронику и технику измерений"),
-            new Exam("Введение в компьютерные сети"),
-            new Exam("Деловой английский язык"),
-            new Exam("Модели вычислений"),
-            new Exam("Объектно-ориентированное программирование"),
-            new Exam("Встроенные цифровые системы управления"),
-            new Exam("Разработка программно-аппаратного комплекса для решения научных и прикладных задач (групповой проект)"),
-            new Exam("Контейнеры и системы оркестрации"),
-            new Exam("Теория параллелизма"),
-            new Exam("Философия")};
 
-    private Exam[][] exams = {exams_1st_sem, exams_2nd_sem, exams_3rd_sem, exams_4th_sem};
 
+    //private Exam[][] exams = {exams_1st_sem, exams_2nd_sem, exams_3rd_sem, exams_4th_sem};
+    private Exam[][] exams;
     public ReportCard(int number, String lastName, String firstName, String patronymic, String speciality, int enrollmentYear) {
         this.number = number;
         this.lastName = lastName;
@@ -51,6 +24,10 @@ public class ReportCard {
         this.patronymic = patronymic;
         this.speciality = speciality;
         this.enrollmentYear = enrollmentYear;
+    }
+
+    public void setExams(Exam[][] exams) {
+        this.exams = exams;
     }
 
     public int getNumber() {
@@ -189,6 +166,7 @@ public class ReportCard {
             exams[semester-1][i].setDate("01.01.2023");
         }
     }
+
 
     @Override
     public String toString() {

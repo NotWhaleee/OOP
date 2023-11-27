@@ -16,7 +16,7 @@ public class Exam{
 
     public void setMark(int mark) throws IllegalArgumentException{
         if (mark < 2 || mark > 5){
-            throw new IllegalArgumentException("Incorrect mark. Mark can be only in range from 2 to 5");
+            throw new IllegalArgumentException("Incorrect mark. Mark can be only in a range from 2 to 5");
         }
         this.mark = mark;
     }
