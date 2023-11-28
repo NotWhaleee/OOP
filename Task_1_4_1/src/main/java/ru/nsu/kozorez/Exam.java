@@ -10,7 +10,7 @@ public class Exam {
     private String teacher;
 
     /**
-     * create exam.
+     * create an exam.
      *
      * @param subject name of the subject
      */
@@ -19,7 +19,8 @@ public class Exam {
     }
 
     /**
-     * get mark.
+     * get the mark.
+     *
      * @return int. mark.
      */
     public int getMark() {
@@ -35,8 +36,8 @@ public class Exam {
      */
     public void setMark(int mark) throws IllegalArgumentException {
         if (mark < 2 || mark > 5) {
-            throw new IllegalArgumentException("Incorrect mark." +
-                    " Mark can be only in a range from 2 to 5");
+            throw new IllegalArgumentException("Incorrect mark."
+                    + " Mark can be only in a range from 2 to 5");
         }
         this.mark = mark;
     }
@@ -93,14 +94,27 @@ public class Exam {
      */
     @Override
     public String toString() {
-        String humanMark = switch (mark) {
-            case 5 -> "EXCELLENT";
-            case 4 -> "GOOD";
-            case 3 -> "ACCEPTABLE";
-            case 2 -> "BAD, REALLY BAD :((";
-            case 0 -> "NO MARK YET";
-            default -> throw new IllegalArgumentException("Incorrect mark");
-        };
-        return "Subject: " + subject + "\nmark: " + humanMark + "\ndate: " + date + "\nteacher: " + teacher + "\n\n";
+        String humanMark;
+        switch (mark) {
+            case 5:
+                humanMark = "EXCELLENT";
+                break;
+            case 4:
+                humanMark = "GOOD";
+                break;
+            case 3:
+                humanMark = "ACCEPTABLE";
+                break;
+            case 2:
+                humanMark = "BAD, REALLY BAD :((";
+                break;
+            case 0:
+                humanMark = "NO MARK YET";
+                break;
+            default:
+                throw new IllegalArgumentException("Incorrect mark");
+        }
+        return "Subject: " + subject + "\nmark: "
+                + humanMark + "\ndate: " + date + "\nteacher: " + teacher + "\n\n";
     }
 }

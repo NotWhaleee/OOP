@@ -203,8 +203,8 @@ public class ReportCard {
      */
     public void setFinalWorkMark(int finalWorkMark) throws IllegalArgumentException {
         if (finalWorkMark < 2 || finalWorkMark > 5) {
-            throw new IllegalArgumentException("Incorrect mark. " +
-                    "Mark can be only in a range from 2 to 5");
+            throw new IllegalArgumentException("Incorrect mark. "
+                    + "Mark can be only in a range from 2 to 5");
         }
         this.finalWorkMark = finalWorkMark;
     }
@@ -294,8 +294,8 @@ public class ReportCard {
             exam.get().setDate(date);
             exam.get().setTeacher(teacher);
         } else {
-            System.out.println("Couldn't find the subject " + subject +
-                    "on " + semester + " semester");
+            System.out.println("Couldn't find the subject " + subject
+                    + "on " + semester + " semester");
         }
     }
 
@@ -353,11 +353,11 @@ public class ReportCard {
     @Override
     public String toString() {
         String result;
-        result = "Report Card number: " + number + "\n" +
-                "Last name: " + lastName + "\n" +
-                "First name: " + firstName + "\n" +
-                "Patronimyc: " + patronymic + "\n" +
-                "Speciality: " + speciality + "\n";
+        result = "Report Card number: " + number + "\n"
+                + "Last name: " + lastName + "\n"
+                + "First name: " + firstName + "\n"
+                + "Patronimyc: " + patronymic + "\n"
+                + "Speciality: " + speciality + "\n";
         return result;
     }
 

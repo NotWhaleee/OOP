@@ -6,6 +6,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+/**
+ * Test for report card class.
+ */
 public class ReportCardTest {
     @Test
     void setUpExams() {
