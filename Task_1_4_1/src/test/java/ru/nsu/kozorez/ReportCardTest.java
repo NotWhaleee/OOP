@@ -9,12 +9,12 @@ import org.junit.jupiter.api.Test;
 public class ReportCardTest {
     @Test
     void setUpExams() {
-        Exam[] exams_1st_sem = {new Exam("История")};
-        Exam[] exams_2nd_sem = {new Exam("Введение в алгебру и анализ")};
+        Exam[] exams1stsem = {new Exam("История")};
+        Exam[] exams2nsem = {new Exam("Введение в алгебру и анализ")};
 
         ReportCard student = new ReportCard(220111, "Oconnell", "Michael", "",
                 "Computer science", 2022);
-        student.setExams(new Exam[][]{exams_1st_sem, exams_2nd_sem});
+        student.setExams(new Exam[][]{exams1stsem, exams2nsem});
         String result = """
                 Report Card number: 220111
                 Last name: Oconnell
@@ -27,11 +27,11 @@ public class ReportCardTest {
 
     @Test
     void setExamTest() {
-        Exam[] exams_1st_sem = {new Exam("Введение в дискретную математику и математическую логику")};
+        Exam[] exams1stsem = {new Exam("Введение в дискретную математику и математическую логику")};
 
         ReportCard student = new ReportCard(220111, "Oconnell", "Michael", "",
                 "Computer science", 2022);
-        student.setExams(new Exam[][]{exams_1st_sem});
+        student.setExams(new Exam[][]{exams1stsem});
         student.setExamMark(1, "Введение в дискретную математику и математическую логику",
                 4, "03.06.2022", "Преподаватель");
         String result = """
@@ -47,13 +47,13 @@ public class ReportCardTest {
 
     @Test
     void getAvg() {
-        Exam[] exams_1st_sem = {new Exam("Введение в дискретную математику и математическую логику")};
-        Exam[] exams_2nd_sem = {new Exam("Введение в алгебру и анализ")};
+        Exam[] exams1stsem = {new Exam("Введение в дискретную математику и математическую логику")};
+        Exam[] exams2nsem = {new Exam("Введение в алгебру и анализ")};
 
 
         ReportCard student = new ReportCard(220111, "Oconnell", "Michael", "",
                 "Computer science", 2022);
-        student.setExams(new Exam[][]{exams_1st_sem, exams_2nd_sem});
+        student.setExams(new Exam[][]{exams1stsem, exams2nsem});
         student.setExamMark(1, "Введение в дискретную математику и математическую логику",
                 4, "03.06.2022", "Преподаватель");
         student.setExamMark(2, "Введение в алгебру и анализ", 5, "01.01.2023", "Преподаватель");
@@ -62,14 +62,14 @@ public class ReportCardTest {
     }
 
     @Test
-    void setMegaScholarship(){
-        Exam[] exams_1st_sem = {new Exam("Введение в дискретную математику и математическую логику")};
-        Exam[] exams_2nd_sem = {new Exam("Введение в алгебру и анализ")};
+    void setMegaScholarship() {
+        Exam[] exams1stsem = {new Exam("Введение в дискретную математику и математическую логику")};
+        Exam[] exams2nsem = {new Exam("Введение в алгебру и анализ")};
 
 
         ReportCard student = new ReportCard(220111, "Oconnell", "Michael", "",
                 "Computer science", 2022);
-        student.setExams(new Exam[][]{exams_1st_sem, exams_2nd_sem});
+        student.setExams(new Exam[][]{exams1stsem, exams2nsem});
         student.setExamMark(1, "Введение в дискретную математику и математическую логику",
                 4, "03.06.2022", "Преподаватель");
         assertFalse(student.setMegaScholarship());
@@ -79,29 +79,30 @@ public class ReportCardTest {
     }
 
     @Test
-    void getRedDiploma(){
-        Exam[] exams_1st_sem = {new Exam("Введение в дискретную математику и математическую логику")};
-        Exam[] exams_2nd_sem = {new Exam("Введение в алгебру и анализ")};
+    void getRedDiploma() {
+        Exam[] exams1stsem = {new Exam("Введение в дискретную математику и математическую логику")};
+        Exam[] exams2nsem = {new Exam("Введение в алгебру и анализ")};
 
 
         ReportCard student = new ReportCard(220111, "Oconnell", "Michael", "",
                 "Computer science", 2022);
-        student.setExams(new Exam[][]{exams_1st_sem, exams_2nd_sem});
+        student.setExams(new Exam[][]{exams1stsem, exams2nsem});
         student.setExamMark(1, "Введение в дискретную математику и математическую логику",
                 5, "03.06.2022", "Преподаватель");
         student.setExamMark(2, "Введение в алгебру и анализ", 5, "01.01.2023", "Преподаватель");
         student.setFinalWorkMark(5);
         assertTrue(student.getBloodyDiploma());
     }
+
     @Test
-    void failRedDiploma(){
-        Exam[] exams_1st_sem = {new Exam("Введение в дискретную математику и математическую логику")};
-        Exam[] exams_2nd_sem = {new Exam("Введение в алгебру и анализ")};
+    void failRedDiploma() {
+        Exam[] exams1stsem = {new Exam("Введение в дискретную математику и математическую логику")};
+        Exam[] exams2nsem = {new Exam("Введение в алгебру и анализ")};
 
 
         ReportCard student = new ReportCard(220111, "Oconnell", "Michael", "",
                 "Computer science", 2022);
-        student.setExams(new Exam[][]{exams_1st_sem, exams_2nd_sem});
+        student.setExams(new Exam[][]{exams1stsem, exams2nsem});
         student.setExamMark(1, "Введение в дискретную математику и математическую логику",
                 3, "03.06.2022", "Преподаватель");
         student.setExamMark(2, "Введение в алгебру и анализ", 5, "01.01.2023", "Преподаватель");
