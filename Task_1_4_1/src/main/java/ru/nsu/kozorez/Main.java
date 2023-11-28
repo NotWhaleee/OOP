@@ -1,14 +1,12 @@
 package ru.nsu.kozorez;
 
-import java.util.Arrays;
-
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
 // then press Enter. You can now see whitespace characters in your code.
 public class Main {
     public static void main(String[] args) {
         // Press Alt+Enter with your caret at the highlighted text to see how
         Exam[] exams_1st_sem = {new Exam("Введение в алгебру и анализ"),
-                                                                                            new Exam("Введение в дискретную математику и математическую логику"),
+                new Exam("Введение в дискретную математику и математическую логику"),
                 new Exam("Декларативное программирование"),
                 new Exam("Императивное программирование"),
                 new Exam("Основы культуры речи"),
@@ -51,5 +49,9 @@ public class Main {
         student.testFillMarks(2);
         System.out.println(student.getMarks(2));
         student.setMegaScholarship();
+        student.setExamMark(2, "Введение в дискретную математику и математическую логику", 4, "03.06.2022", "Преподаватель");
+
+        System.out.println("Student's avarege grade is: " + student.getAvg());
+
     }
 }
