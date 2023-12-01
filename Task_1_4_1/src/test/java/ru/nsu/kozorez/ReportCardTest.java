@@ -18,13 +18,11 @@ public class ReportCardTest {
         ReportCard student = new ReportCard(220111, "Oconnell", "Michael", "",
                 "Computer science", 2022);
         student.setExams(new Exam[][]{exams1stsem, exams2nsem});
-        String result = """
-                Report Card number: 220111
-                Last name: Oconnell
-                First name: Michael
-                Patronimyc:\s
-                Speciality: Computer science
-                """;
+        String result = "Report Card number: 220111\n" +
+                        "Last name: Oconnell\n" +
+                        "First name: Michael\n" +
+                        "Patronimyc: \n" +
+                        "Speciality: Computer science\n";
         assertEquals(result, student.toString());
     }
 
@@ -37,14 +35,12 @@ public class ReportCardTest {
         student.setExams(new Exam[][]{exams1stsem});
         student.setExamMark(1, "Введение в дискретную математику и математическую логику",
                 4, "03.06.2022", "Преподаватель");
-        String result = """
-                1 semester exams:
-                Subject: Введение в дискретную математику и математическую логику
-                mark: GOOD
-                date: 03.06.2022
-                teacher: Преподаватель
-
-                """;
+        String result = "1 semester exams:\n" +
+                        "Subject: Введение в дискретную математику и математическую логику\n" +
+                        "mark: GOOD\n" +
+                        "date: 03.06.2022\n" +
+                        "teacher: Преподаватель\n" +
+                        "\n";
         assertEquals(result, student.getMarks(1));
     }
 
