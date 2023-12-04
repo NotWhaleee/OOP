@@ -69,7 +69,11 @@ public class PrefixCalculations {
                     stack.push(a / b);
                     break;
                 default:
-                    stack.push(Double.valueOf(pieces[i]));
+                    try {
+                        stack.push(Double.valueOf(pieces[i]));
+                    } catch (NumberFormatException e){
+                        throw new IllegalArgumentException("Incorrect operation");
+                    }
             }
         }
         return stack.pop();
