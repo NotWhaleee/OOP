@@ -10,8 +10,9 @@ import org.junit.jupiter.api.Test;
  * Test for report card class.
  */
 public class ReportCardTest {
+
     @Test
-    void setUpExams() {
+    void setUpStudent() {
         Exam[] exams1stsem = {new Exam("История")};
         Exam[] exams2nsem = {new Exam("Введение в алгебру и анализ")};
 
@@ -24,6 +25,16 @@ public class ReportCardTest {
                         "Patronimyc: \n" +
                         "Speciality: Computer science\n";
         assertEquals(result, student.toString());
+        assertEquals(220111, student.getNumber());
+        assertEquals("Computer science", student.getSpeciality());
+        assertEquals(1, student.getSemester());
+        student.setFirstName("Miha");
+        student.setLastName("Ocno");
+        student.setPatronymic("No");
+        assertEquals("Miha", student.getFirstName());
+        assertEquals("Ocno", student.getLastName());
+        assertEquals("No", student.getPatronymic());
+        assertEquals(2022, student.getEnrollmentYear());
     }
 
     @Test
@@ -58,6 +69,7 @@ public class ReportCardTest {
         student.setExamMark(2, "Введение в алгебру и анализ", 5, "01.01.2023", "Преподаватель");
         double result = 4.5;
         assertEquals(result, student.getAvg());
+        student.getExam(1, "Введение в дискретную математику и математическую логику");
     }
 
     @Test
@@ -75,6 +87,7 @@ public class ReportCardTest {
         student.setExamMark(2, "Введение в алгебру и анализ", 5, "01.01.2023", "Преподаватель");
         student.setSemester(3);
         assertTrue(student.setMegaScholarship());
+        assertTrue(student.isMegaScholarship());
     }
 
     @Test
@@ -91,6 +104,7 @@ public class ReportCardTest {
         student.setExamMark(2, "Введение в алгебру и анализ", 5, "01.01.2023", "Преподаватель");
         student.setFinalWorkMark(5);
         assertTrue(student.getBloodyDiploma());
+        assertEquals(5, student.getFinalWorkMark());
     }
 
     @Test

@@ -299,22 +299,6 @@ public class ReportCard {
         }
     }
 
-    /**
-     * fills all the marks with excellent marks. for tests only.
-     *
-     * @param semester number of semester.
-     */
-    public void testFillMarks(int semester) {
-        if (semester < 1 || semester > exams.length) {
-            throw new ArrayIndexOutOfBoundsException("Incorrect semester number\n");
-        }
-        Arrays.stream(exams[semester - 1])
-                .forEach(exam -> {
-                    exam.setMark(5);
-                    exam.setTeacher("Teacher");
-                    exam.setDate("01.01.2023");
-                });
-    }
 
     /**
      * returns if a student can get red diploma or not.
