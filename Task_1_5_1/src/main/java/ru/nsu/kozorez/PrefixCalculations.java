@@ -1,6 +1,7 @@
 package ru.nsu.kozorez;
 
-import java.util.Stack;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 import static java.lang.Math.sin;
 import static java.lang.Math.cos;
@@ -8,11 +9,26 @@ import static java.lang.Math.log;
 import static java.lang.Math.sqrt;
 import static java.lang.Math.pow;
 
+/**
+ * Prefix evaluator
+ */
 public class PrefixCalculations {
+
+    /**
+     * evaluetes prefix expressions
+     *
+     * @param expression prefix expression
+     * @return result
+     */
+
+    // class Token
+    // Value <: Token -> double val
+    // Op <: Token -> int arity
     public Double evaluate(String expression) {
+        // Token[] = parse(expression)
         String[] pieces = expression.split(" ");
-        Stack<Double> stack = new Stack<>();
-        Double a, b;
+        Deque<Double> stack = new ArrayDeque<>();
+        double a, b;
         for (int i = pieces.length - 1; i >= 0; i--) {
             switch (pieces[i]) {
                 case "sin":
@@ -25,6 +41,9 @@ public class PrefixCalculations {
                     break;
                 case "log":
                     a = stack.pop();
+                    if (a <= 0) {
+                        throw new ArithmeticException("log " + a + " is undefined!");
+                    }
                     stack.push(log(a));
                     break;
                 case "pow":
@@ -38,7 +57,7 @@ public class PrefixCalculations {
                     break;
                 case "+":
                     if (stack.size() < 2) {
-                        throw new IllegalArgumentException("Not enough numbers for the mathe operation!");
+                        throw new IllegalArgumentException("Not enough numbers for the math  operation!");
                     }
                     a = stack.pop();
                     b = stack.pop();
@@ -46,7 +65,7 @@ public class PrefixCalculations {
                     break;
                 case "-":
                     if (stack.size() < 2) {
-                        throw new IllegalArgumentException("Not enough numbers for the mathe operation!");
+                        throw new IllegalArgumentException("Not enough numbers for the math operation!");
                     }
                     a = stack.pop();
                     b = stack.pop();
@@ -54,7 +73,7 @@ public class PrefixCalculations {
                     break;
                 case "*":
                     if (stack.size() < 2) {
-                        throw new IllegalArgumentException("Not enough numbers for the mathe operation!");
+                        throw new IllegalArgumentException("Not enough numbers for the math operation!");
                     }
                     a = stack.pop();
                     b = stack.pop();
@@ -62,20 +81,27 @@ public class PrefixCalculations {
                     break;
                 case "/":
                     if (stack.size() < 2) {
-                        throw new IllegalArgumentException("Not enough numbers for the mathe operation!");
+                        throw new IllegalArgumentException("Not enough numbers for the math operation!");
                     }
                     a = stack.pop();
                     b = stack.pop();
+                    if (b == 0) {
+                        throw new ArithmeticException("Division by zero!");
+                    }
                     stack.push(a / b);
                     break;
                 default:
                     try {
                         stack.push(Double.valueOf(pieces[i]));
-                    } catch (NumberFormatException e){
-                        throw new IllegalArgumentException("Incorrect operation");
+                    } catch (NumberFormatException e) {
+                        throw new IllegalArgumentException("Incorrect operation: " + pieces[i]);
                     }
             }
         }
-        return stack.pop();
+        if (stack.size() > 1) {
+            throw new IllegalArgumentException("To many arguments!");
+        } else {
+            return stack.pop();
+        }
     }
 }
