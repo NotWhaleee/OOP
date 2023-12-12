@@ -123,6 +123,9 @@ public enum Token {
      * @return result of an operation
      */
     private double calcSqrt(double[] values) {
+        if (values[0] < 0) {
+            throw new ArithmeticException("sqrt " + values[0] + " is undefined!");
+        }
         return sqrt(values[0]);
     }
 
