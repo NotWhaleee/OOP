@@ -2,12 +2,17 @@ package ru.nsu.kozorez;
 
 import java.util.Scanner;
 
-// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
-// then press Enter. You can now see whitespace characters in your code.
+/**
+ * starts the application.
+ */
 public class Main {
+    /**
+     *  starts the application.
+     *
+     * @param args no args needed.
+     */
     public static void main(String[] args) {
-        // Press Alt+Enter with your caret at the highlighted text to see how
-        // IntelliJ IDEA suggests fixing it.
+
         PrefixCalculations cmonDoMath = new PrefixCalculations();
 
         Scanner scanner = new Scanner(System.in);
@@ -27,10 +32,10 @@ public class Main {
         String expression = "+ - 20 * 3 4 1"; //ans = 9
         String expression2 = "- * 3 + 3 7 / pow 4 2 2"; // ans = 22
         String expression3 = "sin + - 1 2 1"; // ans = 0
-        String expression4 = "sin1 + - 1 2 1"; // ans = 0
+        String expression4 = "sin1 + - 1 2 1"; // java.lang.IllegalArgumentException: Incorrect operation: sin1
         String expression5 = "+ - 20.5 * 3.1 4.05 1.11"; //ans = 9.055
-        String expression6 = "+ - 1 2 3 4"; //ans = 9.055
-        String expression7 = "log -1"; //ans = 9.055
+        String expression6 = "+ - 1 2 3 4"; //ans = 2
+        String expression7 = "log -1"; //java.lang.ArithmeticException: log -1.0 is undefined!
 
         System.out.println(cmonDoMath.evaluate(expression));
         System.out.println(cmonDoMath.evaluate(expression2));
@@ -55,6 +60,6 @@ public class Main {
         } catch (Exception exception) {
             System.out.println(exception);
         }
-         */
+    */
     }
 }

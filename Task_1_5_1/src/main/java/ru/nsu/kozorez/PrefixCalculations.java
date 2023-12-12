@@ -3,105 +3,84 @@ package ru.nsu.kozorez;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
-import static java.lang.Math.sin;
-import static java.lang.Math.cos;
-import static java.lang.Math.log;
-import static java.lang.Math.sqrt;
-import static java.lang.Math.pow;
+
+import static java.lang.Double.valueOf;
+
 
 /**
- * Prefix evaluator
+ * Prefix evaluator.
  */
 public class PrefixCalculations {
 
+
     /**
-     * evaluetes prefix expressions
+     * evaluates prefix expressions.
      *
      * @param expression prefix expression
      * @return result
      */
 
-    // class Token
-    // Value <: Token -> double val
-    // Op <: Token -> int arity
+
     public Double evaluate(String expression) {
-        // Token[] = parse(expression)
-        String[] pieces = expression.split(" ");
-        Deque<Double> stack = new ArrayDeque<>();
-        double a, b;
-        for (int i = pieces.length - 1; i >= 0; i--) {
-            switch (pieces[i]) {
-                case "sin":
-                    a = stack.pop();
-                    stack.push(sin(a));
-                    break;
-                case "cos":
-                    a = stack.pop();
-                    stack.push(cos(a));
-                    break;
-                case "log":
-                    a = stack.pop();
-                    if (a <= 0) {
-                        throw new ArithmeticException("log " + a + " is undefined!");
-                    }
-                    stack.push(log(a));
-                    break;
-                case "pow":
-                    a = stack.pop();
-                    b = stack.pop();
-                    stack.push(pow(a, b));
-                    break;
-                case "sqrt":
-                    a = stack.pop();
-                    stack.push(sqrt(a));
-                    break;
-                case "+":
-                    if (stack.size() < 2) {
-                        throw new IllegalArgumentException("Not enough numbers for the math  operation!");
-                    }
-                    a = stack.pop();
-                    b = stack.pop();
-                    stack.push(a + b);
-                    break;
-                case "-":
-                    if (stack.size() < 2) {
-                        throw new IllegalArgumentException("Not enough numbers for the math operation!");
-                    }
-                    a = stack.pop();
-                    b = stack.pop();
-                    stack.push(a - b);
-                    break;
-                case "*":
-                    if (stack.size() < 2) {
-                        throw new IllegalArgumentException("Not enough numbers for the math operation!");
-                    }
-                    a = stack.pop();
-                    b = stack.pop();
-                    stack.push(a * b);
-                    break;
-                case "/":
-                    if (stack.size() < 2) {
-                        throw new IllegalArgumentException("Not enough numbers for the math operation!");
-                    }
-                    a = stack.pop();
-                    b = stack.pop();
-                    if (b == 0) {
-                        throw new ArithmeticException("Division by zero!");
-                    }
-                    stack.push(a / b);
-                    break;
-                default:
-                    try {
-                        stack.push(Double.valueOf(pieces[i]));
-                    } catch (NumberFormatException e) {
-                        throw new IllegalArgumentException("Incorrect operation: " + pieces[i]);
-                    }
+
+        String[] splitedExpr = expression.split(" ");
+        Deque<Object> tokenizedExpr = tokenizeOperations(splitedExpr);
+        Deque<Double> numbers = new ArrayDeque<>();
+
+        while (!tokenizedExpr.isEmpty()){
+            Object token = tokenizedExpr.pop();
+            if(token.getClass() == Double.class){
+                numbers.push((Double) token);
+            }else {
+                Token operation = (Token) token;
+                double[] values = new double[operation.getArity()];
+                if(numbers.size() < operation.getArity()){
+                    throw new IllegalArgumentException("Not enough numbers for the math operation!");
+                }
+                for (int i = 0; i < operation.getArity(); i++) {
+                    values[i] = numbers.pop();
+                }
+                numbers.push(operation.calculateOperation(values));
             }
         }
-        if (stack.size() > 1) {
+        if(numbers.size() > 1){
             throw new IllegalArgumentException("To many arguments!");
-        } else {
-            return stack.pop();
         }
+        if(numbers.isEmpty()){
+            throw new IllegalArgumentException("Not enough numbers for the math operation!");
+        }
+        return numbers.pop();
+
+    }
+
+    /**
+     * tokenizes input splited expression.
+     *
+     * @param splitedExpr splited exspression
+     * @return stack of tokens
+     */
+    public Deque<Object> tokenizeOperations(String[] splitedExpr) {
+        Deque<Object> tokenStack = new ArrayDeque<>();
+        for (int i = 0; i < splitedExpr.length; i++) {
+            switch (splitedExpr[i]) {
+                case "cos" -> tokenStack.push(Token.COS);
+                case "sin" -> tokenStack.push(Token.SIN);
+                case "log" -> tokenStack.push(Token.LOG);
+                case "pow" -> tokenStack.push(Token.POW);
+                case "sqrt" -> tokenStack.push(Token.SQRT);
+                case "+" -> tokenStack.push(Token.PLUS);
+                case "-" -> tokenStack.push(Token.MINUS);
+                case "*" -> tokenStack.push(Token.PRODUCT);
+                case "/" -> tokenStack.push(Token.DIVISION);
+                default -> {
+                    try {
+                        tokenStack.push(valueOf(splitedExpr[i]));
+                    } catch (NumberFormatException e) {
+                        throw new IllegalArgumentException("Incorrect operation: " + splitedExpr[i]);
+                    }
+                }
+            }
+        }
+        return tokenStack;
     }
 }
