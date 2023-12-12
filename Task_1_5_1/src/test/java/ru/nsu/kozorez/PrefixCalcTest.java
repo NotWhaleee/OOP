@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
  * Prefix calculations test.
  */
 public class PrefixCalcTest {
-
     @Test
     void testComplexExpressions() {
         PrefixCalculations cmonDoMath = new PrefixCalculations();
