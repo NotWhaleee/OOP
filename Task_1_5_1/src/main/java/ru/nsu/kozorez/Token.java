@@ -23,7 +23,6 @@ public enum Token {
     private final int arity;
 
 
-
     /**
      * constructor for tokens.
      *

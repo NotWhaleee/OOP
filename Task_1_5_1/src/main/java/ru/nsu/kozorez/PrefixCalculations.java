@@ -27,15 +27,16 @@ public class PrefixCalculations {
         Deque<Object> tokenizedExpr = tokenizeOperations(splitedExpr);
         Deque<Double> numbers = new ArrayDeque<>();
 
-        while (!tokenizedExpr.isEmpty()){
+        while (!tokenizedExpr.isEmpty()) {
             Object token = tokenizedExpr.pop();
-            if(token.getClass() == Double.class){
+            if (token.getClass() == Double.class) {
                 numbers.push((Double) token);
-            }else {
+            } else {
                 Token operation = (Token) token;
                 double[] values = new double[operation.getArity()];
-                if(numbers.size() < operation.getArity()){
-                    throw new IllegalArgumentException("Not enough numbers for the math operation!");
+                if (numbers.size() < operation.getArity()) {
+                    throw new IllegalArgumentException("Not enough numbers " +
+                            "for the math operation!");
                 }
                 for (int i = 0; i < operation.getArity(); i++) {
                     values[i] = numbers.pop();
@@ -43,10 +44,10 @@ public class PrefixCalculations {
                 numbers.push(operation.calculateOperation(values));
             }
         }
-        if(numbers.size() > 1){
+        if (numbers.size() > 1) {
             throw new IllegalArgumentException("To many arguments!");
         }
-        if(numbers.isEmpty()){
+        if (numbers.isEmpty()) {
             throw new IllegalArgumentException("Not enough numbers for the math operation!");
         }
         return numbers.pop();
@@ -63,20 +64,48 @@ public class PrefixCalculations {
         Deque<Object> tokenStack = new ArrayDeque<>();
         for (int i = 0; i < splitedExpr.length; i++) {
             switch (splitedExpr[i]) {
-                case "cos" -> tokenStack.push(Token.COS);
-                case "sin" -> tokenStack.push(Token.SIN);
-                case "log" -> tokenStack.push(Token.LOG);
-                case "pow" -> tokenStack.push(Token.POW);
-                case "sqrt" -> tokenStack.push(Token.SQRT);
-                case "+" -> tokenStack.push(Token.PLUS);
-                case "-" -> tokenStack.push(Token.MINUS);
-                case "*" -> tokenStack.push(Token.PRODUCT);
-                case "/" -> tokenStack.push(Token.DIVISION);
-                default -> {
+                case "cos": {
+                    tokenStack.push(Token.COS);
+                    break;
+                }
+                case "sin": {
+                    tokenStack.push(Token.SIN);
+                    break;
+                }
+                case "log": {
+                    tokenStack.push(Token.LOG);
+                    break;
+                }
+                case "pow": {
+                    tokenStack.push(Token.POW);
+                    break;
+                }
+                case "sqrt": {
+                    tokenStack.push(Token.SQRT);
+                    break;
+                }
+                case "+": {
+                    tokenStack.push(Token.PLUS);
+                    break;
+                }
+                case "-": {
+                    tokenStack.push(Token.MINUS);
+                    break;
+                }
+                case "*": {
+                    tokenStack.push(Token.PRODUCT);
+                    break;
+                }
+                case "/": {
+                    tokenStack.push(Token.DIVISION);
+                    break;
+                }
+                default: {
                     try {
                         tokenStack.push(valueOf(splitedExpr[i]));
                     } catch (NumberFormatException e) {
-                        throw new IllegalArgumentException("Incorrect operation: " + splitedExpr[i]);
+                        throw new IllegalArgumentException("Incorrect operation: "
+                                + splitedExpr[i]);
                     }
                 }
             }
