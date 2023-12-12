@@ -28,10 +28,10 @@ public class PrefixCalculations {
 
         while (!tokenizedExpr.isEmpty()) {
             Object token = tokenizedExpr.pop();
-            if (token instanceof Double dToken) {
-                numbers.push(dToken);
+            if (token instanceof Double) {
+                numbers.push((Double) token);
             } else {
-                assert token instanceof Token;
+                assert (token instanceof Token);
                 Token operation = (Token) token;
                 double[] values = new double[operation.getArity()];
                 if (numbers.size() < operation.getArity()) {
