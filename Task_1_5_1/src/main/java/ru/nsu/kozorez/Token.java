@@ -1,10 +1,11 @@
 package ru.nsu.kozorez;
 
-import static java.lang.Math.sin;
 import static java.lang.Math.cos;
 import static java.lang.Math.log;
-import static java.lang.Math.sqrt;
 import static java.lang.Math.pow;
+import static java.lang.Math.sin;
+import static java.lang.Math.sqrt;
+
 
 /**
  * Tokens enum.
@@ -48,20 +49,28 @@ public enum Token {
      * @return result of an operation
      */
     public double calculateOperation(double[] values) {
-        double answer;
         switch (this) {
-            case COS -> answer = calcCOS(values);
-            case SIN -> answer = calcSIN(values);
-            case LOG -> answer = calcLOG(values);
-            case POW -> answer = calcPOW(values);
-            case SQRT -> answer = calcSQRT(values);
-            case PLUS -> answer = calcPLUS(values);
-            case MINUS -> answer = calcMINUS(values);
-            case PRODUCT -> answer = calcPRODUCT(values);
-            case DIVISION -> answer = calcDIVISION(values);
-            default -> throw new IllegalArgumentException("Incorrect operation");
+            case COS:
+                return calcCos(values);
+            case SIN:
+                return calcSin(values);
+            case LOG:
+                return calcLog(values);
+            case POW:
+                return calcPow(values);
+            case SQRT:
+                return calcSqrt(values);
+            case PLUS:
+                return calcPlus(values);
+            case MINUS:
+                return calcMinus(values);
+            case PRODUCT:
+                return calcProduct(values);
+            case DIVISION:
+                return calcDivision(values);
+            default:
+                throw new IllegalArgumentException("Incorrect operation");
         }
-        return answer;
     }
 
     /**
@@ -70,7 +79,7 @@ public enum Token {
      * @param values values needed to calculate an operation
      * @return result of an operation
      */
-    private double calcCOS(double[] values) {
+    private double calcCos(double[] values) {
         return cos(values[0]);
     }
 
@@ -80,7 +89,7 @@ public enum Token {
      * @param values values needed to calculate an operation
      * @return result of an operation
      */
-    private double calcSIN(double[] values) {
+    private double calcSin(double[] values) {
         return sin(values[0]);
     }
 
@@ -90,7 +99,7 @@ public enum Token {
      * @param values values needed to calculate an operation
      * @return result of an operation
      */
-    private double calcLOG(double[] values) {
+    private double calcLog(double[] values) {
         if (values[0] <= 0) {
             throw new ArithmeticException("log " + values[0] + " is undefined!");
         }
@@ -103,7 +112,7 @@ public enum Token {
      * @param values values needed to calculate an operation
      * @return result of an operation
      */
-    private double calcPOW(double[] values) {
+    private double calcPow(double[] values) {
         return pow(values[0], values[1]);
     }
 
@@ -113,7 +122,7 @@ public enum Token {
      * @param values values needed to calculate an operation
      * @return result of an operation
      */
-    private double calcSQRT(double[] values) {
+    private double calcSqrt(double[] values) {
         return sqrt(values[0]);
     }
 
@@ -123,7 +132,7 @@ public enum Token {
      * @param values values needed to calculate an operation
      * @return result of an operation
      */
-    private double calcPLUS(double[] values) {
+    private double calcPlus(double[] values) {
         return values[0] + values[1];
     }
 
@@ -133,7 +142,7 @@ public enum Token {
      * @param values values needed to calculate an operation
      * @return result of an operation
      */
-    private double calcMINUS(double[] values) {
+    private double calcMinus(double[] values) {
         return values[0] - values[1];
     }
 
@@ -143,7 +152,7 @@ public enum Token {
      * @param values values needed to calculate an operation
      * @return result of an operation
      */
-    private double calcPRODUCT(double[] values) {
+    private double calcProduct(double[] values) {
         return values[0] * values[1];
     }
 
@@ -153,7 +162,7 @@ public enum Token {
      * @param values values needed to calculate an operation
      * @return result of an operation
      */
-    private double calcDIVISION(double[] values) {
+    private double calcDivision(double[] values) {
         if (values[1] == 0) {
             throw new ArithmeticException("Division by zero!");
         }

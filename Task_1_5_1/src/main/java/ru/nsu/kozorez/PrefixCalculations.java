@@ -1,10 +1,9 @@
 package ru.nsu.kozorez;
 
+import static java.lang.Double.valueOf;
+
 import java.util.ArrayDeque;
 import java.util.Deque;
-
-
-import static java.lang.Double.valueOf;
 
 
 /**
@@ -35,8 +34,8 @@ public class PrefixCalculations {
                 Token operation = (Token) token;
                 double[] values = new double[operation.getArity()];
                 if (numbers.size() < operation.getArity()) {
-                    throw new IllegalArgumentException("Not enough numbers " +
-                            "for the math operation!");
+                    throw new IllegalArgumentException("Not enough numbers "
+                            + "for the math operation!");
                 }
                 for (int i = 0; i < operation.getArity(); i++) {
                     values[i] = numbers.pop();
