@@ -56,76 +56,80 @@ public class FindSubstring {
     }
 
     /**
-     * reads characters from the buffer.
+     * Reads characters from the buffer.
      *
-     * @param reader    reader
-     * @param substring substring
-     * @param outputFile output file
-     * @throws IOException couldn't open the file
+     * @param reader      The reader to read characters from.
+     * @param substring   The substring to search for in the buffer.
+     * @param outputFile  The file to write the output to.
+     * @throws IOException If an I/O error occurs.
      */
-    private static void handleCharacters(Reader reader,
-                                         String substring, String outputFile) throws IOException {
+    private static void handleCharacters(Reader reader, String substring, String outputFile) throws IOException {
         long counter = 0;
-
         FileWriter myWriter = new FileWriter(outputFile);
 
         int[] occurrences = new int[substring.length()];
-        List<Long> answer = new ArrayList<>();
+        List<Long> positions = new ArrayList<>();
 
-        int r;
-        char[] cbuf = new char[1000000];
+        char[] buffer = new char[1000000];
+        int numRead;
 
-        while ((r = reader.read(cbuf)) != -1) {
-            for (int cread = 0; cread < r; cread++) {
+        while ((numRead = reader.read(buffer)) != -1) {
+            for (int i = 0; i < numRead; i++) {
                 counter++;
-                for (int i = 0; i < occurrences.length; i++) {
-                    if (cbuf[cread] == substring.charAt(occurrences[i])) {
-                        occurrences[i]++;
-                        if (occurrences[i] == substring.length()) {
-                            answer.add((long) (counter - substring.length()));
-                            if (occurrences[i] == 1) { //if read 1st symbol
-                                occurrences[i] = 0; //nulling substring search
-                                break;
-                            }
-                            occurrences[i] = 0; //nulling substring search
-                            i = -1; // start from 0 go through the substring search array again
-
-                            //sort array in reverse order
-                            occurrences = Arrays.stream(occurrences).boxed()
-                                    .sorted(Collections.reverseOrder())
-                                    .mapToInt(Integer::intValue)
-                                    .toArray();
-                            continue;
-                        }
-                        if (occurrences[i] == 1) { //if read 1st symbol
-                            break;
-                        }
-                    } else {
-                        //if char is not in substr, null all occurs
-                        if (substring.indexOf(cbuf[cread]) == -1) {
-                            Arrays.fill(occurrences, 0);
-                            break;
-                        } else {
-                            for (int j = i; j < occurrences.length - 1; j++) {
-                                occurrences[j] = occurrences[j + 1];
-                                if (occurrences[j + 1] == 0) {
-                                    break;
-                                }
-                            }
-                            occurrences[occurrences.length - 1] = 0;
-                        }
-                    }
-                }
+                handleCharacter(buffer[i], substring, occurrences, positions, counter);
             }
 
-            for (Long integer : answer) { //writes ans from the list before reading new buf
-                myWriter.write(integer + " ");
-            }
-            answer.clear();
-
+            writePositions(myWriter, positions);
+            positions.clear();
         }
 
         myWriter.close();
     }
+
+    private static void handleCharacter(char character, String substring, int[] occurrences, List<Long> positions, long counter) {
+        for (int i = 0; i < occurrences.length; i++) {
+            if (character == substring.charAt(occurrences[i])) {
+                occurrences[i]++;
+                if (occurrences[i] == substring.length()) {
+                    positions.add(counter - substring.length());
+                    resetOccurrences(occurrences, i);
+                    break;
+                }
+            } else {
+                if (substring.indexOf(character) == -1) {
+                    Arrays.fill(occurrences, 0);
+                } else {
+                    shiftOccurrences(occurrences, i);
+                }
+                break;
+            }
+        }
+    }
+
+    private static void resetOccurrences(int[] occurrences, int index) {
+        occurrences[index] = 0;
+        Arrays.sort(occurrences);
+        reverse(occurrences);
+    }
+
+    private static void shiftOccurrences(int[] occurrences, int index) {
+        System.arraycopy(occurrences, index + 1, occurrences, index, occurrences.length - 1 - index);
+        occurrences[occurrences.length - 1] = 0;
+    }
+
+    private static void reverse(int[] array) {
+        for (int i = 0; i < array.length / 2; i++) {
+            int temp = array[i];
+            array[i] = array[array.length - 1 - i];
+            array[array.length - 1 - i] = temp;
+        }
+    }
+
+    private static void writePositions(FileWriter writer, List<Long> positions) throws IOException {
+        for (Long position : positions) {
+            writer.write(position + " ");
+        }
+    }
+
 }
 

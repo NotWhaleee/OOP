@@ -23,7 +23,6 @@ public class FindSubstringTest {
     public void checkLargeFile() throws IOException {
         File file = new File("largefile.txt");
         //String outputName = "outLarge.txt";
-        File output = new File("outLarge.txt");
 
 
         PrintWriter writer = new PrintWriter(file, StandardCharsets.UTF_8);
@@ -57,6 +56,8 @@ public class FindSubstringTest {
         }
 
 
+        File output = new File("outLarge.txt");
+
         byte[] bytes = new byte[(int) output.length()];
         FileInputStream fis = new FileInputStream(output);
         fis.read(bytes);
@@ -79,7 +80,6 @@ public class FindSubstringTest {
     public void checkStrBetweenBuffs() throws IOException {
         File file = new File("between.txt");
         //String outputName = "outBetween.txt";
-        File output = new File("outBetween.txt");
 
         PrintWriter writer = new PrintWriter(file, StandardCharsets.UTF_8);
 
@@ -109,6 +109,7 @@ public class FindSubstringTest {
             System.out.println("Failed to delete the file");
         }
 
+        File output = new File("outBetween.txt");
 
         byte[] bytes = new byte[(int) output.length()];
         FileInputStream fis = new FileInputStream(output);
@@ -132,7 +133,6 @@ public class FindSubstringTest {
     public void checkSameCharacters() throws IOException {
         File file = new File("sameChar.txt");
         //String outputName = "outSame.txt";
-        File output = new File("outSame.txt");
 
         PrintWriter writer = new PrintWriter(file, StandardCharsets.UTF_8);
 
@@ -160,6 +160,7 @@ public class FindSubstringTest {
         }
 
 
+        File output = new File("outSame.txt");
 
         byte[] bytes = new byte[(int) output.length()];
         FileInputStream fis = new FileInputStream(output);
@@ -194,7 +195,6 @@ public class FindSubstringTest {
     public void check1Char() throws IOException {
         File file = new File("oneChar.txt");
         //String outputName = "outChar.txt";
-        File output = new File("outChar.txt");
 
         PrintWriter writer = new PrintWriter(file, StandardCharsets.UTF_8);
 
@@ -220,6 +220,7 @@ public class FindSubstringTest {
         }
 
 
+        File output = new File("outChar.txt");
 
         byte[] bytes = new byte[(int) output.length()];
         FileInputStream fis = new FileInputStream(output);
