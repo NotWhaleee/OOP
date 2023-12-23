@@ -28,7 +28,7 @@ public class FindSubstring {
      * @param substring substring
      * @throws IOException couldn't open the file
      */
-    public void find(String inputFile, String substring, String outputFile) throws IOException {
+    public static void find(String inputFile, String substring, String outputFile) throws IOException {
         Charset encoding = StandardCharsets.UTF_8;
 
         File file = new File(inputFile);
