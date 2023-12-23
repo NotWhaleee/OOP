@@ -12,7 +12,6 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -28,7 +27,8 @@ public class FindSubstring {
      * @param substring substring
      * @throws IOException couldn't open the file
      */
-    public static void find(String inputFile, String substring, String outputFile) throws IOException {
+    public static void find(String inputFile, String substring,
+                            String outputFile) throws IOException {
         Charset encoding = StandardCharsets.UTF_8;
 
         File file = new File(inputFile);
@@ -63,7 +63,8 @@ public class FindSubstring {
      * @param outputFile  The file to write the output to.
      * @throws IOException If an I/O error occurs.
      */
-    private static void handleCharacters(Reader reader, String substring, String outputFile) throws IOException {
+    private static void handleCharacters(Reader reader, String substring,
+                                         String outputFile) throws IOException {
         long counter = 0;
         FileWriter myWriter = new FileWriter(outputFile);
 
@@ -86,7 +87,8 @@ public class FindSubstring {
         myWriter.close();
     }
 
-    private static void handleCharacter(char character, String substring, int[] occurrences, List<Long> positions, long counter) {
+    private static void handleCharacter(char character, String substring,
+                                        int[] occurrences, List<Long> positions, long counter) {
         for (int i = 0; i < occurrences.length; i++) {
             if (character == substring.charAt(occurrences[i])) {
                 occurrences[i]++;
@@ -113,7 +115,8 @@ public class FindSubstring {
     }
 
     private static void shiftOccurrences(int[] occurrences, int index) {
-        System.arraycopy(occurrences, index + 1, occurrences, index, occurrences.length - 1 - index);
+        System.arraycopy(occurrences, index + 1,
+                occurrences, index, occurrences.length - 1 - index);
         occurrences[occurrences.length - 1] = 0;
     }
 
@@ -125,7 +128,8 @@ public class FindSubstring {
         }
     }
 
-    private static void writePositions(FileWriter writer, List<Long> positions) throws IOException {
+    private static void writePositions(FileWriter writer,
+                                       List<Long> positions) throws IOException {
         for (Long position : positions) {
             writer.write(position + " ");
         }
