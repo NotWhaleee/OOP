@@ -42,21 +42,8 @@ public class Notebook {
     }
 
     /**
-     * converts all the notes to string.
-     *
-     * @return notes.
-     */
-    @Override
-    public String toString() {
-        String result = "";
-        for (Note note : notes) {
-            result = result.concat(note.toString());
-        }
-        return result;
-    }
-
-    /**
      * prints all the notes in the stated range with keywords in the title.
+     *
      * @param start prints notes from this date.
      * @param end prints notes up to that date.
      * @param keyWords keywords in the title regardless of the register.
@@ -69,6 +56,19 @@ public class Notebook {
         noteStream.forEach(System.out::println);
     }
 
+    /**
+     * converts all the notes to string.
+     *
+     * @return notes.
+     */
+    @Override
+    public String toString() {
+        String result = "";
+        for (Note note : notes) {
+            result = result.concat(note.toString());
+        }
+        return result;
+    }
 
     /**
      * checks whether the note is within the specified date range.

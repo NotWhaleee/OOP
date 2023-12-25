@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -14,8 +15,8 @@ import java.util.ArrayDeque;
 import java.util.Date;
 import java.util.Deque;
 import java.util.List;
-import org.junit.jupiter.api.Test;
 
+import org.junit.jupiter.api.Test;
 
 
 /**
@@ -77,12 +78,12 @@ public class NotebookTest {
 
         myDiarDiary.show();
 
-        String expected = "Title: Title2\n" +
-                "Creation date: " + dform.format(currentDate) + "\n" +
-                "Some text2\n" +
-                "Title: Title\n" +
-                "Creation date: " + dform.format(currentDate) + "\n" +
-                "Some text\n";
+        String expected = "Title: Title2\n"
+                + "Creation date: " + dform.format(currentDate) + "\n"
+                + "Some text2\n"
+                + "Title: Title\n"
+                + "Creation date: " + dform.format(currentDate) + "\n"
+                + "Some text\n";
 
         assertEquals(expected, myDiarDiary.toString());
 
@@ -103,8 +104,8 @@ public class NotebookTest {
         myDiarDiary.delete("Title2");
 
         String expected = "Title: Title\n" +
-                "Creation date: " + dform.format(currentDate) + "\n" +
-                "Some text\n";
+                "Creation date: " + dform.format(currentDate) + "\n"
+                + "Some text\n";
 
         assertEquals(expected, myDiarDiary.toString());
     }
@@ -123,11 +124,11 @@ public class NotebookTest {
         myDiarDiary.delete("Title3");
 
         String expected = "Title: Title2\n" +
-                "Creation date: " + dform.format(currentDate) + "\n" +
-                "Some text2\n" +
-                "Title: Title\n" +
-                "Creation date: " + dform.format(currentDate) + "\n" +
-                "Some text\n";
+                "Creation date: " + dform.format(currentDate) + "\n"
+                + "Some text2\n"
+                + "Title: Title\n"
+                + "Creation date: " + dform.format(currentDate) + "\n"
+                + "Some text\n";
 
         assertEquals(expected, myDiarDiary.toString());
     }
@@ -145,9 +146,9 @@ public class NotebookTest {
         Deque<Note> notes;
         notes = readFromJson();
 
-        String expected = "[Title: Title\n" +
-                "Creation date: " + dform.format(currentDate) + "\n" +
-                "Some text\n]";
+        String expected = "[Title: Title\n"
+                + "Creation date: " + dform.format(currentDate) + "\n"
+                + "Some text\n]";
 
         assertEquals(expected, notes.toString());
     }
@@ -166,9 +167,9 @@ public class NotebookTest {
 
         notes = readFromJson();
 
-        String expected = "[Title: TitleFromMain\n" +
-                "Creation date: " + dform.format(currentDate) + "\n" +
-                "SomeeeeTexxttt\n]";
+        String expected = "[Title: TitleFromMain\n"
+                + "Creation date: " + dform.format(currentDate) + "\n"
+                + "SomeeeeTexxttt\n]";
 
         assertEquals(expected, notes.toString());
     }
