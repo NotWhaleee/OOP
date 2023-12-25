@@ -103,8 +103,8 @@ public class NotebookTest {
 
         myDiarDiary.delete("Title2");
 
-        String expected = "Title: Title\n" +
-                "Creation date: " + dform.format(currentDate) + "\n"
+        String expected = "Title: Title\n"
+                + "Creation date: " + dform.format(currentDate) + "\n"
                 + "Some text\n";
 
         assertEquals(expected, myDiarDiary.toString());
@@ -123,8 +123,8 @@ public class NotebookTest {
 
         myDiarDiary.delete("Title3");
 
-        String expected = "Title: Title2\n" +
-                "Creation date: " + dform.format(currentDate) + "\n"
+        String expected = "Title: Title2\n"
+                + "Creation date: " + dform.format(currentDate) + "\n"
                 + "Some text2\n"
                 + "Title: Title\n"
                 + "Creation date: " + dform.format(currentDate) + "\n"

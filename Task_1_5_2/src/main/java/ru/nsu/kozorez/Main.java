@@ -62,7 +62,7 @@ public class Main {
             if (arguments.size() != 1) {
                 throw new IllegalArgumentException("add takes 2 argument");
             }
-            myDiarDiary.delete(arguments.getFirst());
+            myDiarDiary.delete(arguments.get(0));
         }
         if (show) {
             if (arguments.isEmpty()) {
