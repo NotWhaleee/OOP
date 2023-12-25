@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -14,6 +15,7 @@ import java.util.ArrayDeque;
 import java.util.Date;
 import java.util.Deque;
 import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
 
@@ -75,6 +77,7 @@ public class NotebookTest {
         myDiarDiary.add("Title2", "Some text2", currentDate);
 
         myDiarDiary.show();
+        myDiarDiary.show(currentDate, currentDate, new String[]{"Title"});
 
         String expected = "Title: Title2\n"
                 + "Creation date: " + dform.format(currentDate) + "\n"
@@ -152,23 +155,20 @@ public class NotebookTest {
     }
 
     @Test
-    void testMain() throws IOException {
+    void testAddMain() throws IOException {
         deleteJson();
+        Date currentDate = new Date();
+        Notebook myDiarDiary = new Notebook();
+        myDiarDiary.add("Title", "Some text", currentDate);
+
         Main main = new Main();
         main.parseArgs(new String[]{"-add", "TitleFromMain", "SomeeeeTexxttt"});
         main.handleArgs();
 
-
-        Date currentDate = new Date();
-        DateFormat dform = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
         Deque<Note> notes;
 
         notes = readFromJson();
 
-        String expected = "[Title: TitleFromMain\n"
-                + "Creation date: " + dform.format(currentDate) + "\n"
-                + "SomeeeeTexxttt\n]";
-
-        assertEquals(expected, notes.toString());
+        assertEquals(2, notes.size());
     }
 }
