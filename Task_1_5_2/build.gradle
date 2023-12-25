@@ -6,18 +6,6 @@ plugins {
 group = 'ru.nsu.kozorez'
 version = '1.0-SNAPSHOT'
 
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
-    }
-}
-tasks.wrapper {
-    gradleVersion = "8.4"
-    // You can either download the binary-only version of Gradle (BIN) or
-    // the full version (with sources and documentation) of Gradle (ALL)
-    distributionType = Wrapper.DistributionType.ALL
-}
-
 repositories {
     mavenCentral()
 }
