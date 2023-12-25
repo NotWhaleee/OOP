@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
+
 import org.junit.jupiter.api.Test;
 import ru.nsu.kozorez.Tree;
 
@@ -13,6 +14,7 @@ import ru.nsu.kozorez.Tree;
  * Tests tree class.
  */
 public class TreeTest {
+
     @Test
     public void testAddNodeString() {
         var tree = new Tree<>("R");
@@ -127,8 +129,9 @@ public class TreeTest {
 
         assertNotEquals(tree1, tree2);
     }
+
     @Test
-    void simpleTree(){
+    void simpleTree() {
         var tree1 = new Tree<>("R");
         tree1.addChild("A");
         tree1.addChild("B");
@@ -159,17 +162,9 @@ public class TreeTest {
         subtree22.addChild("B");
         tree22.addChild("D");
         tree22.addChild(subtree22);
-
-//        var tree2 = new Tree<>("R");
-//        tree2.addChild("A");
-//        tree2.addChild("D");
-//        var subtree2 = new Tree<>("R1");
-//        subtree2.addChild("C");
-//        subtree2.addChild("B");
-//        tree2.addChild(subtree2);
-
         assertEquals(tree1, tree22);
     }
+
     @Test
     public void testEquals_differentTrees_differAtThorthLevel() {
         Tree<String> tree1 = new Tree<>("root");
