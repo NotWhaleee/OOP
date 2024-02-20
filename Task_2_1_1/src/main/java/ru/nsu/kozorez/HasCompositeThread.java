@@ -1,12 +1,12 @@
 package ru.nsu.kozorez;
 
 /**
- * Class for finding composites using threads
+ * Class for finding composites using threads.
  */
 public class HasCompositeThread {
 
     /**
-     * checks if the number is prime
+     * Checks if the number is prime.
      *
      * @param num input number
      * @return bool

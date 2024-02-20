@@ -3,11 +3,11 @@ package ru.nsu.kozorez;
 import java.util.Arrays;
 
 /**
- * Class for finding composites using streams
+ * Class for finding composites using streams.
  */
 public class HasCompositeStream {
     /**
-     * checks if the number is prime
+     * Checks if the number is prime.
      *
      * @param num input number
      * @return bool
@@ -25,7 +25,7 @@ public class HasCompositeStream {
     }
 
     /**
-     * checks if an array has composite numbers
+     * Checks if an array has composite numbers.
      *
      * @param array input
      * @return bool

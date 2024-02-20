@@ -1,12 +1,12 @@
 package ru.nsu.kozorez;
 
 /**
- * Class for finding composites without using parallel processing
+ * Class for finding composites without using parallel processing.
  */
 public class HasComposite {
 
     /**
-     * checks if the number is prime
+     * Checks if the number is prime.
      *
      * @param num input number
      * @return bool
@@ -24,7 +24,7 @@ public class HasComposite {
     }
 
     /**
-     * checks if an array has composite numbers
+     * Checks if an array has composite numbers.
      *
      * @param array input
      * @return bool
