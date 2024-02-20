@@ -29,7 +29,7 @@ public class HasCompositeThread {
      * Checks an array for composite numbers.
      *
      * @param array       input
-     * @param threadCount number of threads > 0
+     * @param threadCount number of threads greater than 0
      * @return bool
      * @throws InterruptedException exception
      */
