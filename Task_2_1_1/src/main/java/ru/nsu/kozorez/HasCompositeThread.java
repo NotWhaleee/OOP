@@ -26,7 +26,7 @@ public class HasCompositeThread {
     private volatile boolean hasComposite = false;
 
     /**
-     * checks an array for composite numbers
+     * Checks an array for composite numbers.
      *
      * @param array       input
      * @param threadCount number of threads > 0
