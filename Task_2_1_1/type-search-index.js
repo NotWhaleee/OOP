@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"ru.nsu.kozorez","l":"HasComposite"},{"p":"ru.nsu.kozorez","l":"HasCompositeStream"},{"p":"ru.nsu.kozorez","l":"HasCompositeThread"}]
