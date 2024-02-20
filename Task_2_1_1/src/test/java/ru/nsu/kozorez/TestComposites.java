@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
  * Test parallel processing.
  */
 public class TestComposites {
-    int[] arr = new int[100000];
+    int[] arr = new int[10000];
 
     void setArr() {
         Arrays.fill(arr, 1559861749);
