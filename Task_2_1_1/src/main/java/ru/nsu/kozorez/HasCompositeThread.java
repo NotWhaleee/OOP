@@ -4,25 +4,6 @@ package ru.nsu.kozorez;
  * Class for finding composites using threads.
  */
 public class HasCompositeThread {
-
-    /**
-     * Checks if the number is prime.
-     *
-     * @param num input number
-     * @return bool
-     */
-    private boolean isPrime(int num) {
-        if (num <= 1) {
-            return true;
-        }
-        for (int i = 2; i * i <= num; i++) {
-            if (num % i == 0) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     private volatile boolean hasComposite = false;
 
     /**
@@ -34,6 +15,7 @@ public class HasCompositeThread {
      * @throws InterruptedException exception
      */
     public boolean hasCompositeThread(int[] array, int threadCount) throws InterruptedException {
+        IsPrime isPrime = new IsPrime();
         //AtomicBoolean hasComposite = new AtomicBoolean(false);
         if (threadCount < 1) {
             throw new IllegalArgumentException("Threads number should be greater than 0");
@@ -46,10 +28,17 @@ public class HasCompositeThread {
             int to = Math.min(from + chunkSize, array.length);
             threads[t] = new Thread(() -> {
                 for (int i = from; i < to && !hasComposite; i++) {
-                    if (!isPrime(array[i])) {
+                    if (!isPrime.isPrime(array[i])) {
                         //hasComposite.set(true);
                         hasComposite = true;
-                        break;
+                        for (Thread thread : threads) {
+                            if (thread != null) {
+                                thread.interrupt();
+                            }
+                        }
+                        if (Thread.currentThread().isInterrupted()) {
+                            break;
+                        }
                     }
                 }
             });
