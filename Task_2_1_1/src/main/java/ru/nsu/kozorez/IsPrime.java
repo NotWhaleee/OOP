@@ -1,5 +1,8 @@
 package ru.nsu.kozorez;
 
+/**
+ * class for checking if the number is prime.
+ */
 public class IsPrime {
     /**
      * Checks if the number is prime.
