@@ -8,7 +8,6 @@ public class Pizzeria {
         setUpPizzeria.setUp();
         Thread[] bakersThreads = new Thread[setUpPizzeria.bakers.length];
 
-
         //System.out.println("speed = " + setUpPizzeria.bakers[0].getSpeed());
         Thread bakersWork = new Thread(() -> bakersGoBrrr(bakersThreads));
         bakersWork.start();
