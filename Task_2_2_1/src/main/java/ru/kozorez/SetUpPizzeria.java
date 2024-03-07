@@ -6,7 +6,7 @@ public class SetUpPizzeria {
 
     public Storage storage = new Storage(4);
 
-    public void setUp(){
+    public void setUp() {
         bakers[0] = new Baker(5000);
         bakers[1] = new Baker(2000);
         bakers[2] = new Baker(1000);

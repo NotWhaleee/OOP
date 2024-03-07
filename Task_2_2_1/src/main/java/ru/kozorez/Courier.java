@@ -23,7 +23,7 @@ public class Courier {
         this.carries = 0;
     }
 
-    public void setCarries (int carries) {
+    public void setCarries(int carries) {
         this.carries = carries;
     }
 

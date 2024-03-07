@@ -22,9 +22,9 @@ public class Storage {
     }
 
     public synchronized void decreaseStored(int num) {
-        if(stored < num){
+        if (stored < num) {
             stored -= num;
-        }else {
+        } else {
             System.err.println("Try to take more pizzas from the storage than present!");
         }
     }

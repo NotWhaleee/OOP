@@ -2,10 +2,10 @@ package ru.kozorez;
 
 public class Baker {
     private final long speed;
-    
+
     private volatile boolean isBusy;
 
-    public Baker(int speed){
+    public Baker(int speed) {
         this.speed = speed;
         isBusy = false;
     }
@@ -13,8 +13,8 @@ public class Baker {
     public long getSpeed() {
         return speed;
     }
-    
-    public boolean getIsBusy(){
+
+    public boolean getIsBusy() {
         return isBusy;
     }
 

@@ -81,39 +81,40 @@ public class Pizzeria {
             }
         }*/
 
-        private void processOrders (Thread[]bakersThreads){
-            for (int i = 0; i < setUpPizzeria.bakers.length; i++) {
+    private void processOrders(Thread[] bakersThreads) {
+        for (int i = 0; i < setUpPizzeria.bakers.length; i++) {
 
-                final int finalI = i;
+            final int finalI = i;
 
-                if (startCooking(finalI)) {
-                    bakersThreads[finalI] = new Thread(() -> {
-                        System.out.println("Hire baker " + finalI + " " + setUpPizzeria.bakers[finalI]);
+            if (startCooking(finalI)) {
+                bakersThreads[finalI] = new Thread(() -> {
+                    System.out.println("Hire baker " + finalI + " " + setUpPizzeria.bakers[finalI]);
 
-                        try {
-                            Thread.sleep(setUpPizzeria.bakers[finalI].getSpeed());
-                        } catch (InterruptedException e) {
-                            System.err.println("Sleep error: " + e);
-                            //throw new RuntimeException(e);
-                        }
-
-                        setUpPizzeria.storage.deliverToTheStorage(); //try to deliver to the storage;
-                        setUpPizzeria.bakers[finalI].setIsBusy(false);
-                        System.out.println("Release baker " + finalI + " " + setUpPizzeria.bakers[finalI]);
-                    });
-                    bakersThreads[i].start();
-                }
-            }
-        }
-        private void joinBakersThreads (Thread[]bakersThreads){
-            for (Thread baker : bakersThreads) {
-                try {
-                    if (baker != null) {
-                        baker.join();
+                    try {
+                        Thread.sleep(setUpPizzeria.bakers[finalI].getSpeed());
+                    } catch (InterruptedException e) {
+                        System.err.println("Sleep error: " + e);
+                        //throw new RuntimeException(e);
                     }
-                } catch (Exception e) {
-                    System.err.println("Error with joining threads: " + e);
-                }
+
+                    setUpPizzeria.storage.deliverToTheStorage(); //try to deliver to the storage;
+                    setUpPizzeria.bakers[finalI].setIsBusy(false);
+                    System.out.println("Release baker " + finalI + " " + setUpPizzeria.bakers[finalI]);
+                });
+                bakersThreads[i].start();
             }
         }
     }
+
+    private void joinBakersThreads(Thread[] bakersThreads) {
+        for (Thread baker : bakersThreads) {
+            try {
+                if (baker != null) {
+                    baker.join();
+                }
+            } catch (Exception e) {
+                System.err.println("Error with joining threads: " + e);
+            }
+        }
+    }
+}
