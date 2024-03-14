@@ -7,8 +7,13 @@ public class Courier {
 
     private volatile boolean isBusy;
 
-    public Courier(int capacity) {
+    private final long speed;
+
+
+    public Courier(int capacity, int speed) {
         this.capacity = capacity;
+        this.speed = speed;
+        isBusy = false;
     }
 
     public int getCapacity() {
@@ -19,14 +24,9 @@ public class Courier {
         return carries;
     }
 
-    public void resetCarriedNum() {
-        this.carries = 0;
-    }
-
     public void setCarries(int carries) {
         this.carries = carries;
     }
-
 
     public boolean isBusy() {
         return isBusy;
@@ -34,5 +34,19 @@ public class Courier {
 
     public void setBusy(boolean busy) {
         isBusy = busy;
+    }
+
+    public long getSpeed() {
+        return speed;
+    }
+
+    @Override
+    public String toString() {
+        return "Courier{" +
+                "capacity=" + capacity +
+                ", carries=" + carries +
+                ", isBusy=" + isBusy +
+                ", speed=" + speed +
+                '}';
     }
 }
