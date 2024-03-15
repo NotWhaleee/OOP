@@ -21,12 +21,15 @@ public class Pizzeria {
         pizzeria.storage.resetDelivered();
 
         Thread[] bakersThreads = new Thread[pizzeria.bakers.length];
-        Thread[] couriersThreads = new Thread[pizzeria.couriers.length];
-
-        Thread bakersWork = new Thread(() -> bakersGoBrrr(bakersThreads));
+        BakersThreads bakersGoBrr = new BakersThreads();
+        Thread bakersWork = new Thread(() -> bakersGoBrr.processOrders(pizzeria, bakersThreads));
         bakersWork.start();
-        Thread couriersWork = new Thread(() -> couriersGoBrrr(couriersThreads));
+
+        Thread[] couriersThreads = new Thread[pizzeria.couriers.length];
+        CouriersThreads couriersGoBrr = new CouriersThreads();
+        Thread couriersWork = new Thread(() -> couriersGoBrr.processDelivery(pizzeria, couriersThreads));
         couriersWork.start();
+
         Thread takingOrders = new Thread(() -> takeOrders());
         takingOrders.start();
         try {
@@ -48,8 +51,10 @@ public class Pizzeria {
         bakersWork.interrupt();
         couriersWork.interrupt();
 
+/*
         joinTreads(bakersThreads);
         joinTreads(couriersThreads);
+*/
 
         System.out.println(RED);
         System.out.println("PIZZERIA CLOSED!!!");
@@ -106,71 +111,12 @@ public class Pizzeria {
         pizzeria.orders += orders;
     }
 
-    private synchronized boolean takeOrder() {
-        if (pizzeria.orders > 0) {
-            pizzeria.orders--;
-            return true;
-        }
-        return false;
-    }
-
-    private void bakersGoBrrr(Thread[] couriersThreads) {
-        while (!interrupted()) {
-            processOrders(couriersThreads);
-        }
-    }
-
-    private void couriersGoBrrr(Thread[] couriersThreads) {
-        while (!interrupted()) {
-            processDelivery(couriersThreads);
-        }
-    }
-
-    private synchronized boolean startCooking(int finalI) {
-        if (!pizzeria.bakers[finalI].getIsBusy()) {
-            if (takeOrder()) {
-                pizzeria.bakers[finalI].setIsBusy(true);
-                return true;
-            }
-        }
-        return false;
-    }
-
-
-
-
-
-    private void processOrders(Thread[] bakersThreads) {
-        for (int i = 0; i < pizzeria.bakers.length; i++) {
-            final int finalI = i;
-            if (startCooking(finalI)) {
-                bakersThreads[finalI] = new Thread(() -> {
-                    System.out.println("Hire baker " + finalI + " " + pizzeria.bakers[finalI]);
-                    try {
-                        Thread.sleep(pizzeria.bakers[finalI].getSpeed());
-                    } catch (InterruptedException e) {
-                        pizzeria.bakers[finalI].setIsBusy(false);
-                        return;
-                    }
-                    //try to deliver to the storage;
-                    if (!pizzeria.storage.deliverToTheStorage()) {
-                        pizzeria.bakers[finalI].setIsBusy(false);
-                        return;
-                    }
-                    pizzeria.bakers[finalI].setIsBusy(false);
-                    System.out.println("Release baker " + finalI + " " + pizzeria.bakers[finalI]);
-                });
-                bakersThreads[i].start();
-            }
-        }
-    }
-
     private void joinTreads(Thread[] threads) {
         int waitTime = 1000;
         for (Thread thread : threads) {
             try {
                 if (thread != null) {
-                    thread.join(waitTime);
+                    thread.interrupt();
                 }
             } catch (Exception e) {
                 System.err.println("Error with joining threads: " + e);

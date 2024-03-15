@@ -38,6 +38,7 @@ public class Storage {
         }
     }
 
+
     public synchronized boolean deliverToTheStorage() {
         while (capacity <= stored) {
             try {
@@ -55,6 +56,13 @@ public class Storage {
         return true;
     }
 
+    public synchronized void returnToTheStorage(Courier courier){
+        System.out.println("Stored: " + stored  + " Carries: " + courier.getCarries());
+        stored += courier.getCarries();
+        System.out.println("2Stored: " + stored  + " 2Carries: " + courier.getCarries());
+
+        delivered -= courier.getCarries();
+    }
     public synchronized boolean takeFromTheStorage(Courier courier) {
         if (stored == 0) {
             try {
