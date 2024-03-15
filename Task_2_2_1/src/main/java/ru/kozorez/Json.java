@@ -1,16 +1,23 @@
 package ru.kozorez;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
 
+
+/**
+ * Class for operations with config json.
+ */
 public class Json {
     private final String jsonFile = "config.json";
 
+    /**
+     * set up pizzeria based on config file.
+     * @return pizzeria
+     * @throws IOException error reading config file
+     */
     public SetUpPizzeria parseJson() throws IOException {
         Gson gson = new Gson();
         SetUpPizzeria pizzeria = null;
@@ -29,16 +36,17 @@ public class Json {
 
     }
 
+    /**
+     * writes to json config file.
+     * @param pizzeria pizzeria
+     */
     public void writeJson(SetUpPizzeria pizzeria) {
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        // Java objects to String
+        Gson gson = new Gson();
         String json = gson.toJson(pizzeria);
 
-        //System.out.println(json);
-
         // Java objects to File
-        try (FileWriter writer = new FileWriter("JSOOON.json")) {
-            gson.toJson(json, writer);
+        try (FileWriter writer = new FileWriter(jsonFile)) {
+            writer.write(json);
         } catch (IOException e) {
             System.out.println("Error writing to json:" + e);
         }

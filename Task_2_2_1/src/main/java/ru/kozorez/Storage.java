@@ -1,10 +1,13 @@
 package ru.kozorez;
 
 
+import static ru.kozorez.Pizzeria.YELLOW;
+import static ru.kozorez.Pizzeria.RESET;
+
+
 public class Storage {
     private final int capacity;
     private volatile int stored;
-
     private volatile int delivered = 0;
 
     public Storage(int capacity) {
@@ -21,6 +24,10 @@ public class Storage {
 
     public synchronized void incrementStored() {
         stored++;
+    }
+
+    public synchronized void resetDelivered() {
+        delivered = 0;
     }
 
     public synchronized void decreaseStored(int num) {
@@ -42,6 +49,9 @@ public class Storage {
         }
         incrementStored();
         notifyAll();
+        System.out.println(YELLOW);
+        System.out.println("ORDER COOKED!");
+        System.out.println(RESET);
         return true;
     }
 
