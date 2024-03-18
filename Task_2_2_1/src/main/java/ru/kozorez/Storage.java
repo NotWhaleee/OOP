@@ -1,8 +1,7 @@
 package ru.kozorez;
 
-
-import static ru.kozorez.Pizzeria.YELLOW;
 import static ru.kozorez.Pizzeria.RESET;
+import static ru.kozorez.Pizzeria.YELLOW;
 
 /**
  * storage for orders.

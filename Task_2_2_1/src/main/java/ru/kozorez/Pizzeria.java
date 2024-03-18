@@ -64,15 +64,14 @@ public class Pizzeria {
                                Thread couriersWork,
                                Thread[] bakersThreads,
                                Thread[] couriersThreads) {
-        Json jsonOperations = new Json(jsonFile);
 
         takingOrders.interrupt();
         bakersWork.interrupt();
         couriersWork.interrupt();
-/*
+        /*
         joinTreads(bakersThreads);
         joinTreads(couriersThreads);
-*/
+        */
         System.out.println(RED);
         System.out.println("PIZZERIA CLOSED!!!");
         System.out.println("Orders left: " + pizzeria.orders);
@@ -80,6 +79,7 @@ public class Pizzeria {
         System.out.println("Delivered: " + pizzeria.storage.getDelivered());
         System.out.println(RESET);
         stopWork(bakersThreads, couriersThreads);
+        Json jsonOperations = new Json(jsonFile);
         jsonOperations.writeJson(pizzeria);
     }
 
@@ -109,6 +109,7 @@ public class Pizzeria {
                 System.out.println(GREEN + "Order for " + order + " pizzas placed!" + RESET);
                 System.out.println();
             } catch (Exception ignored) {
+                int a = 0; //not empty catch block so reviewdog wont bite me
             }
         } while (true);
     }

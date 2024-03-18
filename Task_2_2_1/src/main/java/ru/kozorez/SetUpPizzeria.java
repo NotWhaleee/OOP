@@ -23,8 +23,8 @@ public class SetUpPizzeria {
      */
     @Override
     public String toString() {
-        return "SetUpPizzeria{" +
-                "bakers=" + Arrays.toString(bakers)
+        return "SetUpPizzeria{"
+                + "bakers=" + Arrays.toString(bakers)
                 + ", couriers=" + Arrays.toString(couriers)
                 + ", storage=" + storage
                 + ", openTime=" + openTime

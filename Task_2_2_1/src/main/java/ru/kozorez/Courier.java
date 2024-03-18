@@ -44,7 +44,7 @@ public class Courier {
     }
 
     /**
-     * set how many orders can a courier deliver in one run
+     * set how many orders can a courier deliver in one run.
      *
      * @param carries int
      */
