@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"ru.kozorez","l":"Baker"},{"p":"ru.kozorez","l":"BakersThreads"},{"p":"ru.kozorez","l":"Courier"},{"p":"ru.kozorez","l":"CouriersThreads"},{"p":"ru.kozorez","l":"Json"},{"p":"ru.kozorez","l":"Main"},{"p":"ru.kozorez","l":"Pizzeria"},{"p":"ru.kozorez","l":"SetUpPizzeria"},{"p":"ru.kozorez","l":"Storage"}]
