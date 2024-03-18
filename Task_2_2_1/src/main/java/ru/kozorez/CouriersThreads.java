@@ -4,6 +4,9 @@ import static java.lang.Thread.interrupted;
 import static ru.kozorez.Pizzeria.BLUE;
 import static ru.kozorez.Pizzeria.RESET;
 
+/**
+ * class for operating with threads of couriers.
+ */
 public class CouriersThreads {
     private synchronized boolean startDelivering(SetUpPizzeria pizzeria, int finalI) {
         if (!pizzeria.couriers[finalI].isBusy() /*pizzeria.storage.getStored() > 0*/) {
@@ -13,6 +16,12 @@ public class CouriersThreads {
         return false;
     }
 
+    /**
+     * start process of delivering orders.
+     *
+     * @param pizzeria        pizzeria settings
+     * @param couriersThreads threads of couriers
+     */
     public void processDelivery(SetUpPizzeria pizzeria, Thread[] couriersThreads) {
 
         for (int i = 0; i < pizzeria.couriers.length; i++) {
@@ -21,7 +30,8 @@ public class CouriersThreads {
                 while (!interrupted()) {
                     pizzeria.couriers[finalI].setCarries(0);
                     if (startDelivering(pizzeria, finalI)) {
-                        System.out.println("Hire courier " + finalI + " " + pizzeria.couriers[finalI]);
+                        System.out.println("Hire courier " + finalI + " "
+                                + pizzeria.couriers[finalI]);
                         try {
                             Thread.sleep(pizzeria.couriers[finalI].getSpeed());
                         } catch (InterruptedException e) {
@@ -36,9 +46,11 @@ public class CouriersThreads {
                             return;
                         }
                         pizzeria.couriers[finalI].setBusy(false);
-                        System.out.println("Release courier " + finalI + " " + pizzeria.couriers[finalI]);
+                        System.out.println("Release courier " + finalI + " "
+                                + pizzeria.couriers[finalI]);
                         System.out.println(BLUE);
-                        System.out.println(pizzeria.couriers[finalI].getCarries() + "ORDERS DELIVERED");
+                        System.out.println(pizzeria.couriers[finalI].getCarries()
+                                + "ORDERS DELIVERED");
                         System.out.println(RESET);
                     }
                 }

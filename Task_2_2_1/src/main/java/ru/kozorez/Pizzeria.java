@@ -1,11 +1,14 @@
 package ru.kozorez;
 
+import static java.lang.Thread.interrupted;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import static java.lang.Thread.interrupted;
-
+/**
+ * Class for operating pizzeria.
+ */
 public class Pizzeria {
     public static final String GREEN = "\033[0;32m"; // GREEN
     public static final String RED = "\033[0;31m"; // RED
@@ -13,10 +16,16 @@ public class Pizzeria {
     public static final String BLUE = "\033[0;34m";    // BLUE
     public static final String RESET = "\033[0m"; // Text Reset
 
+    private static final String jsonFile = "config.json";
     SetUpPizzeria pizzeria;
 
-    public void testRun() throws IOException {
-        Json jsonOperations = new Json();
+    /**
+     * run pizzeria.
+     *
+     * @throws IOException json error
+     */
+    public void run() throws IOException {
+        Json jsonOperations = new Json(jsonFile);
         pizzeria = jsonOperations.parseJson();
         pizzeria.storage.resetDelivered();
 
@@ -27,7 +36,8 @@ public class Pizzeria {
 
         Thread[] couriersThreads = new Thread[pizzeria.couriers.length];
         CouriersThreads couriersGoBrr = new CouriersThreads();
-        Thread couriersWork = new Thread(() -> couriersGoBrr.processDelivery(pizzeria, couriersThreads));
+        Thread couriersWork = new Thread(() ->
+                couriersGoBrr.processDelivery(pizzeria, couriersThreads));
         couriersWork.start();
 
         Thread takingOrders = new Thread(() -> takeOrders());
@@ -40,22 +50,29 @@ public class Pizzeria {
         closePizzeria(takingOrders, bakersWork, couriersWork, bakersThreads, couriersThreads);
     }
 
+    /**
+     * close pizzeria.
+     *
+     * @param takingOrders    taking orders thread
+     * @param bakersWork      start bakers thread
+     * @param couriersWork    start couriers thread
+     * @param bakersThreads   working bakers thread
+     * @param couriersThreads working couriers thread
+     */
     private void closePizzeria(Thread takingOrders,
                                Thread bakersWork,
                                Thread couriersWork,
                                Thread[] bakersThreads,
                                Thread[] couriersThreads) {
-        Json jsonOperations = new Json();
+        Json jsonOperations = new Json(jsonFile);
 
         takingOrders.interrupt();
         bakersWork.interrupt();
         couriersWork.interrupt();
-
 /*
         joinTreads(bakersThreads);
         joinTreads(couriersThreads);
 */
-
         System.out.println(RED);
         System.out.println("PIZZERIA CLOSED!!!");
         System.out.println("Orders left: " + pizzeria.orders);
@@ -66,6 +83,9 @@ public class Pizzeria {
         jsonOperations.writeJson(pizzeria);
     }
 
+    /**
+     * start taking orders.
+     */
     private void takeOrders() {
         BufferedReader br = new BufferedReader(
                 new InputStreamReader(System.in));
@@ -94,6 +114,12 @@ public class Pizzeria {
     }
 
 
+    /**
+     * stop work for bakers and couriers.
+     *
+     * @param bakersThreads   thread of bakers
+     * @param couriersThreads thread of couriers
+     */
     private void stopWork(Thread[] bakersThreads, Thread[] couriersThreads) {
         for (Thread baker : bakersThreads) {
             if (baker != null) {
@@ -107,16 +133,26 @@ public class Pizzeria {
         }
     }
 
+    /**
+     * place n orders.
+     *
+     * @param orders int
+     */
     private synchronized void placeOrders(int orders) {
         pizzeria.orders += orders;
     }
 
+    /**
+     * join any threads for 1000ms.
+     *
+     * @param threads threads
+     */
     private void joinTreads(Thread[] threads) {
         int waitTime = 1000;
         for (Thread thread : threads) {
             try {
                 if (thread != null) {
-                    thread.interrupt();
+                    thread.join(waitTime);
                 }
             } catch (Exception e) {
                 System.err.println("Error with joining threads: " + e);

@@ -1,6 +1,7 @@
 package ru.kozorez;
 
 import com.google.gson.Gson;
+
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -11,10 +12,22 @@ import java.io.Reader;
  * Class for operations with config json.
  */
 public class Json {
-    private final String jsonFile = "config.json";
+
+
+    private final String jsonFile;
+
+    /**
+     * initialize json file.
+     *
+     * @param jsonFile string
+     */
+    public Json(String jsonFile) {
+        this.jsonFile = jsonFile;
+    }
 
     /**
      * set up pizzeria based on config file.
+     *
      * @return pizzeria
      * @throws IOException error reading config file
      */
@@ -38,6 +51,7 @@ public class Json {
 
     /**
      * writes to json config file.
+     *
      * @param pizzeria pizzeria
      */
     public void writeJson(SetUpPizzeria pizzeria) {
