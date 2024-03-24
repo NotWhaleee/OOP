@@ -68,10 +68,7 @@ public class Pizzeria {
         takingOrders.interrupt();
         bakersWork.interrupt();
         couriersWork.interrupt();
-        /*
-        joinTreads(bakersThreads);
-        joinTreads(couriersThreads);
-        */
+
         System.out.println(RED);
         System.out.println("PIZZERIA CLOSED!!!");
         System.out.println("Orders left: " + pizzeria.orders);
@@ -79,6 +76,12 @@ public class Pizzeria {
         System.out.println("Delivered: " + pizzeria.storage.getDelivered());
         System.out.println(RESET);
         stopWork(bakersThreads, couriersThreads);
+        for (int i = 0; i < pizzeria.bakers.length; i++) {
+            pizzeria.bakers[i].setIsBusy(false);
+        }
+        for (int i = 0; i < pizzeria.couriers.length; i++) {
+            pizzeria.bakers[i].setIsBusy(false);
+        }
         Json jsonOperations = new Json(jsonFile);
         jsonOperations.writeJson(pizzeria);
     }
@@ -123,14 +126,10 @@ public class Pizzeria {
      */
     private void stopWork(Thread[] bakersThreads, Thread[] couriersThreads) {
         for (Thread baker : bakersThreads) {
-            if (baker != null) {
-                baker.interrupt();
-            }
+            baker.interrupt();
         }
         for (Thread courier : couriersThreads) {
-            if (courier != null) {
-                courier.interrupt();
-            }
+            courier.interrupt();
         }
     }
 
@@ -141,24 +140,6 @@ public class Pizzeria {
      */
     private synchronized void placeOrders(int orders) {
         pizzeria.orders += orders;
-    }
-
-    /**
-     * join any threads for 1000ms.
-     *
-     * @param threads threads
-     */
-    private void joinTreads(Thread[] threads) {
-        int waitTime = 1000;
-        for (Thread thread : threads) {
-            try {
-                if (thread != null) {
-                    thread.join(waitTime);
-                }
-            } catch (Exception e) {
-                System.err.println("Error with joining threads: " + e);
-            }
-        }
     }
 }
 

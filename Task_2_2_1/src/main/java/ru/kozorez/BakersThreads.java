@@ -27,9 +27,7 @@ public class BakersThreads {
      * @param pizzeria pizzeria settings
      */
     private synchronized void returnOrder(SetUpPizzeria pizzeria) {
-        if (pizzeria.orders >= 0) {
-            pizzeria.orders++;
-        }
+        pizzeria.orders++;
     }
 
     /**
@@ -40,11 +38,9 @@ public class BakersThreads {
      * @return if baker could take the order or not
      */
     private synchronized boolean startCooking(SetUpPizzeria pizzeria, int finalI) {
-        if (!pizzeria.bakers[finalI].getIsBusy()) {
-            if (takeOrder(pizzeria)) {
-                pizzeria.bakers[finalI].setIsBusy(true);
-                return true;
-            }
+        if (takeOrder(pizzeria)) {
+            pizzeria.bakers[finalI].setIsBusy(true);
+            return true;
         }
         return false;
     }
