@@ -1,9 +1,9 @@
-package ru.kozorez.Staff.Couriers;
+package ru.kozorez.staff.couriers;
 
-import static ru.kozorez.Pizzeria.Pizzeria.BLUE;
-import static ru.kozorez.Pizzeria.Pizzeria.RESET;
+import static ru.kozorez.pizzeria.Pizzeria.BLUE;
+import static ru.kozorez.pizzeria.Pizzeria.RESET;
 
-import ru.kozorez.Pizzeria.Pizzeria;
+import ru.kozorez.pizzeria.Pizzeria;
 
 /**
  * class for operating with threads of couriers.

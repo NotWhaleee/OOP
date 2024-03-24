@@ -1,9 +1,9 @@
-package ru.kozorez.Pizzeria;
+package ru.kozorez.pizzeria;
 
-import static ru.kozorez.Pizzeria.Pizzeria.RESET;
-import static ru.kozorez.Pizzeria.Pizzeria.YELLOW;
+import static ru.kozorez.pizzeria.Pizzeria.RESET;
+import static ru.kozorez.pizzeria.Pizzeria.YELLOW;
 
-import ru.kozorez.Staff.Couriers.Courier;
+import ru.kozorez.staff.couriers.Courier;
 
 /**
  * storage for orders.

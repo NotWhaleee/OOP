@@ -1,8 +1,8 @@
-package ru.kozorez.Pizzeria;
+package ru.kozorez.pizzeria;
 
 import java.util.Arrays;
-import ru.kozorez.Staff.Bakers.Baker;
-import ru.kozorez.Staff.Couriers.Courier;
+import ru.kozorez.staff.bakers.Baker;
+import ru.kozorez.staff.couriers.Courier;
 
 /**
  * pizzeria settings.

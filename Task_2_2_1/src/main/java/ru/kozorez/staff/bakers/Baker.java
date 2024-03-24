@@ -1,4 +1,4 @@
-package ru.kozorez.Staff.Bakers;
+package ru.kozorez.staff.bakers;
 
 /**
  * Bakers class.

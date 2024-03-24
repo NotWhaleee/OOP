@@ -1,6 +1,6 @@
-package ru.kozorez.Staff.Bakers;
+package ru.kozorez.staff.bakers;
 
-import ru.kozorez.Pizzeria.Pizzeria;
+import ru.kozorez.pizzeria.Pizzeria;
 
 /**
  * class for operating with threads of bakers.
