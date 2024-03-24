@@ -87,8 +87,8 @@ loadScripts(document, 'script');</script>
 <div>
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
-<li>Nested&nbsp;|&nbsp;</li>
-<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#nested.class.summary">Nested</a>&nbsp;|&nbsp;</li>
+<li><a href="#field.summary">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
@@ -122,16 +122,25 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li>java.lang.Object</li>
 <li>
 <ul class="inheritance">
+<li>java.lang.Thread</li>
+<li>
+<ul class="inheritance">
 <li>ru.kozorez.BakersThreads</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
 <div class="description">
 <ul class="blockList">
 <li class="blockList">
+<dl>
+<dt>All Implemented Interfaces:</dt>
+<dd><code>java.lang.Runnable</code></dd>
+</dl>
 <hr>
 <pre>public class <span class="typeNameLabel">BakersThreads</span>
-extends java.lang.Object</pre>
+extends java.lang.Thread</pre>
 <div class="block">class for operating with threads of bakers.</div>
 </li>
 </ul>
@@ -139,6 +148,40 @@ extends java.lang.Object</pre>
 <div class="summary">
 <ul class="blockList">
 <li class="blockList">
+<!-- ======== NESTED CLASS SUMMARY ======== -->
+<section>
+<ul class="blockList">
+<li class="blockList"><a id="nested.class.summary">
+<!--   -->
+</a>
+<h3>Nested Class Summary</h3>
+<ul class="blockList">
+<li class="blockList"><a id="nested.classes.inherited.from.class.java.lang.Thread">
+<!--   -->
+</a>
+<h3>Nested classes/interfaces inherited from class&nbsp;java.lang.Thread</h3>
+<code>java.lang.Thread.State, java.lang.Thread.UncaughtExceptionHandler</code></li>
+</ul>
+</li>
+</ul>
+</section>
+<!-- =========== FIELD SUMMARY =========== -->
+<section>
+<ul class="blockList">
+<li class="blockList"><a id="field.summary">
+<!--   -->
+</a>
+<h3>Field Summary</h3>
+<ul class="blockList">
+<li class="blockList"><a id="fields.inherited.from.class.java.lang.Thread">
+<!--   -->
+</a>
+<h3>Fields inherited from class&nbsp;java.lang.Thread</h3>
+<code>MAX_PRIORITY, MIN_PRIORITY, NORM_PRIORITY</code></li>
+</ul>
+</li>
+</ul>
+</section>
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
 <section>
 <ul class="blockList">
@@ -153,8 +196,11 @@ extends java.lang.Object</pre>
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr class="altColor">
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E()">BakersThreads</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(ru.kozorez.Pizzeria,ru.kozorez.Baker)">BakersThreads</a></span>&#8203;(<a href="Pizzeria.html" title="class in ru.kozorez">Pizzeria</a>&nbsp;pizzeria,
+             <a href="Baker.html" title="class in ru.kozorez">Baker</a>&nbsp;baker)</code></th>
+<td class="colLast">
+<div class="block">constructor.</div>
+</td>
 </tr>
 </table>
 </li>
@@ -176,19 +222,25 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#processOrders(ru.kozorez.SetUpPizzeria,java.lang.Thread%5B%5D)">processOrders</a></span>&#8203;(<a href="SetUpPizzeria.html" title="class in ru.kozorez">SetUpPizzeria</a>&nbsp;pizzeria,
-             java.lang.Thread[]&nbsp;bakersThreads)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#run()">run</a></span>()</code></th>
 <td class="colLast">
 <div class="block">start processing orders.</div>
 </td>
 </tr>
 </table>
 <ul class="blockList">
+<li class="blockList"><a id="methods.inherited.from.class.java.lang.Thread">
+<!--   -->
+</a>
+<h3>Methods inherited from class&nbsp;java.lang.Thread</h3>
+<code>activeCount, checkAccess, clone, countStackFrames, currentThread, dumpStack, enumerate, getAllStackTraces, getContextClassLoader, getDefaultUncaughtExceptionHandler, getId, getName, getPriority, getStackTrace, getState, getThreadGroup, getUncaughtExceptionHandler, holdsLock, interrupt, interrupted, isAlive, isDaemon, isInterrupted, join, join, join, onSpinWait, resume, setContextClassLoader, setDaemon, setDefaultUncaughtExceptionHandler, setName, setPriority, setUncaughtExceptionHandler, sleep, sleep, start, stop, suspend, toString, yield</code></li>
+</ul>
+<ul class="blockList">
 <li class="blockList"><a id="methods.inherited.from.class.java.lang.Object">
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;java.lang.Object</h3>
-<code>clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</code></li>
+<code>equals, finalize, getClass, hashCode, notify, notifyAll, wait, wait, wait</code></li>
 </ul>
 </li>
 </ul>
@@ -206,13 +258,20 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Constructor Detail</h3>
-<a id="&lt;init&gt;()">
+<a id="&lt;init&gt;(ru.kozorez.Pizzeria,ru.kozorez.Baker)">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>BakersThreads</h4>
-<pre>public&nbsp;BakersThreads()</pre>
+<pre>public&nbsp;BakersThreads&#8203;(<a href="Pizzeria.html" title="class in ru.kozorez">Pizzeria</a>&nbsp;pizzeria,
+                     <a href="Baker.html" title="class in ru.kozorez">Baker</a>&nbsp;baker)</pre>
+<div class="block">constructor.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>pizzeria</code> - pizzeria</dd>
+<dd><code>baker</code> - baker</dd>
+</dl>
 </li>
 </ul>
 </li>
@@ -225,19 +284,19 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a id="processOrders(ru.kozorez.SetUpPizzeria,java.lang.Thread[])">
+<a id="run()">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
-<h4>processOrders</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;processOrders&#8203;(<a href="SetUpPizzeria.html" title="class in ru.kozorez">SetUpPizzeria</a>&nbsp;pizzeria,
-                          java.lang.Thread[]&nbsp;bakersThreads)</pre>
+<h4>run</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;run()</pre>
 <div class="block">start processing orders.</div>
 <dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>pizzeria</code> - pizzeria settings</dd>
-<dd><code>bakersThreads</code> - bakers threads</dd>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code>run</code>&nbsp;in interface&nbsp;<code>java.lang.Runnable</code></dd>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code>run</code>&nbsp;in class&nbsp;<code>java.lang.Thread</code></dd>
 </dl>
 </li>
 </ul>
@@ -291,8 +350,8 @@ extends java.lang.Object</pre>
 <div>
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
-<li>Nested&nbsp;|&nbsp;</li>
-<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#nested.class.summary">Nested</a>&nbsp;|&nbsp;</li>
+<li><a href="#field.summary">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
