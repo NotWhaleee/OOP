@@ -1,1 +1,37 @@
-{"bakers":[{"speed":800,"isBusy":false},{"speed":500,"isBusy":false},{"speed":300,"isBusy":false}],"couriers":[{"capacity":1,"carries":0,"isBusy":false,"speed":400},{"capacity":2,"carries":0,"isBusy":false,"speed":600}],"storage":{"capacity":10,"stored":10,"delivered":39},"openTime":7000,"orders":12}
+{
+  "bakers": [
+    {
+      "speed": 800,
+      "isBusy": false
+    },
+    {
+      "speed": 500,
+      "isBusy": false
+    },
+    {
+      "speed": 300,
+      "isBusy": false
+    }
+  ],
+  "couriers": [
+    {
+      "capacity": 1,
+      "carries": 0,
+      "isBusy": false,
+      "speed": 400
+    },
+    {
+      "capacity": 2,
+      "carries": 0,
+      "isBusy": false,
+      "speed": 600
+    }
+  ],
+  "storage": {
+    "capacity": 10,
+    "stored": 0,
+    "delivered": 0
+  },
+  "openTime": 7000,
+  "orders": 0
+}
