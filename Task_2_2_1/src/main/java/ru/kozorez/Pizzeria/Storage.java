@@ -1,7 +1,9 @@
-package ru.kozorez;
+package ru.kozorez.Pizzeria;
 
-import static ru.kozorez.Pizzeria.RESET;
-import static ru.kozorez.Pizzeria.YELLOW;
+import ru.kozorez.Staff.Couriers.Courier;
+
+import static ru.kozorez.Pizzeria.Pizzeria.RESET;
+import static ru.kozorez.Pizzeria.Pizzeria.YELLOW;
 
 /**
  * storage for orders.
@@ -87,16 +89,14 @@ public class Storage {
         System.out.println(RESET);
         return true;
     }
+
     /**
      * return orders that the courier is delivering at the moment back to the storage.
      *
      * @param courier courier
      */
     public synchronized void returnToTheStorage(Courier courier) {
-        // System.out.println("Stored: " + stored  + " Carries: " + courier.getCarries());
         stored += courier.getCarries();
-        //System.out.println("2Stored: " + stored  + " 2Carries: " + courier.getCarries());
-
         delivered -= courier.getCarries();
     }
 

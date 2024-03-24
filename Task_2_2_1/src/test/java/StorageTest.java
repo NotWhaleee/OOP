@@ -3,8 +3,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import ru.kozorez.Courier;
-import ru.kozorez.Storage;
+import ru.kozorez.Staff.Couriers.Courier;
+import ru.kozorez.Pizzeria.Storage;
 
 
 /**

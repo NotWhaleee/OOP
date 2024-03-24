@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import ru.kozorez.Baker;
+import ru.kozorez.Staff.Bakers.Baker;
 
 /**
  * Test operations with bakers.

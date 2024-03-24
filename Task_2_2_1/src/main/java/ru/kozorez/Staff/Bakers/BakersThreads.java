@@ -1,4 +1,6 @@
-package ru.kozorez;
+package ru.kozorez.Staff.Bakers;
+
+import ru.kozorez.Pizzeria.Pizzeria;
 
 /**
  * class for operating with threads of bakers.
@@ -11,7 +13,7 @@ public class BakersThreads extends Thread {
      * constructor.
      *
      * @param pizzeria pizzeria
-     * @param baker baker
+     * @param baker    baker
      */
     public BakersThreads(Pizzeria pizzeria, Baker baker) {
         this.pizzeria = pizzeria;
@@ -25,7 +27,7 @@ public class BakersThreads extends Thread {
      * @return could take an order or not
      */
     private boolean takeOrder(Pizzeria pizzeria) {
-        synchronized (pizzeria.pizzeria){
+        synchronized (pizzeria.pizzeria) {
             if (pizzeria.pizzeria.orders > 0) {
                 pizzeria.pizzeria.orders--;
                 return true;
@@ -41,7 +43,7 @@ public class BakersThreads extends Thread {
      * @param pizzeria pizzeria settings
      */
     private void returnOrder(Pizzeria pizzeria) {
-        synchronized (pizzeria.pizzeria){
+        synchronized (pizzeria.pizzeria) {
             pizzeria.pizzeria.orders++;
 
         }
@@ -53,7 +55,7 @@ public class BakersThreads extends Thread {
      * @return if baker could take the order or not
      */
     private boolean startCooking() {
-        synchronized (pizzeria.pizzeria){
+        synchronized (pizzeria.pizzeria) {
             if (takeOrder(pizzeria)) {
                 baker.setIsBusy(true);
                 return true;
@@ -77,7 +79,7 @@ public class BakersThreads extends Thread {
                     returnOrder(pizzeria);
                     return;
                 }
-                //try to deliver to the storage;
+                //try delivering to the storage;
                 if (!pizzeria.pizzeria.storage.deliverToTheStorage()) {
                     baker.setIsBusy(false);
                     returnOrder(pizzeria);

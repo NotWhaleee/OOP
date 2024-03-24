@@ -1,7 +1,7 @@
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 import org.junit.jupiter.api.Test;
-import ru.kozorez.Pizzeria;
+import ru.kozorez.Pizzeria.Pizzeria;
 
 /**
  * Test pizzeria.

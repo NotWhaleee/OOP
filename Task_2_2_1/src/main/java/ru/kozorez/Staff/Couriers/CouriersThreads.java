@@ -1,7 +1,9 @@
-package ru.kozorez;
+package ru.kozorez.Staff.Couriers;
 
-import static ru.kozorez.Pizzeria.BLUE;
-import static ru.kozorez.Pizzeria.RESET;
+import ru.kozorez.Pizzeria.Pizzeria;
+
+import static ru.kozorez.Pizzeria.Pizzeria.BLUE;
+import static ru.kozorez.Pizzeria.Pizzeria.RESET;
 
 /**
  * class for operating with threads of couriers.
@@ -38,7 +40,7 @@ public class CouriersThreads extends Thread {
                 pizzeria.pizzeria.storage.returnToTheStorage(courier);
                 return;
             }
-            //try to take from the storage;
+            //try taking from the storage;
             if (!pizzeria.pizzeria.storage.takeFromTheStorage(courier)) {
                 courier.setBusy(false);
                 pizzeria.pizzeria.storage.returnToTheStorage(courier);

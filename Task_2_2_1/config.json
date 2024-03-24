@@ -30,7 +30,7 @@
   "storage": {
     "capacity": 10,
     "stored": 0,
-    "delivered": 0
+    "delivered": 1
   },
   "openTime": 7000,
   "orders": 0

@@ -1,4 +1,7 @@
-package ru.kozorez;
+package ru.kozorez.Pizzeria;
+
+import ru.kozorez.Staff.Bakers.Baker;
+import ru.kozorez.Staff.Couriers.Courier;
 
 import java.util.Arrays;
 
@@ -14,7 +17,7 @@ public class SetUpPizzeria {
 
     public int openTime;
 
-    volatile int orders;
+    public volatile int orders;
 
     /**
      * pizzeria info.

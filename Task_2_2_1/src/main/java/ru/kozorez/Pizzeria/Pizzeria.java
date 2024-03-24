@@ -1,4 +1,8 @@
-package ru.kozorez;
+package ru.kozorez.Pizzeria;
+
+import ru.kozorez.Json.Json;
+import ru.kozorez.Staff.Bakers.BakersThreads;
+import ru.kozorez.Staff.Couriers.CouriersThreads;
 
 import static java.lang.Thread.interrupted;
 
@@ -17,7 +21,7 @@ public class Pizzeria {
     public static final String RESET = "\033[0m"; // Text Reset
 
     private static final String jsonFile = "config.json";
-    SetUpPizzeria pizzeria;
+    public SetUpPizzeria pizzeria;
 
     /**
      * run pizzeria.

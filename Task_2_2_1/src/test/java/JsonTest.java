@@ -5,8 +5,8 @@ import java.io.IOException;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import ru.kozorez.Json;
-import ru.kozorez.SetUpPizzeria;
+import ru.kozorez.Json.Json;
+import ru.kozorez.Pizzeria.SetUpPizzeria;
 
 /**
  * Test operations with json.

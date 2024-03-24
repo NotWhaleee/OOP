@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import ru.kozorez.Courier;
+import ru.kozorez.Staff.Couriers.Courier;
 
 /**
  * Test operations with courier.

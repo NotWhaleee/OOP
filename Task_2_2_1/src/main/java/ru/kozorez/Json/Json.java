@@ -1,6 +1,8 @@
-package ru.kozorez;
+package ru.kozorez.Json;
 
 import com.google.gson.Gson;
+import ru.kozorez.Pizzeria.SetUpPizzeria;
+
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;

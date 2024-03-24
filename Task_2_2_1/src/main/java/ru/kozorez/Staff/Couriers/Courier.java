@@ -1,4 +1,4 @@
-package ru.kozorez;
+package ru.kozorez.Staff.Couriers;
 
 /**
  * Courier class.
