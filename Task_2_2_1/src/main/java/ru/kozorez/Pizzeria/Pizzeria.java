@@ -1,14 +1,13 @@
 package ru.kozorez.Pizzeria;
 
-import ru.kozorez.Json.Json;
-import ru.kozorez.Staff.Bakers.BakersThreads;
-import ru.kozorez.Staff.Couriers.CouriersThreads;
-
 import static java.lang.Thread.interrupted;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import ru.kozorez.Json.Json;
+import ru.kozorez.Staff.Bakers.BakersThreads;
+import ru.kozorez.Staff.Couriers.CouriersThreads;
 
 /**
  * Class for operating pizzeria.

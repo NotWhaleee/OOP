@@ -1,8 +1,7 @@
 package ru.kozorez;
 
-import ru.kozorez.Pizzeria.Pizzeria;
-
 import java.io.IOException;
+import ru.kozorez.Pizzeria.Pizzeria;
 
 /**
  * Main class.

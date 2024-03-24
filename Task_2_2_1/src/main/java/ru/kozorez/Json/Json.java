@@ -1,20 +1,17 @@
 package ru.kozorez.Json;
 
 import com.google.gson.Gson;
-import ru.kozorez.Pizzeria.SetUpPizzeria;
-
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
+import ru.kozorez.Pizzeria.SetUpPizzeria;
 
 
 /**
  * Class for operations with config json.
  */
 public class Json {
-
-
     private final String jsonFile;
 
     /**
