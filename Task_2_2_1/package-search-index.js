@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"ru.kozorez"},{"l":"ru.kozorez.Json"},{"l":"ru.kozorez.Pizzeria"},{"l":"ru.kozorez.Staff.Bakers"},{"l":"ru.kozorez.Staff.Couriers"}]
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"ru.kozorez"},{"l":"ru.kozorez.json"},{"l":"ru.kozorez.pizzeria"},{"l":"ru.kozorez.staff.bakers"},{"l":"ru.kozorez.staff.couriers"}]
