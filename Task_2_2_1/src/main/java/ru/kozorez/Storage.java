@@ -87,7 +87,6 @@ public class Storage {
         System.out.println(RESET);
         return true;
     }
-
     /**
      * return orders that the courier is delivering at the moment back to the storage.
      *

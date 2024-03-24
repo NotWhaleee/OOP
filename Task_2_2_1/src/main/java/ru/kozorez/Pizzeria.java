@@ -29,16 +29,18 @@ public class Pizzeria {
         pizzeria = jsonOperations.parseJson();
         pizzeria.storage.resetDelivered();
 
-        Thread[] bakersThreads = new Thread[pizzeria.bakers.length];
-        BakersThreads bakersGoBrr = new BakersThreads();
-        Thread bakersWork = new Thread(() -> bakersGoBrr.processOrders(pizzeria, bakersThreads));
-        bakersWork.start();
 
-        Thread[] couriersThreads = new Thread[pizzeria.couriers.length];
-        CouriersThreads couriersGoBrr = new CouriersThreads();
-        Thread couriersWork = new Thread(() ->
-                couriersGoBrr.processDelivery(pizzeria, couriersThreads));
-        couriersWork.start();
+        BakersThreads[] bakersWork = new BakersThreads[pizzeria.bakers.length];
+        for (int i = 0; i < pizzeria.bakers.length; i++) {
+            bakersWork[i] = new BakersThreads(this, pizzeria.bakers[i]);
+            bakersWork[i].start();
+        }
+
+        CouriersThreads[] couriersWork = new CouriersThreads[pizzeria.couriers.length];
+        for (int i = 0; i < pizzeria.couriers.length; i++) {
+            couriersWork[i] = new CouriersThreads(this, pizzeria.couriers[i]);
+            couriersWork[i].start();
+        }
 
         Thread takingOrders = new Thread(() -> takeOrders());
         takingOrders.start();
@@ -47,27 +49,24 @@ public class Pizzeria {
         } catch (Exception e) {
             System.out.println("Main sleep error: " + e);
         }
-        closePizzeria(takingOrders, bakersWork, couriersWork, bakersThreads, couriersThreads);
+        closePizzeria(takingOrders, bakersWork, couriersWork);
     }
+
 
     /**
      * close pizzeria.
      *
-     * @param takingOrders    taking orders thread
-     * @param bakersWork      start bakers thread
-     * @param couriersWork    start couriers thread
-     * @param bakersThreads   working bakers thread
-     * @param couriersThreads working couriers thread
+     * @param takingOrders taking orders thread
+     * @param bakersWork   working bakers threads
+     * @param couriersWork working couriers threads
      */
     private void closePizzeria(Thread takingOrders,
-                               Thread bakersWork,
-                               Thread couriersWork,
-                               Thread[] bakersThreads,
-                               Thread[] couriersThreads) {
+                               BakersThreads[] bakersWork,
+                               CouriersThreads[] couriersWork) {
 
         takingOrders.interrupt();
-        bakersWork.interrupt();
-        couriersWork.interrupt();
+
+        stopWork(bakersWork, couriersWork);
 
         System.out.println(RED);
         System.out.println("PIZZERIA CLOSED!!!");
@@ -75,12 +74,11 @@ public class Pizzeria {
         System.out.println("Present on storage: " + pizzeria.storage.getStored());
         System.out.println("Delivered: " + pizzeria.storage.getDelivered());
         System.out.println(RESET);
-        stopWork(bakersThreads, couriersThreads);
         for (int i = 0; i < pizzeria.bakers.length; i++) {
             pizzeria.bakers[i].setIsBusy(false);
         }
         for (int i = 0; i < pizzeria.couriers.length; i++) {
-            pizzeria.bakers[i].setIsBusy(false);
+            pizzeria.couriers[i].setBusy(false);
         }
         Json jsonOperations = new Json(jsonFile);
         jsonOperations.writeJson(pizzeria);
@@ -124,11 +122,11 @@ public class Pizzeria {
      * @param bakersThreads   thread of bakers
      * @param couriersThreads thread of couriers
      */
-    private void stopWork(Thread[] bakersThreads, Thread[] couriersThreads) {
-        for (Thread baker : bakersThreads) {
+    private void stopWork(BakersThreads[] bakersThreads, CouriersThreads[] couriersThreads) {
+        for (BakersThreads baker : bakersThreads) {
             baker.interrupt();
         }
-        for (Thread courier : couriersThreads) {
+        for (CouriersThreads courier : couriersThreads) {
             courier.interrupt();
         }
     }

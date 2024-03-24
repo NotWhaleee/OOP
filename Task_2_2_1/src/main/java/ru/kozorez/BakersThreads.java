@@ -1,24 +1,38 @@
 package ru.kozorez;
 
-import static java.lang.Thread.interrupted;
-
 /**
  * class for operating with threads of bakers.
  */
-public class BakersThreads {
+public class BakersThreads extends Thread {
+    Pizzeria pizzeria;
+    private final Baker baker;
+
+    /**
+     * constructor.
+     *
+     * @param pizzeria pizzeria
+     * @param baker baker
+     */
+    public BakersThreads(Pizzeria pizzeria, Baker baker) {
+        this.pizzeria = pizzeria;
+        this.baker = baker;
+    }
 
     /**
      * take one order.
      *
-     * @param pizzeria pizzeria settings
+     * @param pizzeria pizzeria
      * @return could take an order or not
      */
-    private synchronized boolean takeOrder(SetUpPizzeria pizzeria) {
-        if (pizzeria.orders > 0) {
-            pizzeria.orders--;
-            return true;
+    private boolean takeOrder(Pizzeria pizzeria) {
+        synchronized (pizzeria.pizzeria){
+            if (pizzeria.pizzeria.orders > 0) {
+                pizzeria.pizzeria.orders--;
+                return true;
+            }
+            return false;
         }
-        return false;
+
     }
 
     /**
@@ -26,59 +40,52 @@ public class BakersThreads {
      *
      * @param pizzeria pizzeria settings
      */
-    private synchronized void returnOrder(SetUpPizzeria pizzeria) {
-        pizzeria.orders++;
+    private void returnOrder(Pizzeria pizzeria) {
+        synchronized (pizzeria.pizzeria){
+            pizzeria.pizzeria.orders++;
+
+        }
     }
 
     /**
      * start cooking order.
      *
-     * @param pizzeria pizzeria settings
-     * @param finalI   number of baker
      * @return if baker could take the order or not
      */
-    private synchronized boolean startCooking(SetUpPizzeria pizzeria, int finalI) {
-        if (takeOrder(pizzeria)) {
-            pizzeria.bakers[finalI].setIsBusy(true);
-            return true;
+    private boolean startCooking() {
+        synchronized (pizzeria.pizzeria){
+            if (takeOrder(pizzeria)) {
+                baker.setIsBusy(true);
+                return true;
+            }
+            return false;
         }
-        return false;
     }
 
     /**
      * start processing orders.
-     *
-     * @param pizzeria      pizzeria settings
-     * @param bakersThreads bakers threads
      */
-    public void processOrders(SetUpPizzeria pizzeria, Thread[] bakersThreads) {
-        for (int i = 0; i < pizzeria.bakers.length; i++) {
-            final int finalI = i;
-            bakersThreads[finalI] = new Thread(() -> {
-                while (!interrupted()) {
-                    if (startCooking(pizzeria, finalI)) {
-                        System.out.println("Hire baker " + finalI + " "
-                                + pizzeria.bakers[finalI]);
-                        try {
-                            Thread.sleep(pizzeria.bakers[finalI].getSpeed());
-                        } catch (InterruptedException e) {
-                            pizzeria.bakers[finalI].setIsBusy(false);
-                            returnOrder(pizzeria);
-                            return;
-                        }
-                        //try to deliver to the storage;
-                        if (!pizzeria.storage.deliverToTheStorage()) {
-                            pizzeria.bakers[finalI].setIsBusy(false);
-                            returnOrder(pizzeria);
-                            return;
-                        }
-                        pizzeria.bakers[finalI].setIsBusy(false);
-                        System.out.println("Release baker " + finalI
-                                + " " + pizzeria.bakers[finalI]);
-                    }
+    @Override
+    public void run() {
+        while (!interrupted()) {
+            if (startCooking()) {
+                System.out.println("Hire baker" + baker);
+                try {
+                    Thread.sleep(baker.getSpeed());
+                } catch (InterruptedException e) {
+                    baker.setIsBusy(false);
+                    returnOrder(pizzeria);
+                    return;
                 }
-            });
-            bakersThreads[i].start();
+                //try to deliver to the storage;
+                if (!pizzeria.pizzeria.storage.deliverToTheStorage()) {
+                    baker.setIsBusy(false);
+                    returnOrder(pizzeria);
+                    return;
+                }
+                baker.setIsBusy(false);
+                System.out.println("Release baker " + " " + baker);
+            }
         }
     }
 }
