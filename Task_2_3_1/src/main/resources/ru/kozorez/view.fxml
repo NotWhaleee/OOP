@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
 <AnchorPane fx:id="plane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#pressed" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.kozorez.Controller">
     <children>
-        <Circle fx:id="snake" fill="#c7000d" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
-        <Text fx:id="score" strokeType="OUTSIDE" strokeWidth="0.0" text="Score: 0" textAlignment="CENTER" wrappingWidth="700.0" AnchorPane.bottomAnchor="0.0">
-            <font>
-                <Font size="60.0" />
-            </font>
-        </Text>
+        <Circle fx:id="snakeHead" centerX="100.0" centerY="100.0" fill="#c7000d" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+      <Label fx:id="scoreText" layoutX="14.0" prefHeight="44.0" prefWidth="125.0" text="Score: ">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="gameOver" layoutX="191.0" layoutY="144.0" prefHeight="106.0" prefWidth="353.0">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
     </children>
 </AnchorPane>

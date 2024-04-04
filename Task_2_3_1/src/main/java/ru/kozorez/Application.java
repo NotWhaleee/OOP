@@ -1,16 +1,13 @@
 package ru.kozorez;
 
-import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class HelloApplication extends Application {
-    
+public class Application extends javafx.application.Application {
+
     @Override
     public void start(Stage stage) throws IOException {
 /*        Settings settings = new Settings(700, 500);
@@ -24,7 +21,7 @@ public class HelloApplication extends Application {
         gc.setStroke( Color.BLACK );
         gc.setLineWidth(2);*//*
         stage.show();*/
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         scene.getRoot().requestFocus();
         stage.setTitle("Sankey!");
