@@ -5,6 +5,7 @@ import static java.lang.Thread.interrupted;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+
 import ru.kozorez.json.Json;
 import ru.kozorez.staff.bakers.BakersThreads;
 import ru.kozorez.staff.couriers.CouriersThreads;
@@ -45,7 +46,7 @@ public class Pizzeria {
             couriersWork[i].start();
         }
 
-        Thread takingOrders = new Thread(() -> takeOrders());
+        Thread takingOrders = new Thread(this::takeOrders);
         takingOrders.start();
         try {
             Thread.sleep(pizzeria.openTime);
@@ -115,7 +116,14 @@ public class Pizzeria {
             } catch (Exception ignored) {
                 int a = 0; //not empty catch block so reviewdog wont bite me
             }
-        } while (true);
+        } while (!interrupted());
+
+        try {
+            br.close();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
     }
 
 
