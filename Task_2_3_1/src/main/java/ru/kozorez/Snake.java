@@ -1,37 +1,27 @@
 package ru.kozorez;
 
-//import com.almasb.fxgl.physics.CollisionHandler;
-
-import javafx.scene.input.KeyCharacterCombination;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-
-import java.net.CacheRequest;
-import java.util.ArrayList;
-import java.util.List;
-
 import static javafx.scene.input.KeyCode.A;
 import static javafx.scene.input.KeyCode.D;
 import static javafx.scene.input.KeyCode.S;
 import static javafx.scene.input.KeyCode.W;
 
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class Snake {
 
     private List<Circle> body;
-    private long speed;
-
-    //public KeyEvent direction;
     private KeyCode direction;
-
-    private int gridSize;
-    private int smoothness;
+    private final int gridSize;
 
     public Snake(int gridSize) {
         this.body = new ArrayList<>();
-        //this.direction = new KeyEvent(D); // Start moving right by default
         this.direction = D;
         this.gridSize = gridSize;
         this.body.add(new Circle(100, 100, 10));
@@ -55,6 +45,13 @@ public class Snake {
         }
     }
 
+    /**
+     * check whe the pressed key is th
+     *
+     * @param a
+     * @param b
+     * @return
+     */
     private boolean oppositeKeyCode(KeyCode a, KeyCode b) {
         if (a == A && b == D || b == A && a == D) {
             return true;
@@ -70,6 +67,13 @@ public class Snake {
         return body.getFirst().getRadius();
     }
 
+    /**
+     * start moving snake.
+     *
+     * @param maxWidth  max width of the window
+     * @param maxHeight max height of the window
+     * @return whether there was a collision or not
+     */
     public boolean move(double maxWidth, double maxHeight) {
         double newX = body.getFirst().getCenterX();
         double newY = body.getFirst().getCenterY();
@@ -78,39 +82,36 @@ public class Snake {
             case W:
                 //goUP();
                 newY -= gridSize;
-
                 break;
             case A:
                 //goLeft();
                 newX -= gridSize;
-
                 break;
             case S:
                 //goDown();
                 newY += gridSize;
-
                 break;
             case D:
                 //goRight();
                 newX += gridSize;
-
                 break;
         }
 
         newX = WallCollisionX(newX, maxWidth);
         newY = wallCollisionY(newY, maxHeight);
 
-
         crawlBody();
         crawlHead(newX, newY);
+
         if (stupidSnakeBodyCollision()) {
             System.out.println("Game over!!!");
         }
         return stupidSnakeBodyCollision();
-
-
     }
 
+    /**
+     * Move the snake's body.
+     */
     private void crawlBody() {
         for (int i = body.size() - 1; i > 0; i--) {
             body.get(i).setCenterX(body.get(i - 1).getCenterX());
@@ -118,68 +119,87 @@ public class Snake {
         }
     }
 
+    /**
+     * Move the snake's head.
+     *
+     * @param newX new x coord
+     * @param newY new y coord
+     */
     private void crawlHead(double newX, double newY) {
-        // Move the snake's head
         body.getFirst().setCenterX(newX);
         body.getFirst().setCenterY(newY);
     }
 
+    /**
+     * teleport snake from the side to side.
+     *
+     * @param x        coordinate x
+     * @param maxWidth max width of the window
+     * @return new coordinate
+     */
     private double WallCollisionX(double x, double maxWidth) {
-        // Wrap-around behavior for boundaries
-        if (x < 0) {
-            x = maxWidth - gridSize; // Move to the right side of the board
+        if (x < body.getFirst().getRadius()) {
+            x = maxWidth - body.getFirst().getRadius();
         } else if (x >= maxWidth) {
-            x = 0; // Move to the left side of the board
+            x = body.getFirst().getRadius();
         }
         return x;
-
-
     }
 
+    /**
+     * teleport snake from the top to the bottom and reverse.
+     *
+     * @param y         coordinate y
+     * @param maxHeight max height of the window
+     * @return new coordinate
+     */
     private double wallCollisionY(double y, double maxHeight) {
-        if (y < 0) {
-            y = maxHeight - gridSize; // Move to the bottom of the board
+        if (y < body.getFirst().getRadius()) {
+            y = maxHeight - body.getFirst().getRadius();
         } else if (y >= maxHeight) {
-            y = 0; // Move to the top of the board
+            y = body.getFirst().getRadius();
         }
         return y;
     }
 
-    // Method to calculate the angle of the last segment relative to the second-to-last segment
-/*    private double getAngle() {
-        Circle lastSegment = body.get(body.size() - 1);
-        Circle secondLastSegment = body.get(body.size() - 2);
-        double deltaX = lastSegment.getCenterX() - secondLastSegment.getCenterX();
-        double deltaY = lastSegment.getCenterY() - secondLastSegment.getCenterY();
-        return Math.toDegrees(Math.atan2(deltaY, deltaX));
-    }*/
 
+    /**
+     * Check whether the snake's head intersects with any of its body segments or not.
+     *
+     * @return whether there was a collision or not
+     */
     public boolean stupidSnakeBodyCollision() {
-        // Check if the snake's head intersects with any of its body segments
         Circle head = body.getFirst();
         for (int i = 3; i < body.size(); i++) {
             Circle segment = body.get(i);
             double distance = Math.sqrt(Math.pow(head.getCenterX() - segment.getCenterX(), 2)
                     + Math.pow(head.getCenterY() - segment.getCenterY(), 2));
             if (distance < head.getRadius() + segment.getRadius()) {
-                return true; // Collision detected
+                return true;
             }
         }
-        return false; // No collision
+        return false;
     }
 
 
+    /**
+     * Add a new segment to the end of the snake's body.
+     *
+     * @return circle
+     */
     public Circle grow() {
-        // Add a new segment to the end of the snake's body
         Circle lastSegment = body.getLast();
-        double newX = lastSegment.getCenterX() - gridSize;
-        double newY = lastSegment.getCenterY() - gridSize;
-        //double newX = lastSegment.getCenterX() - (gridSize * Math.cos(Math.toRadians(getAngle())));
-        //double newY = lastSegment.getCenterY() - (gridSize * Math.sin(Math.toRadians(getAngle())));
+        double newX = lastSegment.getCenterX();
+        double newY = lastSegment.getCenterY();
+
         Circle newSegment = new Circle(newX, newY, lastSegment.getRadius(), Color.RED);
         newSegment.setStroke(Color.BLACK);
 
         body.add(newSegment);
         return newSegment;
+    }
+
+    public KeyCode getDirection() {
+        return direction;
     }
 }

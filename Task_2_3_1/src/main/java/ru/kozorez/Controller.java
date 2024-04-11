@@ -4,20 +4,13 @@ import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Bounds;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -27,6 +20,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
+
 
     AnimationTimer gameLoop;
 
@@ -43,26 +37,26 @@ public class Controller implements Initializable {
     private Label gameOver;
 
     private List<Circle> foods = new ArrayList<>();
-    @FXML
-    private Text score;
 
     //private double accelerationTime = 0;
     private int gameTime = 0;
     private int scoreCounter = 0;
     private final int gridSize = 15;
     private Snake snake;
+    private int foodCount;
+    double defaultWidth;
+    double defaultHeight;
 
     private URL url;
     private ResourceBundle resourceBundle;
-
-
-    ArrayList<Rectangle> obstacles = new ArrayList<>();
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.url = url;
         this.resourceBundle = resourceBundle;
+        defaultHeight = plane.getHeight();
+        defaultWidth = plane.getWidth();
         snake = new Snake(gridSize);
         final long[] lastUpdate = {0};
         gameLoop = new AnimationTimer() {
@@ -78,16 +72,24 @@ public class Controller implements Initializable {
         gameLoop.start();
     }
 
+    public void setFoodCount(int foodCount) {
+        this.foodCount = foodCount;
+    }
+
     private void eatFood() {
         for (int i = 0; i < foods.size(); i++) {
             if (foods.get(i) == null) {
                 continue;
             }
-            if (foods.get(i).getCenterY() > plane.getHeight()
-                    || foods.get(i).getCenterX() > plane.getWidth()) {
+            //check foods collision with x and y borders
+            if (plane.getWidth() <= foods.get(i).getRadius() + foods.get(i).getCenterX()
+                    || foods.get(i).getRadius() >= foods.get(i).getCenterX()
+                    || plane.getHeight() <= foods.get(i).getRadius() + foods.get(i).getCenterY()
+                    || foods.get(i).getRadius() >= foods.get(i).getCenterY()) {
                 plane.getChildren().remove(foods.remove(i));
                 spawnFood();
             }
+
             if (snakeHead.getBoundsInParent().intersects(foods.get(i).getBoundsInParent())) {
                 plane.getChildren().add(snake.grow());
                 plane.getChildren().remove(foods.remove(i));
@@ -100,6 +102,15 @@ public class Controller implements Initializable {
     private boolean checkCollisionWithFood(Circle food) {
         for (int i = 0; i < snake.getBody().size(); i++) {
             if (snake.getBody().get(i).getBoundsInParent().intersects(food.getBoundsInParent())) {
+                return true;
+            }
+
+            if (plane.getWidth() <= food.getRadius() + food.getCenterX()
+                    || food.getRadius() >= food.getCenterX()) {
+                return true;
+            }
+            if (plane.getHeight() <= food.getRadius() + food.getCenterY()
+                    || food.getRadius() >= food.getCenterY()) {
                 return true;
             }
         }
@@ -140,14 +151,15 @@ public class Controller implements Initializable {
     //Called every game frame
     private void update() {
         scoreText.setText("Score: " + scoreCounter);
-        if(foods.isEmpty()){
+
+        if (foodCount > foods.size() || foods.isEmpty()) {
             spawnFood();
         }
-        if (scoreCounter == 0) {
-            spawnFood();
-        }
+/*        if(foodCount < foods.size()){
+            plane.getChildren().removeLast(foods);
+        }*/
         //System.out.println(plane.getWidth() + " " + plane.getHeight());
-        if(snake.move(plane.getWidth(), plane.getHeight())){
+        if (snake.move(plane.getWidth(), plane.getHeight())) {
             gameOver();
         }
         eatFood();
@@ -157,28 +169,59 @@ public class Controller implements Initializable {
 
     private void gameOver() {
         // Display game over window
-        gameOver.setText("GAME OVER!\nScore: " + scoreCounter);
+        //gameOver.setText("GAME OVER!\nScore: " + scoreCounter);
         gameLoop.stop();
+        showPopup();
     }
 
-    private void restartGame(){
+    private void showPopup() {
+        Stage stage = (Stage) plane.getScene().getWindow();
+        stage.close();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("gameOver.fxml"));
+        Parent root;
+        try {
+            root = loader.load();
+            PopupController popupController = loader.getController();
+            popupController.setScore(scoreCounter);
+            popupController.controller = this;
+
+            Stage newStage = new Stage();
+            newStage.setMinHeight(defaultHeight);
+            newStage.setMinWidth(defaultWidth);
+/*            newStage.setWidth(500);
+            newStage.setHeight(500);*/
+            newStage.setScene(new Scene(root));
+
+            newStage.setTitle("Game Over!");
+            popupController.primaryStage = stage;
+            newStage.show();
+            restartGame();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        //agameLoop.stop();
+    }
+
+    public void restartGame() {
         scoreCounter = 0;
 
+        //plane.getChildren().clear();
         plane.getChildren().removeAll(snake.getBody());
-        for (int i = 0; i < snake.getBody().size(); i++) {
+/*        for (int i = 0; i < snake.getBody().size(); i++) {
             snake.getBody().removeLast();
-        }
+        }*/
 
         plane.getChildren().removeAll(foods);
-        for (int i = 0; i <foods.size(); i++) {
+/*        for (int i = 0; i < foods.size(); i++) {
             foods.removeLast();
-        }
-
-        gameLoop.stop();
+        }*/
+        snake = new Snake(gridSize);
+        foods = new ArrayList<>();
+        gameLoop.start();
+        //gameLoop.stop();
         gameOver.setText("");
-        initialize(url, resourceBundle);
+        //initialize(url, resourceBundle);
     }
-
 
 
 }
