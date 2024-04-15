@@ -1,5 +1,10 @@
 package ru.kozorez;
 
+import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
 import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,12 +18,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
 
+/**
+ * Controller class.
+ */
 public class Controller implements Initializable {
 
 
@@ -33,32 +36,28 @@ public class Controller implements Initializable {
     @FXML
     private Label scoreText;
 
-    @FXML
-    private Label gameOver;
-
     private List<Circle> foods = new ArrayList<>();
 
-    //private double accelerationTime = 0;
-    private int gameTime = 0;
     private int scoreCounter = 0;
     private final int gridSize = 15;
     private Snake snake;
-    private int foodCount;
+    int foodCount;
     double defaultWidth;
     double defaultHeight;
 
-    private URL url;
-    private ResourceBundle resourceBundle;
-
-
+    /**
+     * initialize the game.
+     *
+     * @param url            url
+     * @param resourceBundle resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        this.url = url;
-        this.resourceBundle = resourceBundle;
         defaultHeight = plane.getHeight();
         defaultWidth = plane.getWidth();
         snake = new Snake(gridSize);
         final long[] lastUpdate = {0};
+        foodCount = 1;
         gameLoop = new AnimationTimer() {
             @Override
             public void handle(long now) {
@@ -68,14 +67,21 @@ public class Controller implements Initializable {
                 }
             }
         };
-
         gameLoop.start();
     }
 
+    /**
+     * set the amount of food.
+     *
+     * @param foodCount int
+     */
     public void setFoodCount(int foodCount) {
         this.foodCount = foodCount;
     }
 
+    /**
+     * check if the snake can eat some food.
+     */
     private void eatFood() {
         for (int i = 0; i < foods.size(); i++) {
             if (foods.get(i) == null) {
@@ -99,6 +105,12 @@ public class Controller implements Initializable {
         }
     }
 
+    /**
+     * check if the food has spawned into the snake.
+     *
+     * @param food circle
+     * @return whether the food has spawned into the snake or not
+     */
     private boolean checkCollisionWithFood(Circle food) {
         for (int i = 0; i < snake.getBody().size(); i++) {
             if (snake.getBody().get(i).getBoundsInParent().intersects(food.getBoundsInParent())) {
@@ -117,6 +129,11 @@ public class Controller implements Initializable {
         return false;
     }
 
+    /**
+     * movement from the keyboard.
+     *
+     * @param event pressing the key
+     */
     @FXML
     void pressed(KeyEvent event) {
 
@@ -126,7 +143,6 @@ public class Controller implements Initializable {
             case S:
             case D:
                 snake.setDirection(event);
-                //snake.direction = event;
                 break;
             case SPACE:
                 restartGame();
@@ -134,6 +150,9 @@ public class Controller implements Initializable {
         }
     }
 
+    /**
+     * spawn 1 circle of food.
+     */
     private void spawnFood() {
 
         Circle food;
@@ -148,17 +167,20 @@ public class Controller implements Initializable {
         plane.getChildren().add(foods.getLast());
     }
 
-    //Called every game frame
+    /**
+     * runs the game.
+     */
     private void update() {
         scoreText.setText("Score: " + scoreCounter);
 
         if (foodCount > foods.size() || foods.isEmpty()) {
             spawnFood();
         }
-/*        if(foodCount < foods.size()){
-            plane.getChildren().removeLast(foods);
-        }*/
-        //System.out.println(plane.getWidth() + " " + plane.getHeight());
+        if (foodCount < foods.size()) {
+            System.out.println(foodCount + " " + foods.size());
+            foods.getLast().setRadius(0);
+            foods.removeLast();
+        }
         if (snake.move(plane.getWidth(), plane.getHeight())) {
             gameOver();
         }
@@ -167,16 +189,18 @@ public class Controller implements Initializable {
         snakeHead.setCenterY(snake.getHeadY());
     }
 
+    /**
+     * game over.
+     */
     private void gameOver() {
-        // Display game over window
-        //gameOver.setText("GAME OVER!\nScore: " + scoreCounter);
         gameLoop.stop();
         showPopup();
     }
 
+    /**
+     * shows game over popup window.
+     */
     private void showPopup() {
-        Stage stage = (Stage) plane.getScene().getWindow();
-        stage.close();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("gameOver.fxml"));
         Parent root;
         try {
@@ -188,40 +212,22 @@ public class Controller implements Initializable {
             Stage newStage = new Stage();
             newStage.setMinHeight(defaultHeight);
             newStage.setMinWidth(defaultWidth);
-/*            newStage.setWidth(500);
-            newStage.setHeight(500);*/
             newStage.setScene(new Scene(root));
-
             newStage.setTitle("Game Over!");
-            popupController.primaryStage = stage;
             newStage.show();
-            restartGame();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        //agameLoop.stop();
     }
 
+    /**
+     * restarts the game.
+     */
     public void restartGame() {
         scoreCounter = 0;
-
-        //plane.getChildren().clear();
         plane.getChildren().removeAll(snake.getBody());
-/*        for (int i = 0; i < snake.getBody().size(); i++) {
-            snake.getBody().removeLast();
-        }*/
-
         plane.getChildren().removeAll(foods);
-/*        for (int i = 0; i < foods.size(); i++) {
-            foods.removeLast();
-        }*/
         snake = new Snake(gridSize);
         foods = new ArrayList<>();
-        gameLoop.start();
-        //gameLoop.stop();
-        gameOver.setText("");
-        //initialize(url, resourceBundle);
     }
-
-
 }

@@ -1,10 +1,9 @@
 package ru.kozorez;
 
+import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
-import java.io.IOException;
 
 /**
  * snake application
@@ -27,9 +26,6 @@ public class Application extends javafx.application.Application {
         Scene scene = new Scene(fxmlLoader.load());
         scene.getRoot().requestFocus();
         stage.setTitle("Sankey!");
-        /*Parent root = fxmlLoader.load();
-        Controller controller = fxmlLoader.getController();
-        controller.setPrimaryStage(stage);*/
         stage.setScene(scene);
         stage.show();
     }

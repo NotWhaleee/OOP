@@ -5,21 +5,28 @@ import static javafx.scene.input.KeyCode.D;
 import static javafx.scene.input.KeyCode.S;
 import static javafx.scene.input.KeyCode.W;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
-import java.util.ArrayList;
-import java.util.List;
-
-
+/**
+ * class for snake logic.
+ */
 public class Snake {
 
     private List<Circle> body;
     private KeyCode direction;
     private final int gridSize;
 
+    /**
+     * initialize the snake.
+     *
+     * @param gridSize gridSize
+     */
     public Snake(int gridSize) {
         this.body = new ArrayList<>();
         this.direction = D;
@@ -27,18 +34,38 @@ public class Snake {
         this.body.add(new Circle(100, 100, 10));
     }
 
+    /**
+     * get list of body parts.
+     *
+     * @return List of circles
+     */
     public List<Circle> getBody() {
         return body;
     }
 
+    /**
+     * get x coord of the head.
+     *
+     * @return coordinate
+     */
     public double getHeadX() {
         return body.getFirst().getCenterX();
     }
 
+    /**
+     * get y coord of the head.
+     *
+     * @return coordinate
+     */
     public double getHeadY() {
         return body.getFirst().getCenterY();
     }
 
+    /**
+     * set direction of the snakes' movement.
+     *
+     * @param direction KeyEvent
+     */
     public void setDirection(KeyEvent direction) {
         if (direction != null && !oppositeKeyCode(direction.getCode(), this.direction)) {
             this.direction = direction.getCode();
@@ -46,11 +73,11 @@ public class Snake {
     }
 
     /**
-     * check whe the pressed key is th
+     * check whether the keys are opposite or not.
      *
-     * @param a
-     * @param b
-     * @return
+     * @param a key 1
+     * @param b key 2
+     * @return whether the keys are opposite or not
      */
     private boolean oppositeKeyCode(KeyCode a, KeyCode b) {
         if (a == A && b == D || b == A && a == D) {
@@ -63,6 +90,11 @@ public class Snake {
 
     }
 
+    /**
+     * get radius of the snakes' circles
+     *
+     * @return double
+     */
     public double getSize() {
         return body.getFirst().getRadius();
     }
@@ -137,7 +169,7 @@ public class Snake {
      * @param maxWidth max width of the window
      * @return new coordinate
      */
-    private double WallCollisionX(double x, double maxWidth) {
+    double WallCollisionX(double x, double maxWidth) {
         if (x < body.getFirst().getRadius()) {
             x = maxWidth - body.getFirst().getRadius();
         } else if (x >= maxWidth) {
@@ -153,7 +185,7 @@ public class Snake {
      * @param maxHeight max height of the window
      * @return new coordinate
      */
-    private double wallCollisionY(double y, double maxHeight) {
+    double wallCollisionY(double y, double maxHeight) {
         if (y < body.getFirst().getRadius()) {
             y = maxHeight - body.getFirst().getRadius();
         } else if (y >= maxHeight) {
@@ -199,6 +231,11 @@ public class Snake {
         return newSegment;
     }
 
+    /**
+     * get the direction of movement.
+     *
+     * @return KeyCode
+     */
     public KeyCode getDirection() {
         return direction;
     }

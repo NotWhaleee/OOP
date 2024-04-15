@@ -12,15 +12,13 @@ import javafx.stage.Stage;
  */
 public class PopupController {
 
-    Stage primaryStage;
-
     Controller controller;
 
     @FXML
-    private Label scoreLabel;
+    Label scoreLabel;
 
     @FXML
-    private ComboBox<Integer> foodCountComboBox;
+    ComboBox<Integer> foodCountComboBox;
 
     @FXML
     private Button restartButton;
@@ -46,19 +44,12 @@ public class PopupController {
      * handle the restart button action.
      */
     @FXML
-    private void restartButtonAction() {
+    void restartButtonAction() {
         int selectedFoodCount = foodCountComboBox.getValue();
-        // Restart the game with the selected number of foods
         Stage stage = (Stage) restartButton.getScene().getWindow();
         stage.close();
-
-        primaryStage.setTitle("Sankey!");
-        primaryStage.show();
         controller.setFoodCount(selectedFoodCount);
-
-        Controller parentController = (Controller) primaryStage.getUserData();
-        parentController.setFoodCount(selectedFoodCount);
-
-        parentController.restartGame();
+        controller.gameLoop.start();
+        controller.restartGame();
     }
 }
