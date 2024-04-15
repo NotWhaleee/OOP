@@ -61,7 +61,7 @@ public class Controller implements Initializable {
         gameLoop = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                if (now - lastUpdate[0] >= 30_000_000) { // Adjust the value as per your requirement
+                if (now - lastUpdate[0] >= 30_000_000) {
                     update();
                     lastUpdate[0] = now;
                 }
@@ -147,6 +147,7 @@ public class Controller implements Initializable {
             case SPACE:
                 restartGame();
                 break;
+            default:
         }
     }
 

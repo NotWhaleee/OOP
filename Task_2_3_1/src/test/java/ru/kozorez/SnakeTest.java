@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.util.List;
-
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.shape.Circle;
@@ -44,7 +43,8 @@ class SnakeTest {
      */
     @Test
     void testSetDirection() {
-        KeyEvent event = new KeyEvent(KeyEvent.KEY_PRESSED, "", "", KeyCode.W, false, false, false, false);
+        KeyEvent event = new KeyEvent(KeyEvent.KEY_PRESSED, "", "", KeyCode.W,
+                false, false, false, false);
 
         snake.setDirection(event);
 
@@ -57,8 +57,10 @@ class SnakeTest {
      */
     @Test
     void testSetOppositeDirection() {
-        snake.setDirection(new KeyEvent(KeyEvent.KEY_PRESSED, "", "", KeyCode.W, false, false, false, false));
-        KeyEvent event = new KeyEvent(KeyEvent.KEY_PRESSED, "", "", KeyCode.S, false, false, false, false);
+        snake.setDirection(new KeyEvent(KeyEvent.KEY_PRESSED, "", "", KeyCode.W,
+                false, false, false, false));
+        KeyEvent event = new KeyEvent(KeyEvent.KEY_PRESSED, "", "", KeyCode.S,
+                false, false, false, false);
 
         snake.setDirection(event);
 
@@ -71,7 +73,8 @@ class SnakeTest {
      */
     @Test
     void testMove() {
-        snake.setDirection(new KeyEvent(KeyEvent.KEY_PRESSED, "", "", KeyCode.W, false, false, false, false));
+        snake.setDirection(new KeyEvent(KeyEvent.KEY_PRESSED, "", "", KeyCode.W,
+                false, false, false, false));
 
         boolean collision = snake.move(200, 200);
 
@@ -86,11 +89,11 @@ class SnakeTest {
      */
     @Test
     void testWallCollisionX() {
-        double newX = snake.WallCollisionX(5, 200);
+        double newX = snake.wallCollisionX(5, 200);
 
         assertEquals(190, newX);
 
-        newX = snake.WallCollisionX(205, 200);
+        newX = snake.wallCollisionX(205, 200);
 
         assertEquals(10, newX);
     }

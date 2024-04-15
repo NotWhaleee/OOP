@@ -7,7 +7,6 @@ import static javafx.scene.input.KeyCode.W;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
@@ -91,7 +90,7 @@ public class Snake {
     }
 
     /**
-     * get radius of the snakes' circles
+     * get radius of the snakes' circles.
      *
      * @return double
      */
@@ -127,9 +126,10 @@ public class Snake {
                 //goRight();
                 newX += gridSize;
                 break;
+            default:
         }
 
-        newX = WallCollisionX(newX, maxWidth);
+        newX = wallCollisionX(newX, maxWidth);
         newY = wallCollisionY(newY, maxHeight);
 
         crawlBody();
@@ -169,7 +169,7 @@ public class Snake {
      * @param maxWidth max width of the window
      * @return new coordinate
      */
-    double WallCollisionX(double x, double maxWidth) {
+    double wallCollisionX(double x, double maxWidth) {
         if (x < body.getFirst().getRadius()) {
             x = maxWidth - body.getFirst().getRadius();
         } else if (x >= maxWidth) {
