@@ -1,0 +1,18 @@
+{
+  "bakers": [
+    null,
+    null,
+    null
+  ],
+  "couriers": [
+    null,
+    null
+  ],
+  "storage": {
+    "capacity": 4,
+    "stored": 0,
+    "delivered": 0
+  },
+  "jsonFile": "config.json",
+  "openTime": 0
+}

@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="PizzeriaTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-03-24T09:04:24" hostname="fedora" time="7.096">
+  <properties/>
+  <testcase name="setUp()" classname="PizzeriaTest" time="7.096"/>
+  <system-out><![CDATA[Hire bakerBaker{speed=300, isBusy=true}
+Hire bakerBaker{speed=500, isBusy=true}
+Hire bakerBaker{speed=800, isBusy=true}
+Hire courier Courier{capacity=2, carries=0, isBusy=true, speed=600}
+Hire courier Courier{capacity=1, carries=0, isBusy=true, speed=400}
+?[0;33m
+ORDER COOKED!
+?[0m
+Release baker  Baker{speed=300, isBusy=false}
+Hire bakerBaker{speed=300, isBusy=true}
+Release courier Courier{capacity=1, carries=1, isBusy=false, speed=400}
+?[0;34m
+1ORDERS DELIVERED
+?[0m
+Hire courier Courier{capacity=1, carries=0, isBusy=true, speed=400}
+?[0;33m
+ORDER COOKED!
+?[0m
+Release baker  Baker{speed=500, isBusy=false}
+Hire bakerBaker{speed=500, isBusy=true}
+Release courier Courier{capacity=2, carries=2, isBusy=false, speed=600}
+?[0;34m
+2ORDERS DELIVERED
+?[0;33m
+ORDER COOKED!
+?[0m
+?[0m
+Hire courier Courier{capacity=2, carries=0, isBusy=true, speed=600}
+Release baker  Baker{speed=300, isBusy=false}
+Hire bakerBaker{speed=300, isBusy=true}
+?[0;33m
+ORDER COOKED!
+?[0m
+Release baker  Baker{speed=800, isBusy=false}
+Hire bakerBaker{speed=800, isBusy=true}
+Release courier Courier{capacity=1, carries=1, isBusy=false, speed=400}
+?[0;34m
+1ORDERS DELIVERED
+?[0m
+Hire courier Courier{capacity=1, carries=0, isBusy=true, speed=400}
+?[0;33m
+ORDER COOKED!
+?[0m
+Release baker  Baker{speed=300, isBusy=false}
+Hire bakerBaker{speed=300, isBusy=true}
+?[0;33m
+ORDER COOKED!
+?[0m
+Release baker  Baker{speed=500, isBusy=false}
+Hire bakerBaker{speed=500, isBusy=true}
+Release courier Courier{capacity=2, carries=2, isBusy=false, speed=600}
+?[0;34m
+2ORDERS DELIVERED
+?[0m
+Hire courier Courier{capacity=2, carries=0, isBusy=true, speed=600}
+?[0;33m
+ORDER COOKED!
+?[0m
+Release baker  Baker{speed=300, isBusy=false}
+Hire bakerBaker{speed=300, isBusy=true}
+Release courier Courier{capacity=1, carries=1, isBusy=false, speed=400}
+?[0;34m
+1ORDERS DELIVERED
+?[0m
+Hire courier Courier{capacity=1, carries=0, isBusy=true, speed=400}
+?[0;33m
+ORDER COOKED!
+?[0m
+Release baker  Baker{speed=500, isBusy=false}
+Hire bakerBaker{speed=500, isBusy=true}
+?[0;33m
+ORDER COOKED!
+?[0m
+Release baker  Baker{speed=300, isBusy=false}
+Hire bakerBaker{speed=300, isBusy=true}
+?[0;33m
+ORDER COOKED!
+?[0m
+Release baker  Baker{speed=800, isBusy=false}
+Hire bakerBaker{speed=800, isBusy=true}
+Release courier Courier{capacity=1, carries=1, isBusy=false, speed=400}
+?[0;34m
+1ORDERS DELIVERED
+?[0m
+Hire courier Courier{capacity=1, carries=0, isBusy=true, speed=400}
+Release courier Courier{capacity=2, carries=2, isBusy=false, speed=600}
+?[0;34m
+2ORDERS DELIVERED
+?[0m
+Hire courier Courier{capacity=2, carries=0, isBusy=true, speed=600}
+?[0;33m
+ORDER COOKED!
+?[0m
+Release baker  Baker{speed=300, isBusy=false}
+Hire bakerBaker{speed=300, isBusy=true}
+?[0;33m
+ORDER COOKED!
+?[0m
+Release baker  Baker{speed=500, isBusy=false}
+Hire bakerBaker{speed=500, isBusy=true}
+Release courier Courier{capacity=1, carries=1, isBusy=false, speed=400}
+?[0;34m
+1ORDERS DELIVERED
+?[0m
+Hire courier Courier{capacity=1, carries=0, isBusy=true, speed=400}
+?[0;33m
+ORDER COOKED!
+?[0m
+Release baker  Baker{speed=300, isBusy=false}
+Hire bakerBaker{speed=300, isBusy=true}
+?[0;33m
+ORDER COOKED!
+?[0m
+Release baker  Baker{speed=800, isBusy=false}
+Hire bakerBaker{speed=800, isBusy=true}
+Release courier Courier{capacity=2, carries=2, isBusy=false, speed=600}
+?[0;34m
+2ORDERS DELIVERED
+?[0m
+Hire courier Courier{capacity=2, carries=0, isBusy=true, speed=600}
+?[0;33m
+ORDER COOKED!
+?[0m
+Release baker  Baker{speed=300, isBusy=false}
+Hire bakerBaker{speed=300, isBusy=true}
+Release courier Courier{capacity=1, carries=1, isBusy=false, speed=400}
+?[0;34m
+1ORDERS DELIVERED
+?[0m
+Hire courier Courier{capacity=1, carries=0, isBusy=true, speed=400}
+?[0;33m
+ORDER COOKED!
+?[0m
+Release baker  Baker{speed=500, isBusy=false}
+Hire bakerBaker{speed=500, isBusy=true}
+?[0;33m
+ORDER COOKED!
+?[0m
+Release baker  Baker{speed=300, isBusy=false}
+Hire bakerBaker{speed=300, isBusy=true}
+Release courier Courier{capacity=1, carries=1, isBusy=false, speed=400}
+?[0;34m
+1ORDERS DELIVERED
+?[0m
+Hire courier Courier{capacity=1, carries=0, isBusy=true, speed=400}
+Release courier Courier{capacity=2, carries=2, isBusy=false, speed=600}
+?[0;34m
+2ORDERS DELIVERED
+?[0m
+Hire courier Courier{capacity=2, carries=0, isBusy=true, speed=600}
+?[0;33m
+ORDER COOKED!
+?[0m
+Release baker  Baker{speed=500, isBusy=false}
+Hire bakerBaker{speed=500, isBusy=true}
+?[0;33m
+ORDER COOKED!
+?[0m
+Release baker  Baker{speed=300, isBusy=false}
+Hire bakerBaker{speed=300, isBusy=true}
+?[0;33m
+ORDER COOKED!
+?[0m
+Release baker  Baker{speed=800, isBusy=false}
+Hire bakerBaker{speed=800, isBusy=true}
+Release courier Courier{capacity=1, carries=1, isBusy=false, speed=400}
+?[0;34m
+1ORDERS DELIVERED
+?[0m
+Hire courier Courier{capacity=1, carries=0, isBusy=true, speed=400}
+?[0;33m
+ORDER COOKED!
+?[0m
+Release baker  Baker{speed=300, isBusy=false}
+Hire bakerBaker{speed=300, isBusy=true}
+?[0;33m
+ORDER COOKED!
+?[0m
+Release baker  Baker{speed=500, isBusy=false}
+Hire bakerBaker{speed=500, isBusy=true}
+Release courier Courier{capacity=2, carries=2, isBusy=false, speed=600}
+?[0;34m
+2ORDERS DELIVERED
+?[0m
+Hire courier Courier{capacity=2, carries=0, isBusy=true, speed=600}
+?[0;33m
+ORDER COOKED!
+?[0m
+Release baker  Baker{speed=300, isBusy=false}
+Release courier Courier{capacity=1, carries=1, isBusy=false, speed=400}
+?[0;34m
+Hire bakerBaker{speed=300, isBusy=true}
+1ORDERS DELIVERED
+?[0m
+Hire courier Courier{capacity=1, carries=0, isBusy=true, speed=400}
+?[0;33m
+ORDER COOKED!
+?[0m
+Release baker  Baker{speed=300, isBusy=false}
+Hire bakerBaker{speed=300, isBusy=true}
+?[0;33m
+ORDER COOKED!
+?[0m
+Release baker  Baker{speed=800, isBusy=false}
+Hire bakerBaker{speed=800, isBusy=true}
+?[0;33m
+ORDER COOKED!
+?[0m
+Release baker  Baker{speed=500, isBusy=false}
+Hire bakerBaker{speed=500, isBusy=true}
+Release courier Courier{capacity=1, carries=1, isBusy=false, speed=400}
+?[0;34m
+1ORDERS DELIVERED
+?[0m
+Hire courier Courier{capacity=1, carries=0, isBusy=true, speed=400}
+Release courier Courier{capacity=2, carries=2, isBusy=false, speed=600}
+?[0;34m
+2ORDERS DELIVERED
+?[0m
+Hire courier Courier{capacity=2, carries=0, isBusy=true, speed=600}
+?[0;33m
+ORDER COOKED!
+?[0m
+Release baker  Baker{speed=300, isBusy=false}
+Hire bakerBaker{speed=300, isBusy=true}
+Release courier Courier{capacity=1, carries=1, isBusy=false, speed=400}
+?[0;34m
+1ORDERS DELIVERED
+?[0m
+Hire courier Courier{capacity=1, carries=0, isBusy=true, speed=400}
+?[0;33m
+ORDER COOKED!
+?[0m
+Release baker  Baker{speed=500, isBusy=false}
+Hire bakerBaker{speed=500, isBusy=true}
+?[0;33m
+ORDER COOKED!
+?[0m
+Release baker  Baker{speed=300, isBusy=false}
+Hire bakerBaker{speed=300, isBusy=true}
+?[0;33m
+ORDER COOKED!
+?[0m
+Release baker  Baker{speed=800, isBusy=false}
+Hire bakerBaker{speed=800, isBusy=true}
+Release courier Courier{capacity=2, carries=2, isBusy=false, speed=600}
+?[0;34m
+2ORDERS DELIVERED
+?[0m
+Hire courier Courier{capacity=2, carries=0, isBusy=true, speed=600}
+?[0;33m
+ORDER COOKED!
+?[0m
+Release baker  Baker{speed=300, isBusy=false}
+Release courier Courier{capacity=1, carries=1, isBusy=false, speed=400}
+?[0;34m
+1ORDERS DELIVERED
+Hire bakerBaker{speed=300, isBusy=true}
+?[0m
+Hire courier Courier{capacity=1, carries=0, isBusy=true, speed=400}
+?[0;33m
+ORDER COOKED!
+?[0m
+Release baker  Baker{speed=500, isBusy=false}
+Hire bakerBaker{speed=500, isBusy=true}
+?[0;33m
+ORDER COOKED!
+?[0m
+Release baker  Baker{speed=300, isBusy=false}
+Hire bakerBaker{speed=300, isBusy=true}
+Release courier Courier{capacity=1, carries=1, isBusy=false, speed=400}
+?[0;34m
+1ORDERS DELIVERED
+?[0m
+Hire courier Courier{capacity=1, carries=0, isBusy=true, speed=400}
+Release courier Courier{capacity=2, carries=2, isBusy=false, speed=600}
+?[0;34m
+2ORDERS DELIVERED
+?[0m
+Hire courier Courier{capacity=2, carries=0, isBusy=true, speed=600}
+?[0;33m
+ORDER COOKED!
+?[0m
+Release baker  Baker{speed=300, isBusy=false}
+Hire bakerBaker{speed=300, isBusy=true}
+?[0;33m
+ORDER COOKED!
+?[0m
+Release baker  Baker{speed=500, isBusy=false}
+Hire bakerBaker{speed=500, isBusy=true}
+?[0;33m
+ORDER COOKED!
+?[0m
+Release baker  Baker{speed=800, isBusy=false}
+Hire bakerBaker{speed=800, isBusy=true}
+Release courier Courier{capacity=1, carries=1, isBusy=false, speed=400}
+?[0;34m
+1ORDERS DELIVERED
+?[0m
+Hire courier Courier{capacity=1, carries=0, isBusy=true, speed=400}
+?[0;33m
+ORDER COOKED!
+?[0m
+Release baker  Baker{speed=300, isBusy=false}
+Hire bakerBaker{speed=300, isBusy=true}
+Release courier Courier{capacity=2, carries=2, isBusy=false, speed=600}
+?[0;34m
+2ORDERS DELIVERED
+?[0m
+Hire courier Courier{capacity=2, carries=0, isBusy=true, speed=600}
+?[0;33m
+ORDER COOKED!
+?[0m
+Release baker  Baker{speed=500, isBusy=false}
+Hire bakerBaker{speed=500, isBusy=true}
+?[0;33m
+ORDER COOKED!
+?[0m
+Release baker  Baker{speed=300, isBusy=false}
+Hire bakerBaker{speed=300, isBusy=true}
+Release courier Courier{capacity=1, carries=1, isBusy=false, speed=400}
+?[0;34m
+1ORDERS DELIVERED
+?[0m
+Hire courier Courier{capacity=1, carries=0, isBusy=true, speed=400}
+?[0;33m
+ORDER COOKED!
+?[0m
+Release baker  Baker{speed=300, isBusy=false}
+Hire bakerBaker{speed=300, isBusy=true}
+Baker waitiiing....
+Release courier Courier{capacity=1, carries=1, isBusy=false, speed=400}
+?[0;34m
+?[0;33m
+ORDER COOKED!
+?[0m
+1ORDERS DELIVERED
+Release baker  Baker{speed=800, isBusy=false}
+?[0m
+Hire bakerBaker{speed=800, isBusy=true}
+Hire courier Courier{capacity=1, carries=0, isBusy=true, speed=400}
+Baker waitiiing....
+?[0;33m
+ORDER COOKED!
+?[0m
+Release courier Courier{capacity=2, carries=2, isBusy=false, speed=600}
+?[0;34m
+2ORDERS DELIVERED
+?[0m
+Release baker  Baker{speed=500, isBusy=false}
+Hire courier Courier{capacity=2, carries=0, isBusy=true, speed=600}
+Hire bakerBaker{speed=500, isBusy=true}
+?[0;33m
+ORDER COOKED!
+?[0m
+Release baker  Baker{speed=300, isBusy=false}
+Hire bakerBaker{speed=300, isBusy=true}
+Release courier Courier{capacity=1, carries=1, isBusy=false, speed=400}
+?[0;34m
+1ORDERS DELIVERED
+?[0m
+Hire courier Courier{capacity=1, carries=0, isBusy=true, speed=400}
+?[0;33m
+ORDER COOKED!
+?[0m
+Release baker  Baker{speed=300, isBusy=false}
+Hire bakerBaker{speed=300, isBusy=true}
+?[0;31m
+PIZZERIA CLOSED!!!
+Orders left: 9
+Present on storage: 10
+Delivered: 39
+?[0m
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
