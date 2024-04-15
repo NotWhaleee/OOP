@@ -6,17 +6,14 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
- * snake application
+ * snake application.
  */
 public class Application extends javafx.application.Application {
 
     /**
      * starts the snake application.
      *
-      * @param stage the primary stage for this application, onto which
-     * the application scene can be set.
-     * Applications may create other stages, if needed, but they will not be
-     * primary stages.
+     * @param stage the primary stage for this application
      * @throws IOException exception
      */
     @Override
