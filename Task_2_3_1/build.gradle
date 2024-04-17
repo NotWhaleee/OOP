@@ -8,6 +8,7 @@ plugins {
 
 group 'ru.kozorez'
 version '1.0-SNAPSHOT'
+mainClassName = 'ru.kozorez.Application'
 
 repositories {
     mavenCentral()
