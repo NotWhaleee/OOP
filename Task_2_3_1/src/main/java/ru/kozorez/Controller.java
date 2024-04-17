@@ -165,7 +165,7 @@ public class Controller implements Initializable {
 
         food.setStroke(Color.BLACK);
         foods.add(food); // Adjust the size of the food circle
-        plane.getChildren().add(foods.get(foods.size()-1));
+        plane.getChildren().add(foods.get(foods.size() - 1));
     }
 
     /**
@@ -179,8 +179,8 @@ public class Controller implements Initializable {
         }
         if (foodCount < foods.size()) {
             System.out.println(foodCount + " " + foods.size());
-            foods.get(foods.size()-1).setRadius(0);
-            foods.remove(foods.size()-1);
+            foods.get(foods.size() - 1).setRadius(0);
+            foods.remove(foods.size() - 1);
         }
         if (snake.move(plane.getWidth(), plane.getHeight())) {
             gameOver();

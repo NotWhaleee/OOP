@@ -220,7 +220,7 @@ public class Snake {
      * @return circle
      */
     public Circle grow() {
-        Circle lastSegment = body.get(body.size()-1);
+        Circle lastSegment = body.get(body.size() - 1);
         double newX = lastSegment.getCenterX();
         double newY = lastSegment.getCenterY();
 
