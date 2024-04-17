@@ -138,6 +138,6 @@ class SnakeTest {
         List<Circle> body = snake.getBody();
 
         assertEquals(2, body.size());
-        assertEquals(newSegment, body.getLast());
+        assertEquals(newSegment, body.get(body.size()-1));
     }
 }
