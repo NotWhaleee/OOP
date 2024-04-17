@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'application'
+    id 'jacoco'
     id 'org.javamodularity.moduleplugin' version '1.8.12'
     id 'org.openjfx.javafxplugin' version '0.0.13'
     id 'org.beryx.jlink' version '2.25.0'
@@ -8,15 +9,6 @@ plugins {
 
 group 'ru.kozorez'
 version '1.0-SNAPSHOT'
-mainClassName = 'ru.kozorez.Application'
-
-jar {
-    manifest {
-        attributes 'Implementation-Title': 'Gradle Quickstart',
-                'Implementation-Version': version,
-                'Main-Class': 'Application'
-    }
-}
 
 repositories {
     mavenCentral()
@@ -64,10 +56,16 @@ jlink {
     imageZip = project.file("${buildDir}/distributions/app-${javafx.platform.classifier}.zip")
     options = ['--strip-debug', '--compress', '2', '--no-header-files', '--no-man-pages']
     launcher {
-        name = 'app'
+        name = 'Application'
     }
 }
 
 jlinkZip {
     group = 'distribution'
+}
+
+jacocoTestReport {
+    reports {
+        xml.required = true
+    }
 }
