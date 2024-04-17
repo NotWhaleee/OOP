@@ -48,7 +48,7 @@ public class Snake {
      * @return coordinate
      */
     public double getHeadX() {
-        return body.getFirst().getCenterX();
+        return body.get(0).getCenterX();
     }
 
     /**
@@ -57,7 +57,7 @@ public class Snake {
      * @return coordinate
      */
     public double getHeadY() {
-        return body.getFirst().getCenterY();
+        return body.get(0).getCenterY();
     }
 
     /**
@@ -95,7 +95,7 @@ public class Snake {
      * @return double
      */
     public double getSize() {
-        return body.getFirst().getRadius();
+        return body.get(0).getRadius();
     }
 
     /**
@@ -106,8 +106,8 @@ public class Snake {
      * @return whether there was a collision or not
      */
     public boolean move(double maxWidth, double maxHeight) {
-        double newX = body.getFirst().getCenterX();
-        double newY = body.getFirst().getCenterY();
+        double newX = body.get(0).getCenterX();
+        double newY = body.get(0).getCenterY();
 
         switch (direction) {
             case W:
@@ -158,8 +158,8 @@ public class Snake {
      * @param newY new y coord
      */
     private void crawlHead(double newX, double newY) {
-        body.getFirst().setCenterX(newX);
-        body.getFirst().setCenterY(newY);
+        body.get(0).setCenterX(newX);
+        body.get(0).setCenterY(newY);
     }
 
     /**
@@ -170,10 +170,10 @@ public class Snake {
      * @return new coordinate
      */
     double wallCollisionX(double x, double maxWidth) {
-        if (x < body.getFirst().getRadius()) {
-            x = maxWidth - body.getFirst().getRadius();
+        if (x < body.get(0).getRadius()) {
+            x = maxWidth - body.get(0).getRadius();
         } else if (x >= maxWidth) {
-            x = body.getFirst().getRadius();
+            x = body.get(0).getRadius();
         }
         return x;
     }
@@ -186,10 +186,10 @@ public class Snake {
      * @return new coordinate
      */
     double wallCollisionY(double y, double maxHeight) {
-        if (y < body.getFirst().getRadius()) {
-            y = maxHeight - body.getFirst().getRadius();
+        if (y < body.get(0).getRadius()) {
+            y = maxHeight - body.get(0).getRadius();
         } else if (y >= maxHeight) {
-            y = body.getFirst().getRadius();
+            y = body.get(0).getRadius();
         }
         return y;
     }
@@ -201,7 +201,7 @@ public class Snake {
      * @return whether there was a collision or not
      */
     public boolean stupidSnakeBodyCollision() {
-        Circle head = body.getFirst();
+        Circle head = body.get(0);
         for (int i = 3; i < body.size(); i++) {
             Circle segment = body.get(i);
             double distance = Math.sqrt(Math.pow(head.getCenterX() - segment.getCenterX(), 2)
@@ -220,7 +220,7 @@ public class Snake {
      * @return circle
      */
     public Circle grow() {
-        Circle lastSegment = body.getLast();
+        Circle lastSegment = body.get(body.size()-1);
         double newX = lastSegment.getCenterX();
         double newY = lastSegment.getCenterY();
 
