@@ -10,6 +10,14 @@ group 'ru.kozorez'
 version '1.0-SNAPSHOT'
 mainClassName = 'ru.kozorez.Application'
 
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'Gradle Quickstart',
+                'Implementation-Version': version,
+                'Main-Class': 'Application'
+    }
+}
+
 repositories {
     mavenCentral()
 }
@@ -27,7 +35,7 @@ tasks.withType(JavaCompile) {
 
 application {
     mainModule = 'ru.kozorez'
-    mainClass = 'ru.kozorez.HelloApplication'
+    mainClass = 'ru.kozorez.Application'
 }
 
 javafx {
