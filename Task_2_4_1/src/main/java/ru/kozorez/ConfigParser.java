@@ -1,4 +1,3 @@
-/*
 package ru.kozorez;
 
 import groovy.util.ConfigObject;
@@ -78,5 +77,3 @@ public class ConfigParser {
         return course;
     }
 }
-
-*/

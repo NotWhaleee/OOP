@@ -18,17 +18,13 @@ public class Executor {
         executeCommand("git clone " + gitUrl + " " + localPath);
     }
 
-    public void switchToProjectDirectory() {
-        executeCommand("cd " + localPath + "/Task_1_1_1");
-    }
-
     public boolean buildProjectWithGradle() throws IOException {
         //executeCommand(/*"cd " + */"./"+localPath + "/Task_1_1_1/gradlew build");
 
         //executeCommand("chmod +x clonedRep/Task_1_1_1/gradlew");
         //CommandResult result = executeCommand("./" + localPath + "/Task_1_1_1/gradlew build");
         //executeCommand("chmod +x clonedRep/Task_1_1_1/gradlew");
-        CommandResult result = executeCommand("./" + localPath + "/Task_1_1_1/gradlew build");
+        CommandResult result = executeCommand("./" + localPath + "/Task_1_2_1/gradlew build");
 
         if (result.isSuccess()) {
             System.out.println("Build project: SUCCESS");
@@ -53,20 +49,20 @@ public class Executor {
     }
 
     public boolean generateJavadoc() {
-        CommandResult result = executeCommand("./" + localPath + "/Task_1_1_1/gradlew javadoc");
+        CommandResult result = executeCommand("./" + localPath + "/Task_1_2_1/gradlew javadoc");
         System.out.println("Generate Javadoc: " + (result.isSuccess() ? "SUCCESS" : "FAILED"));
         System.out.println(result.getOutput());
         return result.isSuccess();
     }
     public boolean touchGFrass() {
-        CommandResult result = executeCommand("touch " + localPath + "/Task_1_1_1/grass");
-        System.out.println("Generate Javadoc: " + (result.isSuccess() ? "SUCCESS" : "FAILED"));
+        CommandResult result = executeCommand("touch " + localPath + "/Task_1_2_1/grass");
+        System.out.println("Touch grass: " + (result.isSuccess() ? "SUCCESS" : "FAILED"));
         System.out.println(result.getOutput());
         return result.isSuccess();
     }
 
     public void runTests() {
-        executeCommand("./" + localPath + "/Task_1_1_1/gradlew test");
+        executeCommand("./" + localPath + "/Task_1_2_1/gradlew test");
     }
 
     private CommandResult executeCommand(String command) {
@@ -115,33 +111,4 @@ public class Executor {
         }*/
     }
 
-
-    public static void main(String[] args) {
-        String gitUrl = "https://github.com/NotWhaleee/OOP.git";
-        String localPath = "clonedRep";
-
-        Executor manager = new Executor(gitUrl, localPath);
-
-        // Скачиваем репозиторий
-        //manager.downloadProject();
-
-        // Переключаемся на директорию проекта
-        //manager.switchToProjectDirectory();
-
-        // Собираем проект с помощью Gradle
-        try {
-            manager.buildProjectWithGradle();
-
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-
-        // Генерируем Javadoc
-        manager.generateJavadoc();
-
-        // Запускаем тесты
-        manager.runTests();
-
-        manager.touchGFrass();
-    }
 }
