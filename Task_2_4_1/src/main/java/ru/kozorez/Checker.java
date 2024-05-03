@@ -15,7 +15,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
-
 public class Checker {
 
     String configFile = "/home/notwhalee/Documents/Studies/2nd course/OOP/OOP/Task_2_4_1/src/main/java/ru/kozorez/groovy/config.groovy";
