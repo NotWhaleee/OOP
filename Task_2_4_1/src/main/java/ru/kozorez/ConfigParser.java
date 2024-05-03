@@ -1,4 +1,4 @@
-/*
+
 package ru.kozorez;
 
 import groovy.util.ConfigObject;
@@ -7,6 +7,7 @@ import ru.kozorez.groovy.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -45,8 +46,9 @@ public class ConfigParser {
         }).collect(Collectors.toList());
 
         // Convert groups
-        List<Group> groupList = groups.stream().map(groupMap -> {
-            List<Map<String, Object>> students = (List<Map<String, Object>>) groupMap.get("students");
+        List<Group> groupList = new ArrayList<>();
+        for (Map<String, Object> group : groups) {
+            List<Map<String, Object>> students = (List<Map<String, Object>>) group.get("students");
             List<Student> studentList = students.stream().map(studentMap -> {
                 return new Student(
                         (String) studentMap.get("username"),
@@ -54,9 +56,11 @@ public class ConfigParser {
                         (String) studentMap.get("repoUrl")
                 );
             }).collect(Collectors.toList());
-            return new Group((String) groupMap.get("name"), studentList);
-        }).collect(Collectors.toList());
+            Group apply = new Group((String) group.get("name"), studentList);
+            groupList.add(apply);
+        }
 
+/*
         // Convert checkpoints
         List<Checkpoint> checkpointList = checkpoints.stream().map(checkpointMap -> {
             return new Checkpoint(
@@ -70,11 +74,14 @@ public class ConfigParser {
                 (String) settingsMap.get("gradingStrategy"),
                 (Map<String, Integer>) settingsMap.get("grades")
         );
+                return new CourseConfig(taskList, groupList, checkpointList, settings);
 
-        return new CourseConfig(taskList, groupList, checkpointList, settings);
+*/
+
+        return new CourseConfig(taskList, groupList);
     }
 
     public CourseConfig getCourse() {
         return course;
     }
-}*/
+}

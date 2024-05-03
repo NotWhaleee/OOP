@@ -106,6 +106,7 @@ public class Snake {
      * @return whether there was a collision or not
      */
     public boolean move(double maxWidth, double maxHeight) {
+        //double newX = body.get(0).getCenterX();
         double newX = body.get(0).getCenterX();
         double newY = body.get(0).getCenterY();
 

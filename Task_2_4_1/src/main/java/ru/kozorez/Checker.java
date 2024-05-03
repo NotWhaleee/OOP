@@ -1,8 +1,10 @@
-/*
+
 package ru.kozorez;
 
 import groovy.lang.GroovyShell;
-import org.codehaus.groovy.runtime.ResourceGroovyMethods;
+import ru.kozorez.groovy.CourseConfig;
+import ru.kozorez.groovy.Group;
+import ru.kozorez.groovy.Student;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -66,4 +68,4 @@ public class Checker {
         }
     }
 }
-*/
+

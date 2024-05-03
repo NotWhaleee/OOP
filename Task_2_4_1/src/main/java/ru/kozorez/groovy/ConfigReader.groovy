@@ -12,17 +12,23 @@ class Task {
     int maxPoints
     Date softDeadline
     Date hardDeadline
+
+    Task(String id, String name, int maxPoints, String softDeadline, String hardDeadline) {}
 }
 
 class Group {
     String name
     List<Student> students
+
+    Group(String name, List<Student> studentList) {}
 }
 
 class Student {
     String username
     String fullName
     String repoUrl
+
+    Student(String username, String fullName, String repoUrl) {}
 }
 
 
@@ -47,6 +53,8 @@ def courseConfig(Closure cl) {
 class CourseConfig {
     List<Task> tasks
     List<Group> groups
+
+    CourseConfig(List<Task> taskList, List<Group> groupList) {}
 
     void tasks(List<Task> tasks){
         this.tasks = tasks
