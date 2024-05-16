@@ -3,15 +3,12 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
 
 <AnchorPane fx:id="plane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#pressed" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.kozorez.Controller">
     <children>
-        <Circle fx:id="snakeHead" centerX="100.0" centerY="100.0" fill="#c7000d" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
-      <Label fx:id="scoreText" layoutX="14.0" prefHeight="44.0" prefWidth="125.0" text="Score: ">
-         <font>
-            <Font name="System Bold" size="16.0" />
-         </font>
-      </Label>
+        <Circle fx:id="playerHead" centerX="100.0" centerY="100.0" fill="#059023" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+        <Circle fx:id="evilSnakeHead" centerX="100.0" centerY="100.0" fill="#c7000d" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+        <Label fx:id="playerScoreTxt" layoutX="14.0" prefHeight="44.0" prefWidth="135.0" text="Score: " />
+        <Label fx:id="evilScoreTxt" layoutX="400" prefHeight="44.0" prefWidth="135.0" text="Score: " />
     </children>
 </AnchorPane>

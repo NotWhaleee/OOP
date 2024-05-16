@@ -2,6 +2,7 @@ package ru.kozorez;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
@@ -21,6 +22,9 @@ public class PopupController {
     ComboBox<Integer> foodCountComboBox;
 
     @FXML
+    CheckBox withBotCheckBox;
+
+    @FXML
     private Button restartButton;
 
     /**
@@ -36,6 +40,7 @@ public class PopupController {
      * initialize the rolling option and restart button.
      */
     public void initialize() {
+        withBotCheckBox.fire();
         foodCountComboBox.getItems().addAll(1, 2, 3, 4, 5);
         foodCountComboBox.getSelectionModel().select(0); // Select the first option
     }
@@ -46,9 +51,11 @@ public class PopupController {
     @FXML
     void restartButtonAction() {
         int selectedFoodCount = foodCountComboBox.getValue();
+        boolean withBot = withBotCheckBox.isSelected();
         Stage stage = (Stage) restartButton.getScene().getWindow();
         stage.close();
         controller.setFoodCount(selectedFoodCount);
+        controller.setWithBot(withBot);
         controller.gameLoop.start();
         controller.restartGame();
     }
