@@ -48,7 +48,7 @@ loadScripts(document, 'script');</script>
 <div class="header">
 <h1>Index</h1>
 </div>
-<a href="#I:A">A</a>&nbsp;<a href="#I:C">C</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a>
+<a href="#I:A">A</a>&nbsp;<a href="#I:C">C</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:H">H</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:O">O</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a>
 <h2 class="title" id="I:A">A</h2>
 <dl class="index">
 <dt><a href="ru/kozorez/Application.html" class="type-name-link" title="class in ru.kozorez">Application</a> - Class in <a href="ru/kozorez/package-summary.html">ru.kozorez</a></dt>
@@ -60,6 +60,18 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:C">C</h2>
 <dl class="index">
+<dt><a href="ru/kozorez/EvilSnake.html#calcDistance(java.util.List)" class="member-name-link">calcDistance(List&lt;Circle&gt;)</a> - Method in class ru.kozorez.<a href="ru/kozorez/EvilSnake.html" title="class in ru.kozorez">EvilSnake</a></dt>
+<dd>
+<div class="block">calculate distances to the food.</div>
+</dd>
+<dt><a href="ru/kozorez/Snake.html#collisionWithEnemy(ru.kozorez.Snake)" class="member-name-link">collisionWithEnemy(Snake)</a> - Method in class ru.kozorez.<a href="ru/kozorez/Snake.html" title="class in ru.kozorez">Snake</a></dt>
+<dd>
+<div class="block">Check whether the snake's head intersects with any of its body segments or not.</div>
+</dd>
+<dt><a href="ru/kozorez/Snake.html#collisionWithItself()" class="member-name-link">collisionWithItself()</a> - Method in class ru.kozorez.<a href="ru/kozorez/Snake.html" title="class in ru.kozorez">Snake</a></dt>
+<dd>
+<div class="block">Check whether the snake's head intersects with any of its body segments or not.</div>
+</dd>
 <dt><a href="ru/kozorez/Controller.html" class="type-name-link" title="class in ru.kozorez">Controller</a> - Class in <a href="ru/kozorez/package-summary.html">ru.kozorez</a></dt>
 <dd>
 <div class="block">Controller class.</div>
@@ -67,15 +79,34 @@ loadScripts(document, 'script');</script>
 <dt><a href="ru/kozorez/Controller.html#%3Cinit%3E()" class="member-name-link">Controller()</a> - Constructor for class ru.kozorez.<a href="ru/kozorez/Controller.html" title="class in ru.kozorez">Controller</a></dt>
 <dd>&nbsp;</dd>
 </dl>
+<h2 class="title" id="I:E">E</h2>
+<dl class="index">
+<dt><a href="ru/kozorez/EvilSnake.html" class="type-name-link" title="class in ru.kozorez">EvilSnake</a> - Class in <a href="ru/kozorez/package-summary.html">ru.kozorez</a></dt>
+<dd>
+<div class="block">Class for the bot snake.</div>
+</dd>
+<dt><a href="ru/kozorez/EvilSnake.html#%3Cinit%3E(int,double,double,double,javafx.scene.paint.Color)" class="member-name-link">EvilSnake(int, double, double, double, Color)</a> - Constructor for class ru.kozorez.<a href="ru/kozorez/EvilSnake.html" title="class in ru.kozorez">EvilSnake</a></dt>
+<dd>
+<div class="block">initialize the snake.</div>
+</dd>
+</dl>
 <h2 class="title" id="I:G">G</h2>
 <dl class="index">
 <dt><a href="ru/kozorez/Snake.html#getBody()" class="member-name-link">getBody()</a> - Method in class ru.kozorez.<a href="ru/kozorez/Snake.html" title="class in ru.kozorez">Snake</a></dt>
 <dd>
 <div class="block">get list of body parts.</div>
 </dd>
+<dt><a href="ru/kozorez/Snake.html#getColor()" class="member-name-link">getColor()</a> - Method in class ru.kozorez.<a href="ru/kozorez/Snake.html" title="class in ru.kozorez">Snake</a></dt>
+<dd>
+<div class="block">get snakes color.</div>
+</dd>
 <dt><a href="ru/kozorez/Snake.html#getDirection()" class="member-name-link">getDirection()</a> - Method in class ru.kozorez.<a href="ru/kozorez/Snake.html" title="class in ru.kozorez">Snake</a></dt>
 <dd>
 <div class="block">get the direction of movement.</div>
+</dd>
+<dt><a href="ru/kozorez/Snake.html#getHeadRadius()" class="member-name-link">getHeadRadius()</a> - Method in class ru.kozorez.<a href="ru/kozorez/Snake.html" title="class in ru.kozorez">Snake</a></dt>
+<dd>
+<div class="block">get radius of the head.</div>
 </dd>
 <dt><a href="ru/kozorez/Snake.html#getHeadX()" class="member-name-link">getHeadX()</a> - Method in class ru.kozorez.<a href="ru/kozorez/Snake.html" title="class in ru.kozorez">Snake</a></dt>
 <dd>
@@ -85,17 +116,32 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">get y coord of the head.</div>
 </dd>
+<dt><a href="ru/kozorez/Snake.html#getScore()" class="member-name-link">getScore()</a> - Method in class ru.kozorez.<a href="ru/kozorez/Snake.html" title="class in ru.kozorez">Snake</a></dt>
+<dd>
+<div class="block">get snakes score counter.</div>
+</dd>
 <dt><a href="ru/kozorez/Snake.html#getSize()" class="member-name-link">getSize()</a> - Method in class ru.kozorez.<a href="ru/kozorez/Snake.html" title="class in ru.kozorez">Snake</a></dt>
 <dd>
 <div class="block">get radius of the snakes' circles.</div>
 </dd>
-<dt><a href="ru/kozorez/Snake.html#grow()" class="member-name-link">grow()</a> - Method in class ru.kozorez.<a href="ru/kozorez/Snake.html" title="class in ru.kozorez">Snake</a></dt>
+<dt><a href="ru/kozorez/Snake.html#grow(javafx.scene.paint.Color)" class="member-name-link">grow(Color)</a> - Method in class ru.kozorez.<a href="ru/kozorez/Snake.html" title="class in ru.kozorez">Snake</a></dt>
 <dd>
 <div class="block">Add a new segment to the end of the snake's body.</div>
 </dd>
 </dl>
+<h2 class="title" id="I:H">H</h2>
+<dl class="index">
+<dt><a href="ru/kozorez/EvilSnake.html#hitYourselfOnPoliceTurn(double,double,double)" class="member-name-link">hitYourselfOnPoliceTurn(double, double, double)</a> - Method in class ru.kozorez.<a href="ru/kozorez/EvilSnake.html" title="class in ru.kozorez">EvilSnake</a></dt>
+<dd>
+<div class="block">checks if the snake would hit itself while turning around.</div>
+</dd>
+</dl>
 <h2 class="title" id="I:I">I</h2>
 <dl class="index">
+<dt><a href="ru/kozorez/Snake.html#incrementScore()" class="member-name-link">incrementScore()</a> - Method in class ru.kozorez.<a href="ru/kozorez/Snake.html" title="class in ru.kozorez">Snake</a></dt>
+<dd>
+<div class="block">increments the score.</div>
+</dd>
 <dt><a href="ru/kozorez/PopupController.html#initialize()" class="member-name-link">initialize()</a> - Method in class ru.kozorez.<a href="ru/kozorez/PopupController.html" title="class in ru.kozorez">PopupController</a></dt>
 <dd>
 <div class="block">initialize the rolling option and restart button.</div>
@@ -104,6 +150,8 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">initialize the game.</div>
 </dd>
+<dt><a href="ru/kozorez/Controller.html#isWithBot()" class="member-name-link">isWithBot()</a> - Method in class ru.kozorez.<a href="ru/kozorez/Controller.html" title="class in ru.kozorez">Controller</a></dt>
+<dd>&nbsp;</dd>
 </dl>
 <h2 class="title" id="I:M">M</h2>
 <dl class="index">
@@ -111,9 +159,16 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">main.</div>
 </dd>
-<dt><a href="ru/kozorez/Snake.html#move(double,double)" class="member-name-link">move(double, double)</a> - Method in class ru.kozorez.<a href="ru/kozorez/Snake.html" title="class in ru.kozorez">Snake</a></dt>
+<dt><a href="ru/kozorez/Snake.html#move(double,double,ru.kozorez.Snake,boolean)" class="member-name-link">move(double, double, Snake, boolean)</a> - Method in class ru.kozorez.<a href="ru/kozorez/Snake.html" title="class in ru.kozorez">Snake</a></dt>
 <dd>
 <div class="block">start moving snake.</div>
+</dd>
+</dl>
+<h2 class="title" id="I:O">O</h2>
+<dl class="index">
+<dt><a href="ru/kozorez/Snake.html#oppositeKeyCode(javafx.scene.input.KeyCode,javafx.scene.input.KeyCode)" class="member-name-link">oppositeKeyCode(KeyCode, KeyCode)</a> - Method in class ru.kozorez.<a href="ru/kozorez/Snake.html" title="class in ru.kozorez">Snake</a></dt>
+<dd>
+<div class="block">check whether the keys are opposite or not.</div>
 </dd>
 </dl>
 <h2 class="title" id="I:P">P</h2>
@@ -136,6 +191,18 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:S">S</h2>
 <dl class="index">
+<dt><a href="ru/kozorez/Snake.html#setColor(javafx.scene.paint.Color)" class="member-name-link">setColor(Color)</a> - Method in class ru.kozorez.<a href="ru/kozorez/Snake.html" title="class in ru.kozorez">Snake</a></dt>
+<dd>
+<div class="block">set snakes color.</div>
+</dd>
+<dt><a href="ru/kozorez/EvilSnake.html#setDirection(java.util.List)" class="member-name-link">setDirection(List&lt;Circle&gt;)</a> - Method in class ru.kozorez.<a href="ru/kozorez/EvilSnake.html" title="class in ru.kozorez">EvilSnake</a></dt>
+<dd>
+<div class="block">set new snakes direction of movement.</div>
+</dd>
+<dt><a href="ru/kozorez/Snake.html#setDirection(javafx.scene.input.KeyCode)" class="member-name-link">setDirection(KeyCode)</a> - Method in class ru.kozorez.<a href="ru/kozorez/Snake.html" title="class in ru.kozorez">Snake</a></dt>
+<dd>
+<div class="block">set direction of the snakes' movement.</div>
+</dd>
 <dt><a href="ru/kozorez/Snake.html#setDirection(javafx.scene.input.KeyEvent)" class="member-name-link">setDirection(KeyEvent)</a> - Method in class ru.kozorez.<a href="ru/kozorez/Snake.html" title="class in ru.kozorez">Snake</a></dt>
 <dd>
 <div class="block">set direction of the snakes' movement.</div>
@@ -148,11 +215,13 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">set score.</div>
 </dd>
+<dt><a href="ru/kozorez/Controller.html#setWithBot(boolean)" class="member-name-link">setWithBot(boolean)</a> - Method in class ru.kozorez.<a href="ru/kozorez/Controller.html" title="class in ru.kozorez">Controller</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="ru/kozorez/Snake.html" class="type-name-link" title="class in ru.kozorez">Snake</a> - Class in <a href="ru/kozorez/package-summary.html">ru.kozorez</a></dt>
 <dd>
 <div class="block">class for snake logic.</div>
 </dd>
-<dt><a href="ru/kozorez/Snake.html#%3Cinit%3E(int)" class="member-name-link">Snake(int)</a> - Constructor for class ru.kozorez.<a href="ru/kozorez/Snake.html" title="class in ru.kozorez">Snake</a></dt>
+<dt><a href="ru/kozorez/Snake.html#%3Cinit%3E(int,double,double,double,javafx.scene.paint.Color)" class="member-name-link">Snake(int, double, double, double, Color)</a> - Constructor for class ru.kozorez.<a href="ru/kozorez/Snake.html" title="class in ru.kozorez">Snake</a></dt>
 <dd>
 <div class="block">initialize the snake.</div>
 </dd>
@@ -160,12 +229,8 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">starts the snake application.</div>
 </dd>
-<dt><a href="ru/kozorez/Snake.html#stupidSnakeBodyCollision()" class="member-name-link">stupidSnakeBodyCollision()</a> - Method in class ru.kozorez.<a href="ru/kozorez/Snake.html" title="class in ru.kozorez">Snake</a></dt>
-<dd>
-<div class="block">Check whether the snake's head intersects with any of its body segments or not.</div>
-</dd>
 </dl>
-<a href="#I:A">A</a>&nbsp;<a href="#I:C">C</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a></main>
+<a href="#I:A">A</a>&nbsp;<a href="#I:C">C</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:H">H</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:O">O</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a></main>
 </div>
 </div>
 </body>

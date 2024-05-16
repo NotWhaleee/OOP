@@ -73,6 +73,10 @@ loadScripts(document, 'script');</script>
 <div class="inheritance">ru.kozorez.Snake</div>
 </div>
 <section class="class-description" id="class-description">
+<dl class="notes">
+<dt>Direct Known Subclasses:</dt>
+<dd><code><a href="EvilSnake.html" title="class in ru.kozorez">EvilSnake</a></code></dd>
+</dl>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">Snake</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span></div>
@@ -88,7 +92,11 @@ loadScripts(document, 'script');</script>
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
-<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(int)" class="member-name-link">Snake</a><wbr>(int&nbsp;gridSize)</code></div>
+<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(int,double,double,double,javafx.scene.paint.Color)" class="member-name-link">Snake</a><wbr>(int&nbsp;gridSize,
+ double&nbsp;startX,
+ double&nbsp;startY,
+ double&nbsp;radius,
+ javafx.scene.paint.Color&nbsp;color)</code></div>
 <div class="col-last even-row-color">
 <div class="block">initialize the snake.</div>
 </div>
@@ -106,15 +114,35 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#collisionWithEnemy(ru.kozorez.Snake)" class="member-name-link">collisionWithEnemy</a><wbr>(<a href="Snake.html" title="class in ru.kozorez">Snake</a>&nbsp;enemy)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Check whether the snake's head intersects with any of its body segments or not.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#collisionWithItself()" class="member-name-link">collisionWithItself</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Check whether the snake's head intersects with any of its body segments or not.</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;javafx.scene.shape.Circle&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getBody()" class="member-name-link">getBody</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">get list of body parts.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>javafx.scene.input.KeyCode</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getDirection()" class="member-name-link">getDirection</a>()</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>javafx.scene.paint.Color</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getColor()" class="member-name-link">getColor</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">get snakes color.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>javafx.scene.input.KeyCode</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getDirection()" class="member-name-link">getDirection</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">get the direction of movement.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>double</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getHeadRadius()" class="member-name-link">getHeadRadius</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">get radius of the head.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>double</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getHeadX()" class="member-name-link">getHeadX</a>()</code></div>
@@ -126,31 +154,54 @@ loadScripts(document, 'script');</script>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">get y coord of the head.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>double</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getSize()" class="member-name-link">getSize</a>()</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getScore()" class="member-name-link">getScore</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">get snakes score counter.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>double</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getSize()" class="member-name-link">getSize</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">get radius of the snakes' circles.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>javafx.scene.shape.Circle</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#grow()" class="member-name-link">grow</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>javafx.scene.shape.Circle</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#grow(javafx.scene.paint.Color)" class="member-name-link">grow</a><wbr>(javafx.scene.paint.Color&nbsp;color)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Add a new segment to the end of the snake's body.</div>
 </div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#incrementScore()" class="member-name-link">incrementScore</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">increments the score.</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#move(double,double)" class="member-name-link">move</a><wbr>(double&nbsp;maxWidth,
- double&nbsp;maxHeight)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#move(double,double,ru.kozorez.Snake,boolean)" class="member-name-link">move</a><wbr>(double&nbsp;maxWidth,
+ double&nbsp;maxHeight,
+ <a href="Snake.html" title="class in ru.kozorez">Snake</a>&nbsp;enemy,
+ boolean&nbsp;withBot)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">start moving snake.</div>
 </div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#oppositeKeyCode(javafx.scene.input.KeyCode,javafx.scene.input.KeyCode)" class="member-name-link">oppositeKeyCode</a><wbr>(javafx.scene.input.KeyCode&nbsp;a,
+ javafx.scene.input.KeyCode&nbsp;b)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">check whether the keys are opposite or not.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setColor(javafx.scene.paint.Color)" class="member-name-link">setColor</a><wbr>(javafx.scene.paint.Color&nbsp;color)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">set snakes color.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setDirection(javafx.scene.input.KeyEvent)" class="member-name-link">setDirection</a><wbr>(javafx.scene.input.KeyEvent&nbsp;direction)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setDirection(javafx.scene.input.KeyCode)" class="member-name-link">setDirection</a><wbr>(javafx.scene.input.KeyCode&nbsp;direction)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">set direction of the snakes' movement.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#stupidSnakeBodyCollision()" class="member-name-link">stupidSnakeBodyCollision</a>()</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setDirection(javafx.scene.input.KeyEvent)" class="member-name-link">setDirection</a><wbr>(javafx.scene.input.KeyEvent&nbsp;direction)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Check whether the snake's head intersects with any of its body segments or not.</div>
+<div class="block">set direction of the snakes' movement.</div>
 </div>
 </div>
 </div>
@@ -170,9 +221,13 @@ loadScripts(document, 'script');</script>
 <h2>Constructor Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="&lt;init&gt;(int)">
+<section class="detail" id="&lt;init&gt;(int,double,double,double,javafx.scene.paint.Color)">
 <h3>Snake</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">Snake</span><wbr><span class="parameters">(int&nbsp;gridSize)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">Snake</span><wbr><span class="parameters">(int&nbsp;gridSize,
+ double&nbsp;startX,
+ double&nbsp;startY,
+ double&nbsp;radius,
+ javafx.scene.paint.Color&nbsp;color)</span></div>
 <div class="block">initialize the snake.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
@@ -222,6 +277,17 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
+<section class="detail" id="getHeadRadius()">
+<h3>getHeadRadius</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">double</span>&nbsp;<span class="element-name">getHeadRadius</span>()</div>
+<div class="block">get radius of the head.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>double</dd>
+</dl>
+</section>
+</li>
+<li>
 <section class="detail" id="setDirection(javafx.scene.input.KeyEvent)">
 <h3>setDirection</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setDirection</span><wbr><span class="parameters">(javafx.scene.input.KeyEvent&nbsp;direction)</span></div>
@@ -229,6 +295,32 @@ loadScripts(document, 'script');</script>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>direction</code> - KeyEvent</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="setDirection(javafx.scene.input.KeyCode)">
+<h3>setDirection</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setDirection</span><wbr><span class="parameters">(javafx.scene.input.KeyCode&nbsp;direction)</span></div>
+<div class="block">set direction of the snakes' movement.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>direction</code> - KeyCode</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="oppositeKeyCode(javafx.scene.input.KeyCode,javafx.scene.input.KeyCode)">
+<h3>oppositeKeyCode</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">oppositeKeyCode</span><wbr><span class="parameters">(javafx.scene.input.KeyCode&nbsp;a,
+ javafx.scene.input.KeyCode&nbsp;b)</span></div>
+<div class="block">check whether the keys are opposite or not.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>a</code> - key 1</dd>
+<dd><code>b</code> - key 2</dd>
+<dt>Returns:</dt>
+<dd>whether the keys are opposite or not</dd>
 </dl>
 </section>
 </li>
@@ -244,10 +336,12 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="detail" id="move(double,double)">
+<section class="detail" id="move(double,double,ru.kozorez.Snake,boolean)">
 <h3>move</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">move</span><wbr><span class="parameters">(double&nbsp;maxWidth,
- double&nbsp;maxHeight)</span></div>
+ double&nbsp;maxHeight,
+ <a href="Snake.html" title="class in ru.kozorez">Snake</a>&nbsp;enemy,
+ boolean&nbsp;withBot)</span></div>
 <div class="block">start moving snake.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
@@ -259,9 +353,9 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="detail" id="stupidSnakeBodyCollision()">
-<h3>stupidSnakeBodyCollision</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">stupidSnakeBodyCollision</span>()</div>
+<section class="detail" id="collisionWithItself()">
+<h3>collisionWithItself</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">collisionWithItself</span>()</div>
 <div class="block">Check whether the snake's head intersects with any of its body segments or not.</div>
 <dl class="notes">
 <dt>Returns:</dt>
@@ -270,9 +364,20 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="detail" id="grow()">
+<section class="detail" id="collisionWithEnemy(ru.kozorez.Snake)">
+<h3>collisionWithEnemy</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">collisionWithEnemy</span><wbr><span class="parameters">(<a href="Snake.html" title="class in ru.kozorez">Snake</a>&nbsp;enemy)</span></div>
+<div class="block">Check whether the snake's head intersects with any of its body segments or not.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>whether there was a collision or not</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="grow(javafx.scene.paint.Color)">
 <h3>grow</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">javafx.scene.shape.Circle</span>&nbsp;<span class="element-name">grow</span>()</div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">javafx.scene.shape.Circle</span>&nbsp;<span class="element-name">grow</span><wbr><span class="parameters">(javafx.scene.paint.Color&nbsp;color)</span></div>
 <div class="block">Add a new segment to the end of the snake's body.</div>
 <dl class="notes">
 <dt>Returns:</dt>
@@ -288,6 +393,46 @@ loadScripts(document, 'script');</script>
 <dl class="notes">
 <dt>Returns:</dt>
 <dd>KeyCode</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="getScore()">
+<h3>getScore</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">getScore</span>()</div>
+<div class="block">get snakes score counter.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>score</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="incrementScore()">
+<h3>incrementScore</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">incrementScore</span>()</div>
+<div class="block">increments the score.</div>
+</section>
+</li>
+<li>
+<section class="detail" id="getColor()">
+<h3>getColor</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">javafx.scene.paint.Color</span>&nbsp;<span class="element-name">getColor</span>()</div>
+<div class="block">get snakes color.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>Color</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="setColor(javafx.scene.paint.Color)">
+<h3>setColor</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setColor</span><wbr><span class="parameters">(javafx.scene.paint.Color&nbsp;color)</span></div>
+<div class="block">set snakes color.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>color</code> - Color</dd>
 </dl>
 </section>
 </li>
