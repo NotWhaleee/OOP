@@ -193,7 +193,8 @@ public class Controller implements Initializable {
             double x = Math.random() * plane.getWidth();
             double y = Math.random() * plane.getHeight();
             food = new Circle(x, y, player.getSize(), foodColor);
-        } while (checkCollisionWithFood(food, player) || (withBot && checkCollisionWithFood(food, evilSnake)));
+        } while (checkCollisionWithFood(food, player)
+                || (withBot && checkCollisionWithFood(food, evilSnake)));
 
         food.setStroke(Color.BLACK);
         foods.add(food);
@@ -224,11 +225,13 @@ public class Controller implements Initializable {
         }
         if (player.move(plane.getWidth(), plane.getHeight(), evilSnake, withBot)) {
             //gameOver();
-            respawnSnake(false, player, playerHead, playerScoreTxt, startPlayerX, startPlayerY, radiusPlayer);
+            respawnSnake(false, player, playerHead, playerScoreTxt,
+                    startPlayerX, startPlayerY, radiusPlayer);
         }
         if (withBot && evilSnake.move(plane.getWidth(), plane.getHeight(), player, withBot)) {
             //gameOver();
-            respawnSnake(true, evilSnake, evilSnakeHead, evilScoreTxt, startEvilX, startEvilY, radiusEvil);
+            respawnSnake(true, evilSnake, evilSnakeHead, evilScoreTxt,
+                    startEvilX, startEvilY, radiusEvil);
             evilSnake.calcDistance(foods);
         }
 
@@ -286,9 +289,11 @@ public class Controller implements Initializable {
     public void restartGame() {
         plane.getChildren().clear();
 
-        respawnSnake(false, player, playerHead, playerScoreTxt, startPlayerX, startPlayerY, radiusPlayer);
+        respawnSnake(false, player, playerHead, playerScoreTxt,
+                startPlayerX, startPlayerY, radiusPlayer);
         if (withBot) {
-            respawnSnake(true, evilSnake, evilSnakeHead, evilScoreTxt, startEvilX, startEvilY, radiusEvil);
+            respawnSnake(true, evilSnake, evilSnakeHead, evilScoreTxt,
+                    startEvilX, startEvilY, radiusEvil);
         }
 
         evilScoreTxt.setVisible(withBot);

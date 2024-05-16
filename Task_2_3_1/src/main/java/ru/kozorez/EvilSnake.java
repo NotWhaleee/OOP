@@ -5,11 +5,11 @@ import static javafx.scene.input.KeyCode.D;
 import static javafx.scene.input.KeyCode.S;
 import static javafx.scene.input.KeyCode.W;
 
+import java.util.ArrayList;
+import java.util.List;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Class for the bot snake.
@@ -37,8 +37,8 @@ public class EvilSnake extends Snake {
     public void calcDistance(List<Circle> foods) {
         distanceToFood = new ArrayList<>();
         for (Circle food : foods) {
-            double distance = Math.sqrt(Math.pow(food.getCenterX() - getHeadX(), 2) +
-                    Math.pow(food.getCenterY() - getHeadY(), 2));
+            double distance = Math.sqrt(Math.pow(food.getCenterX() - getHeadX(), 2)
+                    + Math.pow(food.getCenterY() - getHeadY(), 2));
             distanceToFood.add(distance);
         }
     }
@@ -81,15 +81,19 @@ public class EvilSnake extends Snake {
         double headY = getHeadY();
 
         if (headX + inaccuracy < foodCenterX) {
-            setDirectionBasedOnX(D, W, headX + gridSize, headY, !oppositeKeyCode(getDirection(), D));
+            setDirectionBasedOnX(D, W, headX + gridSize, headY,
+                    !oppositeKeyCode(getDirection(), D));
         } else if (headX - inaccuracy > foodCenterX) {
-            setDirectionBasedOnX(A, S, headX - gridSize, headY, !oppositeKeyCode(getDirection(), A));
+            setDirectionBasedOnX(A, S, headX - gridSize, headY,
+                    !oppositeKeyCode(getDirection(), A));
         }
 
         if (headY + inaccuracy < foodCenterY) {
-            setDirectionBasedOnY(S, A, headX, headY + gridSize, !oppositeKeyCode(getDirection(), S));
+            setDirectionBasedOnY(S, A, headX, headY + gridSize,
+                    !oppositeKeyCode(getDirection(), S));
         } else if (headY - inaccuracy > foodCenterY) {
-            setDirectionBasedOnY(W, D, headX, headY - gridSize, !oppositeKeyCode(getDirection(), W));
+            setDirectionBasedOnY(W, D, headX, headY - gridSize,
+                    !oppositeKeyCode(getDirection(), W));
         }
     }
 
@@ -102,7 +106,8 @@ public class EvilSnake extends Snake {
      * @param newY new y coordinate
      * @param oppositeDirection is moving in the opposite direction
      */
-    private void setDirectionBasedOnX(KeyCode direction, KeyCode perpendicularDirection, double newX, double newY, boolean oppositeDirection) {
+    private void setDirectionBasedOnX(KeyCode direction, KeyCode perpendicularDirection,
+                                      double newX, double newY, boolean oppositeDirection) {
         if (oppositeDirection && !hitYourselfOnPoliceTurn(newX, newY, getHeadRadius())) {
             setDirection(direction);
         } else if (!hitYourselfOnPoliceTurn(getHeadX(), getHeadY() - gridSize, getHeadRadius())) {
@@ -119,7 +124,8 @@ public class EvilSnake extends Snake {
      * @param newY new y coordinate
      * @param oppositeDirection is moving in the opposite direction
      */
-    private void setDirectionBasedOnY(KeyCode direction, KeyCode perpendicularDirection, double newX, double newY, boolean oppositeDirection) {
+    private void setDirectionBasedOnY(KeyCode direction, KeyCode perpendicularDirection,
+                                      double newX, double newY, boolean oppositeDirection) {
         if (oppositeDirection && !hitYourselfOnPoliceTurn(newX, newY, getHeadRadius())) {
             setDirection(direction);
         } else if (!hitYourselfOnPoliceTurn(getHeadX() - gridSize, getHeadY(), getHeadRadius())) {

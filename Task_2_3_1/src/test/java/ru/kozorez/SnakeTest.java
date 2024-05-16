@@ -88,6 +88,7 @@ public class SnakeTest {
         Snake snake2 = new Snake(10, 100, 100, 5, Color.RED);
         assertFalse(snake1.collisionWithEnemy(snake2));
     }
+
     @Test
     public void testCollisionWithEnemyTrue() {
         Snake snake1 = new Snake(10, 50, 50, 5, Color.GREEN);
