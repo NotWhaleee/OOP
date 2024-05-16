@@ -141,7 +141,7 @@ public class EvilSnake extends Snake {
      * @param headRadius head radius
      * @return whether the snake would hit itself while turning around or not
      */
-    public boolean hitYourselfOnPoliceTurn (double headX, double headY, double headRadius) {
+    public boolean hitYourselfOnPoliceTurn(double headX, double headY, double headRadius) {
         for (int i = 1; i < getBody().size(); i++) {
             Circle segment = getBody().get(i);
             double inaccuracy = headRadius * 0.2;

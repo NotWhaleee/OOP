@@ -70,7 +70,7 @@ public class Snake {
      *
      * @return double
      */
-    public double getHeadRadius(){
+    public double getHeadRadius() {
         return body.get(0).getRadius();
     }
 
