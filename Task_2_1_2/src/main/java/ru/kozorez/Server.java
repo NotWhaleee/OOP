@@ -10,15 +10,15 @@ public class Server {
     private final int port = 12345;
     private final List<ClientInfo> clients = new ArrayList<>();
     private final List<Task> tasks = new ArrayList<>();
-    //private final ConcurrentHashMap<Integer, Boolean> taskResults = new ConcurrentHashMap<>();
     private int taskIdCounter = 0;
     private volatile boolean nonPrimeFound = false;
+    private final int taskLength = 1000000;
 
     public void start() {
         try (ServerSocket serverSocket = new ServerSocket(port)) {
             System.out.println("Server started");
 
-            // Запуск потока для принятия клиентов
+            // поток для принятия клиентов
             new Thread(() -> {
                 while (!nonPrimeFound) {
                     try {
@@ -34,8 +34,7 @@ public class Server {
                     }
                 }
             }).start();
-            //System.out.println("dadads");
-            // Пример задачи
+
             ArrayList<Integer> numbers = new ArrayList<>();
             //numbers.add(8);
             for (int i = 1; i <= 1000000; i++) {
@@ -48,9 +47,9 @@ public class Server {
             ArrayList<Integer> smallerNumbers = new ArrayList<>();
             for (int i = 0; i < numbers.size(); i++) {
                 smallerNumbers.add(numbers.get(i));
-                if(i % 100000 == 0){
+                if(i % taskLength == 0 && i != 0){
                     if(tasks.isEmpty()){
-                        //smallerNumbers.add(6);
+                        smallerNumbers.add(6);
                     }
                     Task task = new Task(taskIdCounter++, smallerNumbers);
                     tasks.add(task);
@@ -60,19 +59,14 @@ public class Server {
             }
             Task task = new Task(taskIdCounter++, smallerNumbers);
             tasks.add(task);
-            for (int i = 0; i < tasks.size(); i++) {
-                //System.out.println(tasks.get(i).getArr().size());
-            }
-/*            Task task = new Task(taskIdCounter++, numbers);
-            tasks.add(task);*/
 
-
-            // Основной цикл сервера
+            // раздача тасок
             while (!nonPrimeFound) {
                 distributeTasks();
+
                 boolean clientsAreDone = true;
                 for(int i = 0; i < clients.size(); i++){
-                        if(clients.get(i).isAvailable()){
+                        if(!clients.get(i).isAvailable()){
                             clientsAreDone = false;
                             break;
                         }
@@ -81,7 +75,7 @@ public class Server {
                     System.out.println("Non-prime numbers are not found. Server shutting down.");
                     System.exit(0);
                 }
-                Thread.sleep(100); // Периодически проверяем результаты
+                Thread.sleep(100); // задержка
             }
             System.out.println("Non-prime number found. Server shutting down.");
         } catch (IOException | InterruptedException e) {
@@ -90,21 +84,14 @@ public class Server {
     }
 
     private void distributeTasks() {
-        //System.out.println(clients.size());
-        //System.out.println(tasks.getFirst().getArr().size());
         for (ClientInfo client : clients) {
-//            System.out.println(!tasks.isEmpty() && client.isAvailable());
-
             if (!tasks.isEmpty() && client.isAvailable()) {
                 Task task = tasks.removeFirst();
-                System.out.println("FUKK OFF");
-                System.out.println(task.getId());
-                System.out.println(tasks.size());
-                System.out.println("FUKK OFF");
+                System.out.println("Task id: " + task.getId());
+                System.out.println("Task size: " + tasks.size());
                 System.out.println("sent");
-                client.setUnavailable();
-                System.out.println(client.getAddress().getAddress());
-                System.out.println(client.getAddress().getPort());
+/*                System.out.println(client.getAddress().getAddress());
+                System.out.println(client.getAddress().getPort());*/
                 sendTaskToClient(client, task);
             }
         }
@@ -122,6 +109,7 @@ public class Server {
             }
             //client.assignTask(task.getId());
             client.assignTask(task);
+            client.setUnavailable();
         }
         catch (Exception e){
             e.printStackTrace();
@@ -153,7 +141,8 @@ public class Server {
             }
 
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+            tasks.add(clientInfo.getTask());
         } finally {
             try {
                 clientInfo.getSocket().close();

@@ -43,7 +43,7 @@ public class Client {
                 out.flush();
 
                 if (hasNonPrime) {
-                    break; // Завершаем клиент, если найдено непростое число
+                    break;
                 }
             }
 
