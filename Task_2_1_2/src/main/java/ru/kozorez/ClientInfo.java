@@ -1,9 +1,10 @@
-
 package ru.kozorez;
 
+import javax.naming.ldap.SortKey;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.InetSocketAddress;
+import java.net.Socket;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,14 +13,16 @@ class ClientInfo {
     private final int id;
     private final InetSocketAddress address;
     private boolean available = true;
-    private final Set<Integer> tasks = new HashSet<>();
-    private long lastTaskTime;
+    private Task task;
+    private long lastTaskTime = 0;
     private DataInputStream in;
     private DataOutputStream out;
+    private final Socket socket;
 
-    public ClientInfo(InetSocketAddress address) {
+    public ClientInfo(Socket socket) {
         this.id = idCounter++;
-        this.address = address;
+        this.socket = socket;
+        address = new InetSocketAddress(socket.getInetAddress(), socket.getPort());
     }
 
     public InetSocketAddress getAddress() {
@@ -31,23 +34,32 @@ class ClientInfo {
     }
 
     public boolean isAvailable() {
-        return available && (System.currentTimeMillis() - lastTaskTime) < 10000; // 10 seconds timeout
+        return available /*&& (System.currentTimeMillis() - lastTaskTime) < 1000*/; // 10 секунд тайм-аут
     }
 
     public void setUnavailable() {
         available = false;
     }
 
-    public void assignTask(int number) {
-        tasks.add(number);
+    public void setAvailable() {
+        available = true;
+    }
+
+    public void assignTask(Task task){
+        this.task = task;
         lastTaskTime = System.currentTimeMillis();
     }
 
-    public void removeTask(int number) {
-        tasks.remove(number);
-        if (tasks.isEmpty()) {
-            available = true;
-        }
+    public void removeTask(){
+        task = null;
+    }
+
+    public long getLastTaskTime() {
+        return lastTaskTime;
+    }
+
+    public Task getTask(){
+        return task;
     }
 
     @Override
@@ -55,5 +67,9 @@ class ClientInfo {
         return "ClientInfo{" +
                 "address=" + address +
                 '}';
+    }
+
+    public Socket getSocket() {
+        return socket;
     }
 }

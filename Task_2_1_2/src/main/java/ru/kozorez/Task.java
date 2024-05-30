@@ -4,16 +4,16 @@ import java.util.ArrayList;
 
 public class Task {
     private final int id;
-    private final ArrayList<Long> arr;
+    private final ArrayList<Integer> arr;
     private boolean isDone = false;
     private boolean foundPrimes = false;
 
-    public Task(int id, ArrayList<Long> arr) {
+    public Task(int id, ArrayList<Integer> arr) {
         this.id = id;
         this.arr = arr;
     }
 
-    public ArrayList<Long> getArr() {
+    public ArrayList<Integer> getArr() {
         return arr;
     }
 

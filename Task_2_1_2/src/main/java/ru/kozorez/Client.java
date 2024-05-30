@@ -12,35 +12,52 @@ public class Client {
         this.serverPort = serverPort;
     }
 
-    public void start(){
+    public void start() {
+        IsPrime isPrime = new IsPrime();
         try (Socket clientSocket = new Socket(serverIp, serverPort)) {
             DataInputStream in = new DataInputStream(clientSocket.getInputStream());
             DataOutputStream out = new DataOutputStream(clientSocket.getOutputStream());
 
-            int number = in.readInt();
-            System.out.println("Received from Server: " + number);
+            while (true) {
+                System.out.print("TaskID: ");
+                int taskId = in.readInt();
+                int arraySize = in.readInt();
+                System.out.println(taskId);
+                System.out.println("Array size: " + arraySize);
+                int[] numbers = new int[arraySize];
+                for (int i = 0; i < arraySize; i++) {
+                    numbers[i] = in.readInt();
+                }
 
-            number++;
-            out.writeInt(number);
-            out.flush();
-            System.out.println("Sent to Server: " + number);
-            in.close();
-            out.close();
-            System.out.println(clientSocket.getLocalPort() + " " + clientSocket.getChannel());
+                boolean hasNonPrime = false;
+                for (int number : numbers) {
+                    if (!isPrime.isPrime(number)) {
+                        hasNonPrime = true;
+                        System.out.println(number);
+                        break;
+                    }
+                }
 
+                out.writeInt(taskId);
+                out.writeBoolean(hasNonPrime);
+                out.flush();
 
-            for (int i = 0; i < 10000000; i++){
+                if (hasNonPrime) {
+                    break; // Завершаем клиент, если найдено непростое число
+                }
             }
 
+        } catch (EOFException e) {
+            // No more tasks
         } catch (IOException e) {
             e.printStackTrace();
+            System.exit(1);
         }
     }
+
 
     public static void main(String[] args) {
         Client client = new Client("localhost", 12345);
         client.start();
-
-
     }
 }
