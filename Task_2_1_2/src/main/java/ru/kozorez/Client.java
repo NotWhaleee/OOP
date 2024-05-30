@@ -1,49 +1,46 @@
 package ru.kozorez;
 
-import java.net.*;
 import java.io.*;
+import java.net.*;
 
 public class Client {
-    private int port;
+    private final String serverIp;
+    private final int serverPort;
 
-    public Client(int port) {
-        this.port = port;
+    public Client(String serverIp, int serverPort) {
+        this.serverIp = serverIp;
+        this.serverPort = serverPort;
     }
 
-    public void start() {
-        try (ServerSocket serverSocket = new ServerSocket(port)) {
-            while (true) {
-                Socket socket = serverSocket.accept();
-                DataInputStream in = new DataInputStream(socket.getInputStream());
-                int taskId = in.readInt();
-                int number = in.readInt();
-                boolean isNotPrime = !isPrime(number);
-                in.close();
+    public void start(){
+        try (Socket clientSocket = new Socket(serverIp, serverPort)) {
+            DataInputStream in = new DataInputStream(clientSocket.getInputStream());
+            DataOutputStream out = new DataOutputStream(clientSocket.getOutputStream());
 
-                Socket responseSocket = new Socket("localhost", 5000);
-                DataOutputStream out = new DataOutputStream(responseSocket.getOutputStream());
-                out.writeInt(taskId);
-                out.writeBoolean(isNotPrime);
-                out.close();
-                responseSocket.close();
+            int number = in.readInt();
+            System.out.println("Received from Server: " + number);
+
+            number++;
+            out.writeInt(number);
+            out.flush();
+            System.out.println("Sent to Server: " + number);
+            in.close();
+            out.close();
+            System.out.println(clientSocket.getLocalPort() + " " + clientSocket.getChannel());
+
+
+            for (int i = 0; i < 10000000; i++){
             }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private boolean isPrime(int n) {
-        if (n <= 1) return false;
-        if (n <= 3) return true;
-        if (n % 2 == 0 || n % 3 == 0) return false;
-        for (int i = 5; i * i <= n; i += 6) {
-            if (n % i == 0 || n % (i + 2) == 0) return false;
-        }
-        return true;
-    }
-
     public static void main(String[] args) {
-        Client client = new Client(5001);
+        Client client = new Client("localhost", 12345);
         client.start();
+
+
     }
 }

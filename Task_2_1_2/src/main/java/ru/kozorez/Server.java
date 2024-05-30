@@ -1,93 +1,55 @@
 package ru.kozorez;
 
-import java.net.*;
 import java.io.*;
-import java.util.*;
+import java.net.*;
 
 public class Server {
-    private List<ClientInfo> workers;
-    private Map<Integer, Integer> tasks; // taskId -> number
-    private Map<Integer, Boolean> results; // taskId -> isNotPrime
-    private int taskCounter = 0;
+    private final int port = 12345;
 
-    public Server(List<InetSocketAddress> workerAddresses) {
-        workers = new ArrayList<>();
-        for (InetSocketAddress address : workerAddresses) {
-            workers.add(new ClientInfo(address));
-        }
-        tasks = new HashMap<>();
-        results = new HashMap<>();
-    }
+    public void start() {
 
-    public void distributeTasks(int[] numbers) {
-        for (int number : numbers) {
-            tasks.put(taskCounter, number);
-            assignTask(taskCounter++);
-        }
-    }
+        try (ServerSocket serverSocket = new ServerSocket(port)) {
+            System.out.println("Server started");
 
-    private void assignTask(int taskId) {
-        for (ClientInfo client : workers) {
-            if (client.isAvailable()) {
-                try {
-                    sendTask(client, taskId, tasks.get(taskId));
-                    client.assignTask(taskId);
-                    return;
-                } catch (IOException e) {
-                    client.setUnavailable();
-                }
+            int number = 1;
+
+            // Подключение и общение с первым клиентом
+            try (Socket client1 = serverSocket.accept()) {
+                System.out.println("Client 1 connected from port: " + client1.getPort());
+                DataInputStream in1 = new DataInputStream(client1.getInputStream());
+                DataOutputStream out1 = new DataOutputStream(client1.getOutputStream());
+
+                out1.writeInt(number);
+                out1.flush();
+                System.out.println("Sent to Client 1: " + number);
+
+                number = in1.readInt();
+                System.out.println("Received from Client 1: " + number);
             }
-        }
-    }
 
-    private void sendTask(ClientInfo client, int taskId, int number) throws IOException {
-        Socket socket = new Socket(client.getAddress().getHostName(), client.getAddress().getPort());
-        DataOutputStream out = new DataOutputStream(socket.getOutputStream());
-        out.writeInt(taskId);
-        out.writeInt(number);
-        out.close();
-        socket.close();
-    }
+            // Подключение и общение со вторым клиентом
+            try (Socket client2 = serverSocket.accept()) {
+                System.out.println("Client 2 connected from port: " + client2.getPort());
+                DataInputStream in2 = new DataInputStream(client2.getInputStream());
+                DataOutputStream out2 = new DataOutputStream(client2.getOutputStream());
 
-    public void receiveResults() {
-        try (ServerSocket serverSocket = new ServerSocket(5000)) {
-            while (results.size() < tasks.size()) {
-                Socket socket = serverSocket.accept();
-                DataInputStream in = new DataInputStream(socket.getInputStream());
-                int taskId = in.readInt();
-                boolean isNotPrime = in.readBoolean();
-                results.put(taskId, isNotPrime);
-                socket.close();
-                workers.forEach(client -> client.removeTask(taskId));
-                for (ClientInfo client : workers) {
-                    if (client.hasTimedOutTasks()) {
-                        assignTask(client.getTimedOutTask());
-                    }
-                }
+                out2.writeInt(number);
+                out2.flush();
+                System.out.println("Sent to Client 2: " + number);
+
+                number = in2.readInt();
+                System.out.println("Received from Client 2: " + number);
             }
+
+            System.out.println("Final number: " + number);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public boolean hasNonPrime() {
-        for (boolean result : results.values()) {
-            if (result) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     public static void main(String[] args) {
-        List<InetSocketAddress> workerAddresses = Arrays.asList(
-                new InetSocketAddress("localhost", 5001),
-                new InetSocketAddress("localhost", 5002)
-        );
-        Server server = new Server(workerAddresses);
-        int[] numbers = {6, 8, 7, 13, 5, 9, 4};
-        server.distributeTasks(numbers);
-        server.receiveResults();
-        System.out.println(server.hasNonPrime());
+        Server server = new Server();
+        server.start();
     }
 }
