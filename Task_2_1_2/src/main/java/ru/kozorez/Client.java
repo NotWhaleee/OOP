@@ -1,24 +1,37 @@
 package ru.kozorez;
 
-import java.io.*;
-import java.net.*;
+import java.io.EOFException;
+import java.io.IOException;
+import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
 
+/**
+ * The Client class represents a client that connects to a server,
+ * receives a task, processes it, and sends back the result.
+ */
 public class Client {
     private final String serverIp;
     private final int serverPort;
     private final int taskLength = 100000;
 
-
+    /**
+     * Constructs a Client object with the specified server IP address and port number.
+     *
+     * @param serverIp the IP address of the server
+     * @param serverPort the port number of the server
+     */
     public Client(String serverIp, int serverPort) {
         this.serverIp = serverIp;
         this.serverPort = serverPort;
     }
 
+    /**
+     * Starts the client to connect to the server, receive tasks, and process them.
+     */
     public void start() {
         IsPrime isPrime = new IsPrime();
-        try (SocketChannel clientSocket = SocketChannel.open (new InetSocketAddress(serverIp, serverPort))) {
+        try (SocketChannel clientSocket = SocketChannel.open(new InetSocketAddress(serverIp, serverPort))) {
             ByteBuffer buffer = ByteBuffer.allocate((taskLength + 2) * 4);
             while (true) {
                 buffer.clear();
@@ -37,8 +50,9 @@ public class Client {
                 System.out.println("Array size: " + arraySize);
                 int[] numbers = new int[arraySize];
                 int i = 0;
-                while (buffer.hasRemaining()){
+                while (buffer.hasRemaining()) {
                     numbers[i] = buffer.getInt();
+                    i++;
                 }
                 System.out.println(i);
 
@@ -52,7 +66,6 @@ public class Client {
                 }
                 buffer.clear();
 
-                //out.writeInt(taskId);
                 buffer.putInt(hasNonPrime ? 1 : 0);
                 buffer.flip();
 
@@ -69,7 +82,11 @@ public class Client {
         }
     }
 
-
+    /**
+     * The main method to run the Client.
+     *
+     * @param args the command-line arguments
+     */
     public static void main(String[] args) {
         Client client = new Client("localhost", 12345);
         client.start();

@@ -1,7 +1,7 @@
 package ru.kozorez;
 
-import java.io.*;
-import java.net.*;
+import java.io.IOException;
+import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
@@ -12,15 +12,22 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * The Server class represents a server that distributes tasks to connected clients,
+ * processes their results, and shuts down when a non-prime number is found.
+ */
 public class Server {
+    private static final String POISON_PILL = "POISON_PILL";
     private final int port = 12345;
     private final List<ClientInfo> clients = new ArrayList<>();
     private final List<Task> tasks = new ArrayList<>();
     private int taskIdCounter = 0;
     private volatile boolean nonPrimeFound = false;
     private final int taskLength = 100000;
-    private static final String POISON_PILL = "POISON_PILL";
 
+    /**
+     * Starts the server to accept client connections, distribute tasks, and process results.
+     */
     public void start() {
         try {
             Selector selector = Selector.open();
@@ -32,22 +39,16 @@ public class Server {
             System.out.println("Server started");
 
             ArrayList<Integer> numbers = new ArrayList<>();
-            //numbers.add(8);
             for (int i = 1; i <= 1000000; i++) {
                 numbers.add(100000007);
             }
-            //numbers.add(8);
             for (int i = 1; i <= 100; i++) {
                 numbers.add(7);
             }
             ArrayList<Integer> smallerNumbers = new ArrayList<>();
             for (int i = 0; i < numbers.size(); i++) {
                 smallerNumbers.add(numbers.get(i));
-/*                if (i - 2 == taskLength) {
-                    smallerNumbers.add(6);
-                }*/
                 if ((i + 1) % taskLength == 0 && i != 0) {
-
                     Task task = new Task(taskIdCounter++, smallerNumbers);
                     tasks.add(task);
                     System.out.println(task.getArr().size());
@@ -57,13 +58,12 @@ public class Server {
             Task task = new Task(taskIdCounter++, smallerNumbers);
             tasks.add(task);
 
-            // раздача тасок
             while (!nonPrimeFound) {
                 distributeTasks();
 
                 boolean clientsAreDone = true;
-                for (int i = 0; i < clients.size(); i++) {
-                    if (!clients.get(i).isAvailable()) {
+                for (ClientInfo client : clients) {
+                    if (!client.isAvailable()) {
                         clientsAreDone = false;
                         break;
                     }
@@ -72,7 +72,6 @@ public class Server {
                     System.out.println("Non-prime numbers are not found. Server shutting down.");
                     System.exit(0);
                 }
-                //Thread.sleep(100); // задержка
 
                 selector.select();
                 Set<SelectionKey> selectedKeys = selector.selectedKeys();
@@ -96,19 +95,29 @@ public class Server {
         }
     }
 
+    /**
+     * Finds the ClientInfo object for the specified client socket.
+     *
+     * @param client the client socket channel
+     * @return the ClientInfo object for the specified client socket
+     */
     private ClientInfo findClientInfo(SocketChannel client) {
         for (ClientInfo clientInfo : clients) {
             if (clientInfo.getSocket().equals(client)) {
                 return clientInfo;
             }
         }
-        System.out.println("something went wrong :((");
+        System.out.println("Something went wrong :((");
         return null;
     }
 
-    private void readSocket(SelectionKey key)
-            throws IOException {
-
+    /**
+     * Reads data from the specified client socket.
+     *
+     * @param key the selection key associated with the client socket
+     * @throws IOException if an I/O error occurs
+     */
+    private void readSocket(SelectionKey key) throws IOException {
         SocketChannel client = (SocketChannel) key.channel();
         ClientInfo clientInfo = findClientInfo(client);
 
@@ -141,33 +150,45 @@ public class Server {
         }
     }
 
-    private void register(Selector selector, ServerSocketChannel serverSocket)
-            throws IOException {
-
+    /**
+     * Registers a new client connection with the selector.
+     *
+     * @param selector the selector to register with
+     * @param serverSocket the server socket channel
+     * @throws IOException if an I/O error occurs
+     */
+    private void register(Selector selector, ServerSocketChannel serverSocket) throws IOException {
         SocketChannel client = serverSocket.accept();
         client.configureBlocking(false);
         client.register(selector, SelectionKey.OP_READ);
         ClientInfo clientInfo = new ClientInfo(client);
         clients.add(clientInfo);
         System.out.println("Client connected from " + client.getRemoteAddress());
-
     }
 
+    /**
+     * Distributes tasks to available clients.
+     */
     private void distributeTasks() {
         for (ClientInfo client : clients) {
             if (!tasks.isEmpty() && client.isAvailable()) {
-                Task task = tasks.removeFirst();
+                Task task = tasks.remove(0);
                 System.out.println("Task id: " + task.getId());
                 System.out.println("Task size: " + tasks.size());
-                System.out.println("sent");
+                System.out.println("Sent");
                 sendTaskToClient(client, task);
             }
         }
     }
 
+    /**
+     * Sends a task to the specified client.
+     *
+     * @param client the client to send the task to
+     * @param task the task to send
+     */
     private void sendTaskToClient(ClientInfo client, Task task) {
         try {
-            //System.out.println(task.getArr().size());
             ByteBuffer buffer = ByteBuffer.allocate((taskLength + 2) * 4);
             buffer.clear();
 
@@ -179,14 +200,6 @@ public class Server {
             }
             buffer.flip();
             client.getSocket().write(buffer);
-            //DataOutputStream out = new DataOutputStream(client.getSocket().getOutputStream());
-            //out.writeInt(task.getId());
-            //System.out.println(task.getArr().size());
-            //out.writeInt(task.getArr().size());
-/*            for (int number : task.getArr()) {
-                out.writeInt(number);
-            }*/
-            //client.assignTask(task.getId());
             client.assignTask(task);
             client.setUnavailable();
         } catch (Exception e) {
@@ -194,16 +207,24 @@ public class Server {
         }
     }
 
+    /**
+     * Closes all client sockets.
+     */
     public void closeSockets() {
-        for (int i = 0; i < clients.size(); i++) {
+        for (ClientInfo client : clients) {
             try {
-                clients.get(i).getSocket().close();
+                client.getSocket().close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
     }
 
+    /**
+     * The main method to run the Server.
+     *
+     * @param args the command-line arguments
+     */
     public static void main(String[] args) {
         Server server = new Server();
         server.start();
