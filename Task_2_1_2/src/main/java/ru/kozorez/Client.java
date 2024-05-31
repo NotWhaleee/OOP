@@ -13,12 +13,12 @@ import java.nio.channels.SocketChannel;
 public class Client {
     private final String serverIp;
     private final int serverPort;
-    private final int taskLength = 100000;
+    private final int taskLength = 1000;
 
     /**
      * Constructs a Client object with the specified server IP address and port number.
      *
-     * @param serverIp the IP address of the server
+     * @param serverIp   the IP address of the server
      * @param serverPort the port number of the server
      */
     public Client(String serverIp, int serverPort) {
@@ -54,7 +54,9 @@ public class Client {
                     numbers[i] = buffer.getInt();
                     i++;
                 }
-                System.out.println(i);
+                System.out.println(buffer);
+
+                //System.out.println(i);
 
                 boolean hasNonPrime = false;
                 for (int number : numbers) {
@@ -64,10 +66,17 @@ public class Client {
                         break;
                     }
                 }
-                buffer.clear();
 
-                buffer.putInt(hasNonPrime ? 1 : 0);
+                buffer.clear();
+                if (hasNonPrime) {
+                    buffer.putInt(1);
+                } else {
+                    buffer.putInt(0);
+                }
+
                 buffer.flip();
+                System.out.println(buffer);
+                clientSocket.write(buffer);
 
                 if (hasNonPrime) {
                     break;

@@ -23,7 +23,7 @@ public class Server {
     private final List<Task> tasks = new ArrayList<>();
     private int taskIdCounter = 0;
     private volatile boolean nonPrimeFound = false;
-    private final int taskLength = 100000;
+    private final int taskLength = 1000;
 
     /**
      * Starts the server to accept client connections, distribute tasks, and process results.
@@ -45,6 +45,7 @@ public class Server {
             for (int i = 1; i <= 100; i++) {
                 numbers.add(7);
             }
+            numbers.add(6);
             ArrayList<Integer> smallerNumbers = new ArrayList<>();
             for (int i = 0; i < numbers.size(); i++) {
                 smallerNumbers.add(numbers.get(i));
@@ -120,14 +121,17 @@ public class Server {
     private void readSocket(SelectionKey key) throws IOException {
         SocketChannel client = (SocketChannel) key.channel();
         ClientInfo clientInfo = findClientInfo(client);
+        System.out.println(client);
 
-        ByteBuffer buffer = ByteBuffer.allocate(1); // Allocate a buffer of size 1 byte (since a boolean is 1 byte)
+        ByteBuffer buffer = ByteBuffer.allocate(4);
         buffer.clear();
-        buffer.flip(); // Flip the buffer before reading
 
-        int bytesRead = client.read(buffer); // Read data into the buffer
+        int bytesRead = client.read(buffer);
+        buffer.flip();
+        System.out.println(bytesRead);
+        System.out.println(buffer);
 
-        boolean hasNonPrime = buffer.get() != 0; // Read the boolean
+        boolean hasNonPrime = buffer.getInt() != 0;
 
         if (hasNonPrime) {
             nonPrimeFound = true;
