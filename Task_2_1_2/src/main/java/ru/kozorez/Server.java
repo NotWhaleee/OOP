@@ -4,7 +4,6 @@ import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class Server {
     private final int port = 12345;
@@ -12,7 +11,7 @@ public class Server {
     private final List<Task> tasks = new ArrayList<>();
     private int taskIdCounter = 0;
     private volatile boolean nonPrimeFound = false;
-    private final int taskLength = 1000000;
+    private final int taskLength = 100000;
 
     public void start() {
         try (ServerSocket serverSocket = new ServerSocket(port)) {
@@ -128,6 +127,7 @@ public class Server {
                 if (hasNonPrime) {
                     nonPrimeFound = true;
                     System.out.println("Non-prime number found by client " + clientInfo.getId());
+                    closeSockets();
                     System.exit(0);
                 }else {
                     clientInfo.setAvailable();
@@ -136,6 +136,7 @@ public class Server {
                 clientInfo.removeTask();
                 if (nonPrimeFound) {
                     System.out.println("Non-prime number found. Server shutting down.");
+                    closeSockets();
                     System.exit(0);
                 }
             }
@@ -147,6 +148,16 @@ public class Server {
             try {
                 clientInfo.getSocket().close();
             } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void closeSockets(){
+        for (int i = 0; i < clients.size() ; i++) {
+            try {
+                clients.get(i).getSocket().close();
+            } catch (Exception e){
                 e.printStackTrace();
             }
         }
