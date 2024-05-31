@@ -25,28 +25,11 @@ public class Server {
         try {
             Selector selector = Selector.open();
             ServerSocketChannel serverSocket = ServerSocketChannel.open();
-            serverSocket.bind(new InetSocketAddress("localhost", 12345));
+            serverSocket.bind(new InetSocketAddress("localhost", port));
             serverSocket.configureBlocking(false);
             serverSocket.register(selector, SelectionKey.OP_ACCEPT);
 
             System.out.println("Server started");
-
-/*            // поток для принятия клиентов
-            new Thread(() -> {
-                while (!nonPrimeFound) {
-                    try {
-                        Socket clientSocket = serverSocket.accept();
-                        InetSocketAddress address = new InetSocketAddress(clientSocket.getInetAddress(), clientSocket.getPort());
-                        ClientInfo clientInfo = new ClientInfo(*//*address*//*clientSocket);
-                        clients.add(clientInfo);
-                        System.out.println("Client connected from " + address);
-                        new Thread(() -> handleClient(clientInfo)).start();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        System.exit(1);
-                    }
-                }
-            }).start();*/
 
             ArrayList<Integer> numbers = new ArrayList<>();
             //numbers.add(8);
