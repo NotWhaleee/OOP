@@ -200,6 +200,7 @@ public class Server {
             }
             buffer.flip();
             client.getSocket().write(buffer);
+            System.out.println(buffer.capacity());
             client.assignTask(task);
             client.setUnavailable();
         } catch (Exception e) {
