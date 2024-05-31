@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<VBox alignment="CENTER" spacing="10" xmlns="http://javafx.com/javafx/17.0.2"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.kozorez.PopupController">
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" spacing="20" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.kozorez.PopupController">
     <children>
-        <Label fx:id="scoreLabel" text="Score: "/>
+        <Label fx:id="scoreLabel" text="Score: " />
         <ComboBox fx:id="foodCountComboBox" prefWidth="100" />
-        <Button fx:id="restartButton" onAction="#restartButtonAction" text="Restart!"/>
+        <CheckBox fx:id="withBotCheckBox" mnemonicParsing="false" text="Add bot" />
+        <Button fx:id="restartButton" onAction="#restartButtonAction" text="Start Game!" />
     </children>
 </VBox>

@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+
 import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -31,19 +32,41 @@ public class Controller implements Initializable {
     private AnchorPane plane;
 
     @FXML
-    private Circle snakeHead;
+    private Circle playerHead;
 
     @FXML
-    private Label scoreText;
+    private Circle evilSnakeHead;
+
+    @FXML
+    private Label playerScoreTxt;
+
+    @FXML
+    private Label evilScoreTxt;
 
     private List<Circle> foods = new ArrayList<>();
 
-    private int scoreCounter = 0;
     private final int gridSize = 15;
-    private Snake snake;
+    private Snake player;
+    private EvilSnake evilSnake;
     int foodCount;
     double defaultWidth;
     double defaultHeight;
+
+    int targetScore = 15;
+    private boolean withBot = true;
+
+    private double startPlayerX = 100;
+    private double startPlayerY = 100;
+    private final double radiusPlayer = 10;
+    private Color playerColor = Color.LIGHTGREEN;
+
+    private double startEvilX = 0;
+    private double startEvilY = 0;
+    private final double radiusEvil = 10;
+    private Color evilColor = Color.RED;
+
+    private Color foodColor = Color.LIGHTYELLOW;
+
 
     /**
      * initialize the game.
@@ -55,9 +78,14 @@ public class Controller implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         defaultHeight = plane.getHeight();
         defaultWidth = plane.getWidth();
-        snake = new Snake(gridSize);
+        player = new Snake(gridSize, startPlayerX, startPlayerY, radiusPlayer, playerColor);
+        if (withBot) {
+            evilSnake = new EvilSnake(gridSize, startEvilX, startEvilY, radiusEvil, evilColor);
+        }
+        evilSnakeHead.setVisible(withBot);
+        evilScoreTxt.setVisible(withBot);
         final long[] lastUpdate = {0};
-        foodCount = 1;
+        foodCount = 5;
         gameLoop = new AnimationTimer() {
             @Override
             public void handle(long now) {
@@ -82,7 +110,7 @@ public class Controller implements Initializable {
     /**
      * check if the snake can eat some food.
      */
-    private void eatFood() {
+    private void eatFood(Snake snake, Circle snakeHead) {
         for (int i = 0; i < foods.size(); i++) {
             if (foods.get(i) == null) {
                 continue;
@@ -97,10 +125,13 @@ public class Controller implements Initializable {
             }
 
             if (snakeHead.getBoundsInParent().intersects(foods.get(i).getBoundsInParent())) {
-                plane.getChildren().add(snake.grow());
+                plane.getChildren().add(snake.grow(snake.getColor()));
                 plane.getChildren().remove(foods.remove(i));
                 spawnFood();
-                scoreCounter++;
+                snake.incrementScore();
+                if (snake.getScore() == targetScore) {
+                    gameOver();
+                }
             }
         }
     }
@@ -111,7 +142,7 @@ public class Controller implements Initializable {
      * @param food circle
      * @return whether the food has spawned into the snake or not
      */
-    private boolean checkCollisionWithFood(Circle food) {
+    private boolean checkCollisionWithFood(Circle food, Snake snake) {
         for (int i = 0; i < snake.getBody().size(); i++) {
             if (snake.getBody().get(i).getBoundsInParent().intersects(food.getBoundsInParent())) {
                 return true;
@@ -142,7 +173,7 @@ public class Controller implements Initializable {
             case A:
             case S:
             case D:
-                snake.setDirection(event);
+                player.setDirection(event);
                 break;
             case SPACE:
                 restartGame();
@@ -150,6 +181,7 @@ public class Controller implements Initializable {
             default:
         }
     }
+
 
     /**
      * spawn 1 circle of food.
@@ -160,19 +192,28 @@ public class Controller implements Initializable {
         do {
             double x = Math.random() * plane.getWidth();
             double y = Math.random() * plane.getHeight();
-            food = new Circle(x, y, snake.getSize(), Color.GREEN);
-        } while (checkCollisionWithFood(food));
+            food = new Circle(x, y, player.getSize(), foodColor);
+        } while (checkCollisionWithFood(food, player)
+                || (withBot && checkCollisionWithFood(food, evilSnake)));
 
         food.setStroke(Color.BLACK);
-        foods.add(food); // Adjust the size of the food circle
+        foods.add(food);
         plane.getChildren().add(foods.get(foods.size() - 1));
+
+        if (withBot) {
+            evilSnake.calcDistance(foods);
+        }
     }
 
     /**
      * runs the game.
      */
     private void update() {
-        scoreText.setText("Score: " + scoreCounter);
+        playerScoreTxt.setText("Your Score: " + player.getScore());
+        if (withBot) {
+            evilScoreTxt.setText("Opponent Score: " + evilSnake.getScore());
+            evilScoreTxt.setLayoutX(plane.getWidth() - evilScoreTxt.getWidth() * 1.1);
+        }
 
         if (foodCount > foods.size() || foods.isEmpty()) {
             spawnFood();
@@ -182,12 +223,33 @@ public class Controller implements Initializable {
             foods.get(foods.size() - 1).setRadius(0);
             foods.remove(foods.size() - 1);
         }
-        if (snake.move(plane.getWidth(), plane.getHeight())) {
-            gameOver();
+        if (player.move(plane.getWidth(), plane.getHeight(), evilSnake, withBot)) {
+            //gameOver();
+            respawnSnake(false, player, playerHead, playerScoreTxt,
+                    startPlayerX, startPlayerY, radiusPlayer);
         }
-        eatFood();
-        snakeHead.setCenterX(snake.getHeadX());
-        snakeHead.setCenterY(snake.getHeadY());
+        if (withBot && evilSnake.move(plane.getWidth(), plane.getHeight(), player, withBot)) {
+            //gameOver();
+            respawnSnake(true, evilSnake, evilSnakeHead, evilScoreTxt,
+                    startEvilX, startEvilY, radiusEvil);
+            evilSnake.calcDistance(foods);
+        }
+
+        eatFood(player, playerHead);
+        if (withBot && evilSnake != null) {
+            evilSnake.setDirection(foods);
+            eatFood(evilSnake, evilSnakeHead);
+        }
+
+
+        playerHead.setCenterX(player.getHeadX());
+        playerHead.setCenterY(player.getHeadY());
+
+        if (withBot) {
+            evilSnakeHead.setCenterX(evilSnake.getHeadX());
+            evilSnakeHead.setCenterY(evilSnake.getHeadY());
+        }
+
     }
 
     /**
@@ -207,14 +269,14 @@ public class Controller implements Initializable {
         try {
             root = loader.load();
             PopupController popupController = loader.getController();
-            popupController.setScore(scoreCounter);
+            popupController.setScore(player.getScore());
             popupController.controller = this;
 
             Stage newStage = new Stage();
             newStage.setMinHeight(defaultHeight);
             newStage.setMinWidth(defaultWidth);
             newStage.setScene(new Scene(root));
-            newStage.setTitle("Game Over!");
+            newStage.setTitle("Settings");
             newStage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -225,10 +287,40 @@ public class Controller implements Initializable {
      * restarts the game.
      */
     public void restartGame() {
-        scoreCounter = 0;
-        plane.getChildren().removeAll(snake.getBody());
-        plane.getChildren().removeAll(foods);
-        snake = new Snake(gridSize);
+        plane.getChildren().clear();
+
+        respawnSnake(false, player, playerHead, playerScoreTxt,
+                startPlayerX, startPlayerY, radiusPlayer);
+        if (withBot) {
+            respawnSnake(true, evilSnake, evilSnakeHead, evilScoreTxt,
+                    startEvilX, startEvilY, radiusEvil);
+        }
+
+        evilScoreTxt.setVisible(withBot);
         foods = new ArrayList<>();
+    }
+
+    private void respawnSnake(boolean evil, Snake snake, Circle snakeHead, Label scoreTxt,
+                              double startX, double startY, double radius) {
+        plane.getChildren().removeAll(snake.getBody());
+        plane.getChildren().removeAll(snakeHead);
+        plane.getChildren().removeAll(scoreTxt);
+
+        if (evil) {
+            evilSnake = new EvilSnake(gridSize, startX, startY, radius, evilColor);
+        } else {
+            player = new Snake(gridSize, startX, startY, radius, playerColor);
+        }
+
+        plane.getChildren().add(snakeHead);
+        plane.getChildren().add(scoreTxt);
+    }
+
+    public boolean isWithBot() {
+        return withBot;
+    }
+
+    public void setWithBot(boolean withBot) {
+        this.withBot = withBot;
     }
 }
