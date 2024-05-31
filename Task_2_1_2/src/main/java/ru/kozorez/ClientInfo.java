@@ -3,31 +3,34 @@ package ru.kozorez;
 import javax.naming.ldap.SortKey;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.net.SocketAddress;
+import java.nio.channels.SocketChannel;
 import java.util.HashSet;
 import java.util.Set;
 
 class ClientInfo {
     private static int idCounter = 0;
     private final int id;
-    private final InetSocketAddress address;
+    //private final SocketAddress address;
     private boolean available = true;
     private Task task;
     private long lastTaskTime = 0;
     private DataInputStream in;
     private DataOutputStream out;
-    private final Socket socket;
+    private final SocketChannel socket;
 
-    public ClientInfo(Socket socket) {
+    public ClientInfo(SocketChannel socket) throws IOException {
         this.id = idCounter++;
         this.socket = socket;
-        address = new InetSocketAddress(socket.getInetAddress(), socket.getPort());
+        //address = new SocketAddress(socket.getLocalAddress());
     }
 
-    public InetSocketAddress getAddress() {
+/*    public SocketAddress getAddress() {
         return address;
-    }
+    }*/
 
     public int getId() {
         return id;
@@ -64,12 +67,16 @@ class ClientInfo {
 
     @Override
     public String toString() {
-        return "ClientInfo{" +
-                "address=" + address +
-                '}';
+        try {
+            return "ClientInfo{" +
+                    "address=" + socket.getLocalAddress() +
+                    '}';
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public Socket getSocket() {
+    public SocketChannel getSocket() {
         return socket;
     }
 }

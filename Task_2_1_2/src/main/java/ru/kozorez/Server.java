@@ -2,8 +2,15 @@ package ru.kozorez;
 
 import java.io.*;
 import java.net.*;
+import java.nio.ByteBuffer;
+import java.nio.channels.SelectionKey;
+import java.nio.channels.Selector;
+import java.nio.channels.ServerSocketChannel;
+import java.nio.channels.SocketChannel;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 public class Server {
     private final int port = 12345;
@@ -12,18 +19,25 @@ public class Server {
     private int taskIdCounter = 0;
     private volatile boolean nonPrimeFound = false;
     private final int taskLength = 100000;
+    private static final String POISON_PILL = "POISON_PILL";
 
     public void start() {
-        try (ServerSocket serverSocket = new ServerSocket(port)) {
+        try {
+            Selector selector = Selector.open();
+            ServerSocketChannel serverSocket = ServerSocketChannel.open();
+            serverSocket.bind(new InetSocketAddress("localhost", 12345));
+            serverSocket.configureBlocking(false);
+            serverSocket.register(selector, SelectionKey.OP_ACCEPT);
+
             System.out.println("Server started");
 
-            // поток для принятия клиентов
+/*            // поток для принятия клиентов
             new Thread(() -> {
                 while (!nonPrimeFound) {
                     try {
                         Socket clientSocket = serverSocket.accept();
                         InetSocketAddress address = new InetSocketAddress(clientSocket.getInetAddress(), clientSocket.getPort());
-                        ClientInfo clientInfo = new ClientInfo(/*address*/clientSocket);
+                        ClientInfo clientInfo = new ClientInfo(*//*address*//*clientSocket);
                         clients.add(clientInfo);
                         System.out.println("Client connected from " + address);
                         new Thread(() -> handleClient(clientInfo)).start();
@@ -32,7 +46,7 @@ public class Server {
                         System.exit(1);
                     }
                 }
-            }).start();
+            }).start();*/
 
             ArrayList<Integer> numbers = new ArrayList<>();
             //numbers.add(8);
@@ -46,10 +60,11 @@ public class Server {
             ArrayList<Integer> smallerNumbers = new ArrayList<>();
             for (int i = 0; i < numbers.size(); i++) {
                 smallerNumbers.add(numbers.get(i));
-                if(i % taskLength == 0 && i != 0){
-                    if(tasks.isEmpty()){
-                        smallerNumbers.add(6);
-                    }
+/*                if (i - 2 == taskLength) {
+                    smallerNumbers.add(6);
+                }*/
+                if ((i + 1) % taskLength == 0 && i != 0) {
+
                     Task task = new Task(taskIdCounter++, smallerNumbers);
                     tasks.add(task);
                     System.out.println(task.getArr().size());
@@ -64,22 +79,95 @@ public class Server {
                 distributeTasks();
 
                 boolean clientsAreDone = true;
-                for(int i = 0; i < clients.size(); i++){
-                        if(!clients.get(i).isAvailable()){
-                            clientsAreDone = false;
-                            break;
-                        }
+                for (int i = 0; i < clients.size(); i++) {
+                    if (!clients.get(i).isAvailable()) {
+                        clientsAreDone = false;
+                        break;
+                    }
                 }
-                if(clientsAreDone && tasks.isEmpty()){
+                if (clientsAreDone && tasks.isEmpty()) {
                     System.out.println("Non-prime numbers are not found. Server shutting down.");
                     System.exit(0);
                 }
-                Thread.sleep(100); // задержка
+                //Thread.sleep(100); // задержка
+
+                selector.select();
+                Set<SelectionKey> selectedKeys = selector.selectedKeys();
+                Iterator<SelectionKey> iter = selectedKeys.iterator();
+                while (iter.hasNext()) {
+                    SelectionKey key = iter.next();
+                    if (key.isAcceptable()) {
+                        System.out.println("Registered socket");
+                        register(selector, serverSocket);
+                    }
+                    if (key.isReadable()) {
+                        System.out.println("Read socket");
+                        readSocket(key);
+                    }
+                    iter.remove();
+                }
             }
             System.out.println("Non-prime number found. Server shutting down.");
-        } catch (IOException | InterruptedException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private ClientInfo findClientInfo(SocketChannel client) {
+        for (ClientInfo clientInfo : clients) {
+            if (clientInfo.getSocket().equals(client)) {
+                return clientInfo;
+            }
+        }
+        System.out.println("something went wrong :((");
+        return null;
+    }
+
+    private void readSocket(SelectionKey key)
+            throws IOException {
+
+        SocketChannel client = (SocketChannel) key.channel();
+        ClientInfo clientInfo = findClientInfo(client);
+
+        ByteBuffer buffer = ByteBuffer.allocate(1); // Allocate a buffer of size 1 byte (since a boolean is 1 byte)
+        buffer.clear();
+        buffer.flip(); // Flip the buffer before reading
+
+        int bytesRead = client.read(buffer); // Read data into the buffer
+
+        boolean hasNonPrime = buffer.get() != 0; // Read the boolean
+
+        if (hasNonPrime) {
+            nonPrimeFound = true;
+            System.out.println("Non-prime number found by client " + clientInfo.getId());
+            closeSockets();
+            System.exit(0);
+        } else {
+            clientInfo.setAvailable();
+        }
+
+        clientInfo.removeTask();
+        if (nonPrimeFound) {
+            System.out.println("Non-prime number found. Server shutting down.");
+            closeSockets();
+            System.exit(0);
+        }
+        if (bytesRead == -1 || new String(buffer.array()).trim().equals(POISON_PILL)) {
+            client.close();
+            System.out.println("Not accepting client messages anymore");
+        }
+    }
+
+    private void register(Selector selector, ServerSocketChannel serverSocket)
+            throws IOException {
+
+        SocketChannel client = serverSocket.accept();
+        client.configureBlocking(false);
+        client.register(selector, SelectionKey.OP_READ);
+        ClientInfo clientInfo = new ClientInfo(client);
+        clients.add(clientInfo);
+        System.out.println("Client connected from " + client.getRemoteAddress());
+
     }
 
     private void distributeTasks() {
@@ -89,8 +177,6 @@ public class Server {
                 System.out.println("Task id: " + task.getId());
                 System.out.println("Task size: " + tasks.size());
                 System.out.println("sent");
-/*                System.out.println(client.getAddress().getAddress());
-                System.out.println(client.getAddress().getPort());*/
                 sendTaskToClient(client, task);
             }
         }
@@ -99,65 +185,37 @@ public class Server {
     private void sendTaskToClient(ClientInfo client, Task task) {
         try {
             //System.out.println(task.getArr().size());
-            DataOutputStream out = new DataOutputStream(client.getSocket().getOutputStream());
-            out.writeInt(task.getId());
-            System.out.println(task.getArr().size());
-            out.writeInt(task.getArr().size());
+            ByteBuffer buffer = ByteBuffer.allocate((taskLength + 2) * 4);
+            buffer.clear();
+
+            buffer.putInt(task.getId());
+            System.out.println("TaskID: " + task.getId() + " size: " + task.getArr().size());
+            buffer.putInt(task.getArr().size());
             for (int number : task.getArr()) {
-                out.writeInt(number);
+                buffer.putInt(number);
             }
+            buffer.flip();
+            client.getSocket().write(buffer);
+            //DataOutputStream out = new DataOutputStream(client.getSocket().getOutputStream());
+            //out.writeInt(task.getId());
+            //System.out.println(task.getArr().size());
+            //out.writeInt(task.getArr().size());
+/*            for (int number : task.getArr()) {
+                out.writeInt(number);
+            }*/
             //client.assignTask(task.getId());
             client.assignTask(task);
             client.setUnavailable();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private void handleClient(ClientInfo clientInfo) {
-        try {
-            DataInputStream in = new DataInputStream(clientInfo.getSocket().getInputStream());
-
-            while (!nonPrimeFound) {
-
-                int taskId = in.readInt();
-                boolean hasNonPrime = in.readBoolean();
-
-                if (hasNonPrime) {
-                    nonPrimeFound = true;
-                    System.out.println("Non-prime number found by client " + clientInfo.getId());
-                    closeSockets();
-                    System.exit(0);
-                }else {
-                    clientInfo.setAvailable();
-                }
-
-                clientInfo.removeTask();
-                if (nonPrimeFound) {
-                    System.out.println("Non-prime number found. Server shutting down.");
-                    closeSockets();
-                    System.exit(0);
-                }
-            }
-
-        } catch (IOException e) {
-            //e.printStackTrace();
-            tasks.add(clientInfo.getTask());
-        } finally {
-            try {
-                clientInfo.getSocket().close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    public void closeSockets(){
-        for (int i = 0; i < clients.size() ; i++) {
+    public void closeSockets() {
+        for (int i = 0; i < clients.size(); i++) {
             try {
                 clients.get(i).getSocket().close();
-            } catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }

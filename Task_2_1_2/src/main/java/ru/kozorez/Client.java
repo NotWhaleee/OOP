@@ -2,10 +2,14 @@ package ru.kozorez;
 
 import java.io.*;
 import java.net.*;
+import java.nio.ByteBuffer;
+import java.nio.channels.SocketChannel;
 
 public class Client {
     private final String serverIp;
     private final int serverPort;
+    private final int taskLength = 100000;
+
 
     public Client(String serverIp, int serverPort) {
         this.serverIp = serverIp;
@@ -14,20 +18,29 @@ public class Client {
 
     public void start() {
         IsPrime isPrime = new IsPrime();
-        try (Socket clientSocket = new Socket(serverIp, serverPort)) {
-            DataInputStream in = new DataInputStream(clientSocket.getInputStream());
-            DataOutputStream out = new DataOutputStream(clientSocket.getOutputStream());
-
+        try (SocketChannel clientSocket = SocketChannel.open (new InetSocketAddress(serverIp, serverPort))) {
+            ByteBuffer buffer = ByteBuffer.allocate((taskLength + 2) * 4);
             while (true) {
+                buffer.clear();
+
+                int bytesRead = clientSocket.read(buffer);
+                buffer.flip();
+                System.out.println(bytesRead);
+                if (bytesRead == -1) {
+                    break;
+                }
                 System.out.print("TaskID: ");
-                int taskId = in.readInt();
-                int arraySize = in.readInt();
+
+                int taskId = buffer.getInt();
+                int arraySize = buffer.getInt();
                 System.out.println(taskId);
                 System.out.println("Array size: " + arraySize);
                 int[] numbers = new int[arraySize];
-                for (int i = 0; i < arraySize; i++) {
-                    numbers[i] = in.readInt();
+                int i = 0;
+                while (buffer.hasRemaining()){
+                    numbers[i] = buffer.getInt();
                 }
+                System.out.println(i);
 
                 boolean hasNonPrime = false;
                 for (int number : numbers) {
@@ -37,10 +50,11 @@ public class Client {
                         break;
                     }
                 }
+                buffer.clear();
 
-                out.writeInt(taskId);
-                out.writeBoolean(hasNonPrime);
-                out.flush();
+                //out.writeInt(taskId);
+                buffer.putInt(hasNonPrime ? 1 : 0);
+                buffer.flip();
 
                 if (hasNonPrime) {
                     break;
